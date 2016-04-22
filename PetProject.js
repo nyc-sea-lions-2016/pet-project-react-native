@@ -9,8 +9,7 @@ var {
 } = React;
 
 var PetProject = React.createClass({
-  getInitialState() {
-  },
+
   render() { return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
