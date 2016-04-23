@@ -14,7 +14,7 @@ var {
 } = React;
 
 var REQUEST_URL = 'http://localhost:3000/index.json';
-var FAVORITE_URL = 'http://localhost:3000/index.json';
+var FAVORITE_URL = 'http://localhost:3000/pets.json';
 
 class Homepage extends Component {
   constructor(props){
@@ -31,12 +31,14 @@ class Homepage extends Component {
     });
   }
   onLikeButtonPress() {
-    debugger;
     this.addFavorite(this.state.currentPet)
-    this.fetchData()
   }
-  addFavorite(){
-    fetch(FAVORITE_URL, this.state.currentPet)
+  addFavorite(pet){
+    var obj = {
+      method: 'POST',
+      body: JSON.stringify({pet})
+    }
+    fetch(FAVORITE_URL, obj)
       .then((response) => this.fetchData())
       .done();
   }
@@ -44,12 +46,10 @@ class Homepage extends Component {
     this.fetchData();
   }
   fetchData(){
-    console.log(this)
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData)
-        console.log(this)
         this.setState({
           currentPet: responseData,
           loaded: true,
@@ -84,7 +84,7 @@ class Homepage extends Component {
               style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
             />
           </Button>
-          <Button>
+          <Button onPress={self.onLikeButtonPress.bind(self)}>
             <Image
               style={styles.buttonImg}
               source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
