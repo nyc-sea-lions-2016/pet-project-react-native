@@ -47,14 +47,25 @@ class Homepage extends Component {
     var image = this.state.currentPet.url
     return (
       <View style={styles.container}>
-        <Text> {this.state.currentPet.name} </Text>
-        <Image
-          style={styles.thumbnail}
-          source={{uri: image}}
-        />
-        <View>
-          <Button>DISLIKE</Button>
-          <Button>LIKE</Button>
+        <View style={styles.swipeArea}>
+          <Image
+            style={styles.thumbnail}
+            source={{uri: image}}
+            />
+          <Text style={styles.name}> {this.state.currentPet.name} </Text>
+        </View>
+        <View style={styles.likeDislikeButtons}>
+          <Button>
+            <Image
+              style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
+            />
+          </Button>
+          <Button>
+            <Image
+              style={styles.buttonImg}
+              source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
+            />
+          </Button>
         </View>
       </View>
     );
@@ -75,7 +86,14 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+  },
+  buttonImg: {
+    width: 50,
+    height: 50,
+    margin: 20,
+  },
+  likeDislikeButtons: {
+    flexDirection: 'row'
   },
   welcome: {
     fontSize: 20,
@@ -86,6 +104,13 @@ var styles = StyleSheet.create({
     width: 350,
     height: 350,
   },
-});
+  swipeArea: {
+    backgroundColor: '#e3e3e3',
+    padding: 7
+  },
+  name: {
+    fontSize: 40,
+  }
+  });
 
 module.exports = Homepage;
