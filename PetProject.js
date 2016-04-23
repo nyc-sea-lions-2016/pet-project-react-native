@@ -14,6 +14,7 @@ var {
 // import Login from './FacebookLogin';
 import Homepage from './homepage';
 import UsersShow from './UsersShow';
+import UsersEdit from './UsersEdit';
 
 
 class PetProject extends Component {
@@ -39,7 +40,7 @@ class PetProject extends Component {
           title: 'Next Best Friend',
           rightButtonTitle: 'Favorites',
           onRightButtonPress: this.onRightButtonPress.bind(this),
-          leftButtonTitle: 'Settings',
+          leftButtonTitle: 'Map',
           onLeftButtonPress: this.onLeftButtonPress.bind(this),
         }}
         tintColor="#FFFFFF"

@@ -2,6 +2,7 @@ var Button = require('react-native-button');
 var React = require('react-native');
 var UsersShow = require("./UsersShow");
 var PetShow = require('./PetShow');
+var UsersEdit = require('./UsersEdit')
 
 var {
   StyleSheet,
@@ -45,6 +46,9 @@ class Homepage extends Component {
       .then((response) => this.fetchData())
       .done();
   }
+  showSettings(){
+    this.setState({settingsClicked: true})
+  }
   componentDidMount(){
     this.fetchData();
   }
@@ -65,7 +69,8 @@ class Homepage extends Component {
     this.setState({detailsClicked: true})
   }
   refreshPage(){
-    this.setState({detailsClicked: false})
+    console.log("got here")
+    this.setState({detailsClicked: false, settingsClicked: false})
   }
   refreshPageWithNewAnimal(){
     console.log(this)
@@ -81,6 +86,10 @@ class Homepage extends Component {
         <PetShow  refreshPage={self.refreshPage.bind(self)}
                   refreshPageWithNewAnimal={self.refreshPageWithNewAnimal.bind(self)}
                   onLikeButtonPress={self.onLikeButtonPress.bind(self)}/>
+      )
+    } else if (this.state.settingsClicked){
+      return (
+        <UsersEdit refreshPage={self.refreshPage.bind(self)}/>
       )
     }
 
@@ -102,6 +111,13 @@ class Homepage extends Component {
               style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
             />
           </Button>
+          <Button
+            onPress={this.showDetails.bind(this)}>
+            <Image
+              style={styles.buttonImg}
+              source={{uri: 'http://www.iconsdb.com/icons/preview/gray/info-2-xxl.png'}}
+            />
+          </Button>
           <Button onPress={self.onLikeButtonPress.bind(self)}>
             <Image
               style={styles.buttonImg}
@@ -110,10 +126,11 @@ class Homepage extends Component {
           </Button>
         </View>
         <View style={styles.detailsButton}>
-          <Button
-            style={{borderWidth: 1, borderColor: 'blue'}}
-            onPress={this.showDetails.bind(this)}>
-            Details
+          <Button onPress={this.showSettings.bind(this)}>
+            <Image
+              style={styles.infoButtonImg}
+              source={{uri: 'https://cdn3.iconfinder.com/data/icons/fez/512/FEZ-04-128.png'}}
+              />
           </Button>
         </View>
       </View>
@@ -140,6 +157,10 @@ var styles = StyleSheet.create({
     width: 50,
     height: 50,
     margin: 20,
+  },
+  infoButtonImg: {
+    width: 50,
+    height: 50,
   },
   likeDislikeButtons: {
     flexDirection: 'row'
