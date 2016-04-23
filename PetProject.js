@@ -11,8 +11,10 @@ var {
   NavigatorIOS,
 } = React;
 
+import Login from './FacebookLogin';
 import Homepage from './homepage';
 import UsersShow from './UsersShow';
+
 
 class PetProject extends Component {
   onRightButtonPress() {
@@ -22,7 +24,7 @@ class PetProject extends Component {
     })
   }
   onLeftButtonPress() {
-    this.refs.nav.navigator.push({
+    this.refs.nav.push({
       title: 'Profile',
       component: UsersEdit
     })

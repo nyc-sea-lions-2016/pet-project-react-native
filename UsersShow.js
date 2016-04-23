@@ -30,8 +30,9 @@ class UsersShow extends Component {
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
+        console.log(responseData)
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.pets),
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
         });
       })
@@ -41,6 +42,7 @@ class UsersShow extends Component {
      if (!this.state.loaded) {
        return this.renderLoadingView();
      }
+     console.log("state: " + this.state.dataSource)
      return (
        <ListView
          dataSource={this.state.dataSource}
@@ -59,15 +61,19 @@ class UsersShow extends Component {
      );
    }
     renderPet(pet) {
+      var photo = 'https://s-media-cache-ak0.pinimg.com/736x/c0/14/23/c014230dec32c2eeb133b7b8da072317.jpg'
+      if (pet.photos.length > 0) {
+        photo = pet.photos[0].url
+      }
       return (
         <View style={styles.favoritesContainer}>
           <Image
-          source={{uri: pet.posters.thumbnail}}
+          source={{uri: photo}}
           style={styles.thumbnail}
           />
           <View style={styles.rightContainer}>
-            <Text style={styles.name}>{pet.title}</Text>
-            <Text style={styles.contact_city}>{pet.year}</Text>
+            <Text style={styles.name}>{pet.name}</Text>
+            <Text style={styles.contact_city}>{pet.contact_city}</Text>
           </View>
         </View>
       );
