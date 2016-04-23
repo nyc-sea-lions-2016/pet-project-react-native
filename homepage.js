@@ -106,7 +106,10 @@ class Homepage extends Component {
           <Button
             style={{borderWidth: 1, borderColor: 'blue'}}
             onPress={this.showDetails.bind(this)}>
-            Details
+            <Image
+              style={styles.infoButtonImg}
+              source={{uri: 'http://www.iconsdb.com/icons/preview/gray/info-2-xxl.png'}}
+            />
           </Button>
         </View>
       </View>
@@ -133,6 +136,10 @@ var styles = StyleSheet.create({
     width: 50,
     height: 50,
     margin: 20,
+  },
+  infoButtonImg: {
+    width: 50,
+    height: 50,
   },
   likeDislikeButtons: {
     flexDirection: 'row'
