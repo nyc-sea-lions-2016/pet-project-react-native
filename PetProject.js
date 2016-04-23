@@ -11,9 +11,10 @@ var {
   NavigatorIOS,
 } = React;
 
-import Login from './FacebookLogin';
+// import Login from './FacebookLogin';
 import Homepage from './homepage';
 import UsersShow from './UsersShow';
+import UsersEdit from './UsersEdit';
 
 class PetProject extends Component {
   onRightButtonPress() {
@@ -30,22 +31,22 @@ class PetProject extends Component {
   }
   render() {
     return (
-        <NavigatorIOS
-          ref="nav"
-          style={styles.container}
-          initialRoute={{
-            component: Homepage,
-            title: 'Next Best Friend',
-            rightButtonTitle: 'Favorites',
-            onRightButtonPress: this.onRightButtonPress.bind(this),
-            leftButtonTitle: 'Settings',
-            onLeftButtonPress: this.onLeftButtonPress.bind(this),
-          }}
-          tintColor="#FFFFFF"
-          barTintColor="#183E63"
-          titleTextColor="#FFFFFF"
-          translucent={true}
-        />
+      <NavigatorIOS
+        ref="nav"
+        style={styles.container}
+        initialRoute={{
+          component: Homepage,
+          title: 'Next Best Friend',
+          rightButtonTitle: 'Favorites',
+          onRightButtonPress: this.onRightButtonPress.bind(this),
+          leftButtonTitle: 'Map',
+          onLeftButtonPress: this.onLeftButtonPress.bind(this),
+        }}
+        tintColor="#FFFFFF"
+        barTintColor="#183E63"
+        titleTextColor="#FFFFFF"
+        translucent={true}
+      />
     )
   }
 }
