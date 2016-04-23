@@ -22,7 +22,7 @@ class PetProject extends Component {
     })
   }
   onLeftButtonPress() {
-    this.refs.nav.navigator.push({
+    this.refs.nav.push({
       title: 'Profile',
       component: UsersEdit
     })
