@@ -13,14 +13,14 @@ var FBLoginManager = require('NativeModules').FBLoginManager;
 
 var FB_PHOTO_WIDTH = 200;
 
-var Login = React.createClass({
+class Login extends Component {
   getInitialState: function(){
     return {
       user: null,
     };
   },
 
-  render: function() {
+  render() {
     var _this = this;
     var user = this.state.user;
 
@@ -59,11 +59,10 @@ var Login = React.createClass({
             console.log(data);
           }}
         />
-
       </View>
     );
   }
-});
+};
 
 var styles = StyleSheet.create({
   loginContainer: {
