@@ -10,17 +10,12 @@ var {
   Image
 } = React;
 
-var REQUEST_URL = 'http://localhost:3000/users/show.json';
+var REQUEST_URL = 'http://localhost:3000/users/1/edit.json';
 
-class UsersShow extends Component {
+class UsersEdit extends Component {
    constructor(props) {
     super(props);
-    this.state = {
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
-      loaded: false,
-    };
+    this.state = {};
   }
   componentDidMount() {
       this.fetchData();
@@ -73,37 +68,3 @@ class UsersShow extends Component {
       );
     }
  }
-var styles = StyleSheet.create({
-  favoritesContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    borderWidth: 1,
-    borderTopColor: 'pink',
-    borderBottomColor: 'pink',
-  },
-  rightContainer: {
-    flex: 1,
-  },
-  name: {
-   fontSize: 22,
-   marginBottom: 8,
-   textAlign: 'center',
-  },
-  contact_city: {
-   textAlign: 'center',
-   fontSize: 18,
-  },
-  thumbnail: {
-   width: 60,
-  height: 90,
-  },
-  listView: {
-   paddingTop: 20,
-  //  backgroundColor: '#111111',
-  },
-});
-
-  module.exports = UsersShow;
