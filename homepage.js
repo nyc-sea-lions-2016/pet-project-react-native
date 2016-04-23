@@ -52,10 +52,11 @@ class Homepage extends Component {
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData)
+        // console.log(responseData)
         this.setState({
           currentPet: responseData,
           loaded: true,
+          detailsClicked: false,
         });
       })
       .done();
@@ -66,6 +67,10 @@ class Homepage extends Component {
   refreshPage(){
     this.setState({detailsClicked: false})
   }
+  refreshPageWithNewAnimal(){
+    console.log(this)
+    this.fetchData()
+  }
   render() {
     var self = this;
     if (!this.state.loaded){
@@ -73,7 +78,9 @@ class Homepage extends Component {
     }else if (this.state.detailsClicked) {
       var pet = this.state.currentPet;
       return (
-        <PetShow refreshPage={self.refreshPage.bind(self)}/>
+        <PetShow  refreshPage={self.refreshPage.bind(self)}
+                  refreshPageWithNewAnimal={self.refreshPageWithNewAnimal.bind(self)}
+                  onLikeButtonPress={self.onLikeButtonPress.bind(self)}/>
       )
     }
 
