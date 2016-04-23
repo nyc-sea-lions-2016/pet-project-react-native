@@ -10,7 +10,7 @@ var {
   Image
 } = React;
 
-var REQUEST_URL = 'http://localhost:3000/users/1/edit.json';
+var USER_INFO = 'http://localhost:3000/users/1/edit.json';
 
 class UsersEdit extends Component {
    constructor(props) {
@@ -22,11 +22,12 @@ class UsersEdit extends Component {
     }
 
   fetchData() {
-    fetch(REQUEST_URL)
+    fetch(USER_INFO)
       .then((response) => response.json())
       .then((responseData) => {
+        console.log(responseData)
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.pets),
+          userInfo: responseData,
           loaded: true,
         });
       })
@@ -36,35 +37,31 @@ class UsersEdit extends Component {
      if (!this.state.loaded) {
        return this.renderLoadingView();
      }
+     var self = this;
      return (
-       <ListView
-         dataSource={this.state.dataSource}
-         renderRow={this.renderPet}
-         style={styles.listView}
-       />
+       <View style={styles.container}>
+        <Text>User Profile Page</Text>
+        <Text>{self.state.userInfo.name}</Text>
+       </View>
      );
    }
    renderLoadingView() {
      return (
        <View style={styles.favoritesContainer}>
          <Text>
-           Loading favorite pets...
+           Loading your profile...
          </Text>
        </View>
      );
    }
-    renderPet(pet) {
-      return (
-        <View style={styles.favoritesContainer}>
-          <Image
-          source={{uri: pet.posters.thumbnail}}
-          style={styles.thumbnail}
-          />
-          <View style={styles.rightContainer}>
-            <Text style={styles.name}>{pet.title}</Text>
-            <Text style={styles.contact_city}>{pet.year}</Text>
-          </View>
-        </View>
-      );
-    }
  }
+
+ var styles = StyleSheet.create({
+   container: {
+     flex: 1,
+     justifyContent: 'center',
+     alignItems: 'center',
+   },
+ })
+
+module.exports = UsersEdit;
