@@ -49,4 +49,5 @@ var styles = StyleSheet.create({
     backgroundColor: '#111111',
   },
 })
+
 module.exports = PetProject;
