@@ -22,7 +22,7 @@ class PetProject extends Component {
     })
   }
   onLeftButtonPress() {
-    this.refs.nav.push({
+    this.refs.nav.navigator.push({
       title: 'Profile',
       component: UsersEdit
     })
@@ -40,6 +40,10 @@ class PetProject extends Component {
           leftButtonTitle: 'Settings',
           onLeftButtonPress: this.onLeftButtonPress,
         }}
+        tintColor="#FFFFFF"
+        barTintColor="#183E63"
+        titleTextColor="#FFFFFF"
+        translucent={true}
       />
     )
   }
