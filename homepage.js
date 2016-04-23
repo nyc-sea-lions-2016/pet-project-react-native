@@ -15,6 +15,7 @@ var {
 import UsersShow from './UsersShow';
 
 var REQUEST_URL = 'http://localhost:3000/index.json';
+var FAVORITE_URL = 'http://localhost:3000/index.json';
 
 class Homepage extends Component {
   constructor(props){
@@ -25,8 +26,18 @@ class Homepage extends Component {
     }
   }
   onLikeButtonPress() {
+    debugger
+    this.addFavorite(this.state.currentPet)
+    onDislikeButtonPress()
   }
   onDislikeButtonPress() {
+    this.setState( {loaded: false} )
+    this.fetchData()
+  }
+  addFavorite(){
+    fetch(FAVORITE_URL, this.state.currentPet)
+      .then((response) => this.fetchData())
+      .done();
   }
   componentDidMount(){
     this.fetchData();
