@@ -40,7 +40,7 @@ class PetProject extends Component {
           title: 'Next Best Friend',
           rightButtonTitle: 'Favorites',
           onRightButtonPress: this.onRightButtonPress.bind(this),
-          leftButtonTitle: 'Settings',
+          leftButtonTitle: 'Map',
           onLeftButtonPress: this.onLeftButtonPress.bind(this),
         }}
         tintColor="#FFFFFF"
