@@ -1,6 +1,7 @@
 var Button = require('react-native-button');
 var React = require('react-native');
 var UsersShow = require("./UsersShow");
+var PetShow = require('./PetShow');
 
 var {
   StyleSheet,
@@ -15,6 +16,7 @@ var {
 
 var REQUEST_URL = 'http://localhost:3000/index.json';
 var FAVORITE_URL = 'http://localhost:3000/pets.json';
+var PET_URL = 'http://localhost:3000/pets/1.json';
 
 class Homepage extends Component {
   constructor(props){
@@ -22,6 +24,7 @@ class Homepage extends Component {
     this.state = {
       currentPet: null,
       loaded: false,
+      detailsClicked: false,
     }
   }
   onPress() {
@@ -57,11 +60,22 @@ class Homepage extends Component {
       })
       .done();
   }
+  showDetails(){
+    this.setState({detailsClicked: true})
+  }
+  refreshPage(){
+    this.setState({detailsClicked: false})
+  }
   render() {
+    var self = this;
     if (!this.state.loaded){
       return this.renderLoadingView();
+    }else if (this.state.detailsClicked) {
+      var pet = this.state.currentPet;
+      return (
+        <PetShow refreshPage={self.refreshPage.bind(self)}/>
+      )
     }
-    var self = this
 
     var image = this.state.currentPet.url
     return (
@@ -86,6 +100,13 @@ class Homepage extends Component {
               style={styles.buttonImg}
               source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
             />
+          </Button>
+        </View>
+        <View style={styles.detailsButton}>
+          <Button
+            style={{borderWidth: 1, borderColor: 'blue'}}
+            onPress={this.showDetails.bind(this)}>
+            Details
           </Button>
         </View>
       </View>
@@ -115,6 +136,11 @@ var styles = StyleSheet.create({
   },
   likeDislikeButtons: {
     flexDirection: 'row'
+  },
+  detailsButton: {
+    height: 25,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   welcome: {
     fontSize: 20,
