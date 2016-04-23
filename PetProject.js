@@ -18,18 +18,20 @@ class PetProject extends Component {
   onRightButtonPress() {
     this.refs.nav.push({
         title: 'Favorites',
-        component: UsersShow
+        component: UserShow
     })
   }
   onLeftButtonPress() {
-    this.refs.nav.push({
+    this.refs.nav.navigator.push({
       title: 'Profile',
       component: UsersEdit
     })
   }
   render() {
     return (
-      <NavigatorIOS ref="nav" style={styles.container}
+      <NavigatorIOS
+        ref="nav"
+        style={styles.container}
         initialRoute={{
           component: Homepage,
           title: 'Next Best Friend',
@@ -38,6 +40,10 @@ class PetProject extends Component {
           leftButtonTitle: 'Settings',
           onLeftButtonPress: this.onLeftButtonPress,
         }}
+        tintColor="#FFFFFF"
+        barTintColor="#183E63"
+        titleTextColor="#FFFFFF"
+        translucent={true}
       />
     )
   }
@@ -46,7 +52,7 @@ class PetProject extends Component {
 var styles = StyleSheet.create({
   container: {
     flex:1,
-    backgroundColor: '#111111',
+    backgroundColor: '#000000',
   },
 })
 

@@ -1,5 +1,6 @@
 var Button = require('react-native-button');
 var React = require('react-native');
+var UsersShow = require("./UsersShow");
 
 var {
   StyleSheet,
@@ -12,9 +13,8 @@ var {
   TouchableHighlight,
 } = React;
 
-import UsersShow from './UsersShow';
-
 var REQUEST_URL = 'http://localhost:3000/index.json';
+var FAVORITE_URL = 'http://localhost:3000/index.json';
 
 class Homepage extends Component {
   constructor(props){
@@ -23,6 +23,25 @@ class Homepage extends Component {
       currentPet: null,
       loaded: false,
     }
+  }
+  onPress() {
+    this.props.navigator.push({
+        title: 'Favorites',
+        component: UsersShow
+    });
+  onLikeButtonPress() {
+    debugger
+    this.addFavorite(this.state.currentPet)
+    onDislikeButtonPress()
+  }
+  onDislikeButtonPress() {
+    this.setState( {loaded: false} )
+    this.fetchData()
+  }
+  addFavorite(){
+    fetch(FAVORITE_URL, this.state.currentPet)
+      .then((response) => this.fetchData())
+      .done();
   }
   componentDidMount(){
     this.fetchData();
@@ -39,19 +58,28 @@ class Homepage extends Component {
       })
       .done();
   }
+  onMoveShouldSetResponder(evt){ return true }
+  onResponderMove(evt){ console.log(evt) }
+  onResponderRelease(evt){ console.log(evt) }
   render() {
     if (!this.state.loaded){
       return this.renderLoadingView();
     }
+    var self = this
 
     var image = this.state.currentPet.url
     return (
       <View style={styles.container}>
-        <View style={styles.swipeArea}>
-          <Image
-            style={styles.thumbnail}
-            source={{uri: image}}
-            />
+        <View
+          style={styles.swipeArea}
+          onMoveShouldSetResponder = {self.onMoveShouldSetResponder}
+          onResponderMove = {self.onResponderMove}
+          onResponderRelease = {self.onResponderRelease}
+          >
+            <Image
+              style={styles.thumbnail}
+              source={{uri: image}}
+              />
           <Text style={styles.name}> {this.state.currentPet.name} </Text>
         </View>
         <View style={styles.likeDislikeButtons}>
@@ -66,6 +94,11 @@ class Homepage extends Component {
               source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
             />
           </Button>
+        </View>
+        <View style={[styles.scene, {backgroundColor: '#DAF6FF'}]}>
+          <TouchableHighlight onPress={this.onPress}>
+              <Text>Favorites!!</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -112,5 +145,6 @@ var styles = StyleSheet.create({
     fontSize: 40,
   }
   });
+
 
 module.exports = Homepage;
