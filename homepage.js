@@ -69,6 +69,7 @@ class Homepage extends Component {
     this.setState({detailsClicked: true})
   }
   refreshPage(){
+    console.log("got here")
     this.setState({detailsClicked: false, settingsClicked: false})
   }
   refreshPageWithNewAnimal(){

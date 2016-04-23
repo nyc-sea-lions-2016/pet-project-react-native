@@ -1,3 +1,4 @@
+var Button = require('react-native-button');
 var React = require('react-native');
 
 var {
@@ -8,7 +9,6 @@ var {
   ListView,
   TextInput,
   Image,
-
   Slider
 } = React;
 
@@ -59,11 +59,12 @@ class UsersEdit extends Component {
             <Text style={styles.settingsDetails}>search distance</Text>
             <Slider></Slider>
             <Text style={styles.settingsDetails}>preferences</Text>
-            <Image
-              source={{uri: 'http://www.iconsdb.com/icons/preview/gray/home-5-xxl.png'}}
-              style={styles.backButton}
-              onPress={self.goHome}
-            />
+            <Button onPress={self.goHome.bind(self)}>
+              <Image
+                source={{uri: 'http://www.iconsdb.com/icons/preview/gray/home-5-xxl.png'}}
+                style={styles.backButton}
+                />
+            </Button>
           </View>
        </View>
      );
