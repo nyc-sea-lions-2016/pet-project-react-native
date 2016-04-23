@@ -34,16 +34,14 @@ class PetShow extends Component {
     super(props);
     this.state = {
       currentPet: FAKE_PET,
+      detailsClicked: true,
     }
   }
   _handleDislike() {
     console.log(this)
-    this.setState({
-      detailsClicked: false
-    })
+    this.props.refreshPageWithNewAnimal()
   }
   _handleBack(){
-    console.log(this.props)
     this.props.refreshPage()
   }
 
@@ -54,63 +52,71 @@ class PetShow extends Component {
   render() {
     var image = this.state.currentPet.url;
     var self = this;
-    console.log(this.state)
-    return (
-      <View style={styles.container}>
-        <View style={styles.pictures}>
-          <View style={styles.slide1}>
-            <Image
-              style={styles.thumbnail}
-              source={{uri: image}}
-            />
-          </View>
-          <View style={styles.slide2}>
-            <Text style={styles.text}>Second image</Text>
-          </View>
-          <View style={styles.slide3}>
-            <Text style={styles.text}>Third Image</Text>
-          </View>
-        </View>
 
-        <View style={styles.likeDislikeButtons}>
-          <Button onPress={self._handleBack.bind(self)}>
-            <Image
-              style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
-            />
-          </Button>
-          <Button onPress={self.onLikeButtonPress.bind(self)}>
-            <Image
-              style={styles.buttonImg}
-              source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
-            />
-          </Button>
+    if(!this.state.detailsClicked){
+      return (
+        <View>
+          <Text>Hi</Text>
         </View>
-        <View style={styles.backButton}>
-          <Button
-            style={{borderWidth: 1, borderColor: 'blue'}}
-            onPress={this._handleBack.bind(self)}>
-            Back
-          </Button>
-        </View>
+      )
+    }else{
+      return (
+        <View style={styles.container}>
+          <View style={styles.pictures}>
+            <View style={styles.slide1}>
+              <Image
+                style={styles.thumbnail}
+                source={{uri: image}}
+              />
+            </View>
+            <View style={styles.slide2}>
+              <Text style={styles.text}>Second image</Text>
+            </View>
+            <View style={styles.slide3}>
+              <Text style={styles.text}>Third Image</Text>
+            </View>
+          </View>
+
+          <View style={styles.likeDislikeButtons}>
+            <Button onPress={self._handleDislike.bind(self)}>
+              <Image
+                style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
+              />
+            </Button>
+            <Button onPress={self.onLikeButtonPress.bind(self)}>
+              <Image
+                style={styles.buttonImg}
+                source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
+              />
+            </Button>
+          </View>
+          <View style={styles.backButton}>
+            <Button
+              style={{borderWidth: 1, borderColor: 'blue'}}
+              onPress={this._handleBack.bind(self)}>
+              Back
+            </Button>
+          </View>
 
 
-        <ScrollView
-          style={styles.details}
-          showsVerticalScrollIndicator true>
-          <Text>name: {this.state.currentPet.name}</Text>
-          <Text>animal: {this.state.currentPet.animal}</Text>
-          <Text>age: {this.state.currentPet.age}</Text>
-          <Text>altered: {this.state.currentPet.altered}</Text>
-          <Text>animal: {this.state.currentPet.animal}</Text>
-          <Text>breed: {this.state.currentPet.breed}</Text>
-          <Text>gender: {this.state.currentPet.gender}</Text>
-          <Text>shots: {this.state.currentPet.shots}</Text>
-          <Text>size: {this.state.currentPet.size}</Text>
-          <Text>notes: {this.state.currentPet.special_needs}</Text>
-          <Text>description: {this.state.currentPet.description}</Text>
-        </ScrollView>
-      </View>
-    );
+          <ScrollView
+            style={styles.details}
+            showsVerticalScrollIndicator true>
+            <Text>name: {this.state.currentPet.name}</Text>
+            <Text>animal: {this.state.currentPet.animal}</Text>
+            <Text>age: {this.state.currentPet.age}</Text>
+            <Text>altered: {this.state.currentPet.altered}</Text>
+            <Text>animal: {this.state.currentPet.animal}</Text>
+            <Text>breed: {this.state.currentPet.breed}</Text>
+            <Text>gender: {this.state.currentPet.gender}</Text>
+            <Text>shots: {this.state.currentPet.shots}</Text>
+            <Text>size: {this.state.currentPet.size}</Text>
+            <Text>notes: {this.state.currentPet.special_needs}</Text>
+            <Text>description: {this.state.currentPet.description}</Text>
+          </ScrollView>
+        </View>
+      );
+    }
   }
 };
 

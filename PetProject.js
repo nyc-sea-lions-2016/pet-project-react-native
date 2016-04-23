@@ -11,7 +11,7 @@ var {
   NavigatorIOS,
 } = React;
 
-import Login from './FacebookLogin';
+// import Login from './FacebookLogin';
 import Homepage from './homepage';
 import UsersShow from './UsersShow';
 
