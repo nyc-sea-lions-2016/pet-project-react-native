@@ -1,6 +1,7 @@
 var Button = require('react-native-button');
 var Swiper = require('react-native-swiper');
 var React = require('react-native');
+var TableView = require('react-native-tableview')
 
 var {
   StyleSheet,
@@ -101,18 +102,18 @@ class PetShow extends Component {
 
           <ScrollView
             style={styles.details}
+            contentContainerStyle={styles.contentContainer}
             showsVerticalScrollIndicator true>
-            <Text>name: {this.state.currentPet.name}</Text>
-            <Text>animal: {this.state.currentPet.animal}</Text>
-            <Text>age: {this.state.currentPet.age}</Text>
-            <Text>altered: {this.state.currentPet.altered}</Text>
-            <Text>animal: {this.state.currentPet.animal}</Text>
-            <Text>breed: {this.state.currentPet.breed}</Text>
-            <Text>gender: {this.state.currentPet.gender}</Text>
-            <Text>shots: {this.state.currentPet.shots}</Text>
-            <Text>size: {this.state.currentPet.size}</Text>
-            <Text>notes: {this.state.currentPet.special_needs}</Text>
-            <Text>description: {this.state.currentPet.description}</Text>
+            <Text style={styles.detailName}>Name: </Text><Text style={styles.detailText}>{this.state.currentPet.name}</Text>
+            <Text style={styles.detailName}>Animal: </Text><Text style={styles.detailText}>{this.state.currentPet.animal}</Text>
+            <Text style={styles.detailName}>Age: </Text><Text style={styles.detailText}>{this.state.currentPet.age}</Text>
+            <Text style={styles.detailName}>Altered: </Text><Text style={styles.detailText}>{this.state.currentPet.altered}</Text>
+            <Text style={styles.detailName}>Breed: </Text><Text style={styles.detailText}>{this.state.currentPet.breed}</Text>
+            <Text style={styles.detailName}>Gender: </Text><Text style={styles.detailText}>{this.state.currentPet.gender}</Text>
+            <Text style={styles.detailName}>Shots: </Text><Text style={styles.detailText}>{this.state.currentPet.shots}</Text>
+            <Text style={styles.detailName}>Size: </Text><Text style={styles.detailText}>{this.state.currentPet.size}</Text>
+            <Text style={styles.detailName}>Notes: </Text><Text style={styles.detailText}>{this.state.currentPet.special_needs}</Text>
+            <Text style={styles.detailName}>Description: </Text><Text style={styles.detailText}>{this.state.currentPet.description}</Text>
           </ScrollView>
         </View>
       );
@@ -170,6 +171,16 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#F5FCFF',
+  },
+  contentContainer: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingHorizontal: 40,
+  },
+  detailName: {
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+    paddingVertical: 7,
   },
   text: {
     color: '#fff',
