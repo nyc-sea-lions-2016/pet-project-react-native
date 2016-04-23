@@ -29,13 +29,10 @@ class Homepage extends Component {
         title: 'Favorites',
         component: UsersShow
     });
-  onLikeButtonPress() {
-    debugger
-    this.addFavorite(this.state.currentPet)
-    onDislikeButtonPress()
   }
-  onDislikeButtonPress() {
-    this.setState( {loaded: false} )
+  onLikeButtonPress() {
+    debugger;
+    this.addFavorite(this.state.currentPet)
     this.fetchData()
   }
   addFavorite(){
@@ -47,10 +44,12 @@ class Homepage extends Component {
     this.fetchData();
   }
   fetchData(){
+    console.log(this)
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData)
+        console.log(this)
         this.setState({
           currentPet: responseData,
           loaded: true,
@@ -58,9 +57,6 @@ class Homepage extends Component {
       })
       .done();
   }
-  onMoveShouldSetResponder(evt){ return true }
-  onResponderMove(evt){ console.log(evt) }
-  onResponderRelease(evt){ console.log(evt) }
   render() {
     if (!this.state.loaded){
       return this.renderLoadingView();
@@ -83,7 +79,7 @@ class Homepage extends Component {
           <Text style={styles.name}> {this.state.currentPet.name} </Text>
         </View>
         <View style={styles.likeDislikeButtons}>
-          <Button>
+          <Button onPress={self.fetchData.bind(self)}>
             <Image
               style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
             />
