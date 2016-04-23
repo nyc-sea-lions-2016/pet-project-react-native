@@ -36,8 +36,25 @@ class PetShow extends Component {
       currentPet: FAKE_PET,
     }
   }
+  _handleDislike() {
+    console.log(this)
+    this.setState({
+      detailsClicked: false
+    })
+  }
+  _handleBack(){
+    console.log(this.props)
+    this.props.refreshPage()
+  }
+
+  onLikeButtonPress() {
+
+  }
+
   render() {
-    var image = this.state.currentPet.url
+    var image = this.state.currentPet.url;
+    var self = this;
+    console.log(this.state)
     return (
       <View style={styles.container}>
         <View style={styles.pictures}>
@@ -54,6 +71,28 @@ class PetShow extends Component {
             <Text style={styles.text}>Third Image</Text>
           </View>
         </View>
+
+        <View style={styles.likeDislikeButtons}>
+          <Button onPress={self._handleBack.bind(self)}>
+            <Image
+              style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
+            />
+          </Button>
+          <Button onPress={self.onLikeButtonPress.bind(self)}>
+            <Image
+              style={styles.buttonImg}
+              source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
+            />
+          </Button>
+        </View>
+        <View style={styles.backButton}>
+          <Button
+            style={{borderWidth: 1, borderColor: 'blue'}}
+            onPress={this._handleBack.bind(self)}>
+            Back
+          </Button>
+        </View>
+
 
         <ScrollView
           style={styles.details}
@@ -90,10 +129,18 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  details: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#F5FCFF',
+  buttonImg: {
+    width: 50,
+    height: 50,
+    margin: 20,
+  },
+  likeDislikeButtons: {
+    flexDirection: 'row'
+  },
+  backButton: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: 25,
   },
   slide1: {
     flex: 1,
@@ -112,6 +159,11 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#92BBD9',
+  },
+  details: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#F5FCFF',
   },
   text: {
     color: '#fff',
