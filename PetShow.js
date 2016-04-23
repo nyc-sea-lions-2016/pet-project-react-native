@@ -46,7 +46,7 @@ class PetShow extends Component {
   }
 
   onLikeButtonPress() {
-
+    this.props.onLikeButtonPress()
   }
 
   render() {

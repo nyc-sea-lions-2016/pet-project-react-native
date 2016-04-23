@@ -78,8 +78,9 @@ class Homepage extends Component {
     }else if (this.state.detailsClicked) {
       var pet = this.state.currentPet;
       return (
-        <PetShow refreshPage={self.refreshPage.bind(self)}
-                  refreshPageWithNewAnimal={self.refreshPageWithNewAnimal.bind(self)}/>
+        <PetShow  refreshPage={self.refreshPage.bind(self)}
+                  refreshPageWithNewAnimal={self.refreshPageWithNewAnimal.bind(self)}
+                  onLikeButtonPress={self.onLikeButtonPress.bind(self)}/>
       )
     }
 
