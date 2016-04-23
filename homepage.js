@@ -1,5 +1,6 @@
 var Button = require('react-native-button');
 var React = require('react-native');
+var UsersShow = require("./UsersShow");
 
 var {
   StyleSheet,
@@ -12,8 +13,6 @@ var {
   TouchableHighlight,
 } = React;
 
-import UsersShow from './UsersShow';
-
 var REQUEST_URL = 'http://localhost:3000/index.json';
 
 class Homepage extends Component {
@@ -23,6 +22,12 @@ class Homepage extends Component {
       currentPet: null,
       loaded: false,
     }
+  }
+  onPress() {
+    this.props.navigator.push({
+        title: 'Favorites',
+        component: UsersShow
+    });
   }
   componentDidMount(){
     this.fetchData();
@@ -66,6 +71,11 @@ class Homepage extends Component {
               source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
             />
           </Button>
+        </View>
+        <View style={[styles.scene, {backgroundColor: '#DAF6FF'}]}>
+          <TouchableHighlight onPress={this.onPress}>
+              <Text>Favorites!!</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -112,5 +122,6 @@ var styles = StyleSheet.create({
     fontSize: 40,
   }
   });
+
 
 module.exports = Homepage;
