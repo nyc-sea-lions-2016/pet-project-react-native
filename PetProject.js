@@ -18,7 +18,7 @@ class PetProject extends Component {
   onRightButtonPress() {
     this.refs.nav.push({
         title: 'Favorites',
-        component: UsersShow
+        component: UserShow
     })
   }
   onLeftButtonPress() {
@@ -29,7 +29,9 @@ class PetProject extends Component {
   }
   render() {
     return (
-      <NavigatorIOS ref='nav' style={styles.container}
+      <NavigatorIOS
+        ref="nav"
+        style={styles.container}
         initialRoute={{
           component: Homepage,
           title: 'Next Best Friend',
@@ -50,6 +52,7 @@ class PetProject extends Component {
 var styles = StyleSheet.create({
   container: {
     flex:1,
+    backgroundColor: '#000000',
   },
 })
 
