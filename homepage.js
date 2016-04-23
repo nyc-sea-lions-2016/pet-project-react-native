@@ -24,6 +24,10 @@ class Homepage extends Component {
       loaded: false,
     }
   }
+  onLikeButtonPress() {
+  }
+  onDislikeButtonPress() {
+  }
   componentDidMount(){
     this.fetchData();
   }
@@ -39,19 +43,28 @@ class Homepage extends Component {
       })
       .done();
   }
+  onMoveShouldSetResponder(evt){ return true }
+  onResponderMove(evt){ console.log(evt) }
+  onResponderRelease(evt){ console.log(evt) }
   render() {
     if (!this.state.loaded){
       return this.renderLoadingView();
     }
+    var self = this
 
     var image = this.state.currentPet.url
     return (
       <View style={styles.container}>
-        <View style={styles.swipeArea}>
-          <Image
-            style={styles.thumbnail}
-            source={{uri: image}}
-            />
+        <View
+          style={styles.swipeArea}
+          onMoveShouldSetResponder = {self.onMoveShouldSetResponder}
+          onResponderMove = {self.onResponderMove}
+          onResponderRelease = {self.onResponderRelease}
+          >
+            <Image
+              style={styles.thumbnail}
+              source={{uri: image}}
+              />
           <Text style={styles.name}> {this.state.currentPet.name} </Text>
         </View>
         <View style={styles.likeDislikeButtons}>
