@@ -3,6 +3,9 @@ var React = require('react-native');
 var UsersShow = require("./UsersShow");
 var PetShow = require('./PetShow');
 
+import SwipeCards from 'react-native-swipe-cards';
+import Tinder from './Tinder.js'
+
 var {
   StyleSheet,
   Component,
@@ -17,6 +20,21 @@ var {
 var REQUEST_URL = 'http://localhost:3000/index.json';
 var FAVORITE_URL = 'http://localhost:3000/pets.json';
 var PET_URL = 'http://localhost:3000/pets/1.json';
+
+
+let Pet = React.createClass({
+  render() {
+    return (
+      <View style={styles.pet}>
+        <Image
+          style={styles.thumbnail}
+          source={{uri: image}}
+          />
+        <Text style={styles.name}> {this.state.currentPet.name} </Text>
+      </View>
+    )
+  }
+})
 
 class Homepage extends Component {
   constructor(props){
@@ -66,6 +84,12 @@ class Homepage extends Component {
   refreshPage(){
     this.setState({detailsClicked: false})
   }
+  handleFavorite (card) {
+    console.log("LOVE!")
+  }
+  handleNext (card) {
+    console.log("You Sure?!")
+  }
   render() {
     var self = this;
     if (!this.state.loaded){
@@ -80,6 +104,14 @@ class Homepage extends Component {
     var image = this.state.currentPet.url
     return (
       <View style={styles.container}>
+        <SwipeCards
+          cards={this.state.cards}
+
+          renderCard={(this.state.pet) => swipe area section}
+
+          handleYup={this.Onlike function}
+          handleNope={this.handleNope}
+        />
         <View
           style={styles.swipeArea}
           >
