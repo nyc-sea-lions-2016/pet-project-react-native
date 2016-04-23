@@ -11,8 +11,10 @@ var {
   NavigatorIOS,
 } = React;
 
+import FBLoginMock from './FacebookLogin';
 import Homepage from './homepage';
 import UsersShow from './UsersShow';
+
 
 class PetProject extends Component {
   onRightButtonPress() {
@@ -33,7 +35,7 @@ class PetProject extends Component {
         ref="nav"
         style={styles.container}
         initialRoute={{
-          component: Homepage,
+          component: FBLoginMock,
           title: 'Next Best Friend',
           rightButtonTitle: 'Favorites',
           onRightButtonPress: this.onRightButtonPress.bind(this),
