@@ -18,7 +18,7 @@ class PetProject extends Component {
   onRightButtonPress() {
     this.refs.nav.push({
         title: 'Favorites',
-        component: UserShow
+        component: UsersShow
     })
   }
   onLeftButtonPress() {
@@ -35,10 +35,10 @@ class PetProject extends Component {
         initialRoute={{
           component: Homepage,
           title: 'Next Best Friend',
-          rightButtonTitle: 'Favorites!',
-          onRightButtonPress: this.onRightButtonPress,
+          rightButtonTitle: 'Favorites',
+          onRightButtonPress: this.onRightButtonPress.bind(this),
           leftButtonTitle: 'Settings',
-          onLeftButtonPress: this.onLeftButtonPress,
+          onLeftButtonPress: this.onLeftButtonPress.bind(this),
         }}
         tintColor="#FFFFFF"
         barTintColor="#183E63"

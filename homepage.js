@@ -91,11 +91,6 @@ class Homepage extends Component {
             />
           </Button>
         </View>
-        <View style={[styles.scene, {backgroundColor: '#DAF6FF'}]}>
-          <TouchableHighlight onPress={this.onPress}>
-              <Text>Favorites!!</Text>
-          </TouchableHighlight>
-        </View>
       </View>
     );
   }
