@@ -16,13 +16,13 @@ import UsersShow from './UsersShow';
 
 class PetProject extends Component {
   onRightButtonPress() {
-    this.refs.nav.push({
+    this.refs.navigator.push({
         title: 'Favorites',
         component: UsersShow
     })
   }
   onLeftButtonPress() {
-    this.refs.nav.push({
+    this.refs.navigator.push({
       title: 'Profile',
       component: UsersEdit
     })
