@@ -9,6 +9,7 @@ var {
   View,
   ListView,
   TextInput,
+  ScrollView,
   Image,
   TouchableHighlight,
 } = React;
@@ -39,7 +40,7 @@ class PetShow extends Component {
     var image = this.state.currentPet.url
     return (
       <View style={styles.container}>
-        <Swipe>
+        <View style={styles.pictures}>
           <View style={styles.slide1}>
             <Image
               style={styles.thumbnail}
@@ -52,33 +53,47 @@ class PetShow extends Component {
           <View style={styles.slide3}>
             <Text style={styles.text}>Third Image</Text>
           </View>
-        </Swipe>
-
-        <View>
-          <Text>name: {currentPet.name}</Text>
-          <Text>animal: {currentPet.animal}</Text>
-          <Text>age: {currentPet.age}</Text>
-          <Text>altered: {currentPet.altered}</Text>
-          <Text>animal: {currentPet.animal}</Text>
-          <Text>breed: {currentPet.breed}</Text>
-          <Text>description: {currentPet.description}</Text>
-          <Text>gender: {currentPet.gender}</Text>
-          <Text>shots: {currentPet.shots}</Text>
-          <Text>size: {currentPet.size}</Text>
-          <Text>special_needs: {currentPet.special_needs}</Text>
         </View>
+
+        <ScrollView
+          style={styles.details}
+          showsVerticalScrollIndicator true>
+          <Text>name: {this.state.currentPet.name}</Text>
+          <Text>animal: {this.state.currentPet.animal}</Text>
+          <Text>age: {this.state.currentPet.age}</Text>
+          <Text>altered: {this.state.currentPet.altered}</Text>
+          <Text>animal: {this.state.currentPet.animal}</Text>
+          <Text>breed: {this.state.currentPet.breed}</Text>
+          <Text>gender: {this.state.currentPet.gender}</Text>
+          <Text>shots: {this.state.currentPet.shots}</Text>
+          <Text>size: {this.state.currentPet.size}</Text>
+          <Text>notes: {this.state.currentPet.special_needs}</Text>
+          <Text>description: {this.state.currentPet.description}</Text>
+        </ScrollView>
       </View>
     );
   }
 };
 
 var styles = StyleSheet.create({
-  wrapper: {
-  },
   container: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  pictures: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  details: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#F5FCFF',
   },
   slide1: {
     flex: 1,
