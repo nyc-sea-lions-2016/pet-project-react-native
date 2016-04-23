@@ -35,7 +35,7 @@ class PetProject extends Component {
         ref="nav"
         style={styles.container}
         initialRoute={{
-          component: FBLoginMock,
+          component: Homepage,
           title: 'Next Best Friend',
           rightButtonTitle: 'Favorites',
           onRightButtonPress: this.onRightButtonPress.bind(this),
