@@ -42,13 +42,12 @@ class UsersShow extends Component {
      if (!this.state.loaded) {
        return this.renderLoadingView();
      }
-     console.log("state: " + this.state.dataSource)
      return (
-       <ListView
-         dataSource={this.state.dataSource}
-         renderRow={this.renderPet}
-         style={styles.listView}
-       />
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderPet}
+          style={styles.listView}
+         />
      );
    }
    renderLoadingView() {
@@ -61,7 +60,7 @@ class UsersShow extends Component {
      );
    }
     renderPet(pet) {
-      var photo = 'https://s-media-cache-ak0.pinimg.com/736x/c0/14/23/c014230dec32c2eeb133b7b8da072317.jpg'
+      var photo = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/rounded-glossy-black-icons-animals/016572-rounded-glossy-black-icon-animals-animal-cat-print.png'
       if (pet.photos.length > 0) {
         photo = pet.photos[0].url
       }
@@ -73,7 +72,7 @@ class UsersShow extends Component {
           />
           <View style={styles.rightContainer}>
             <Text style={styles.name}>{pet.name}</Text>
-            <Text style={styles.contact_city}>{pet.contact_city}</Text>
+            <Text style={styles.contact_city}>{pet.age} {pet.breed}</Text>
           </View>
         </View>
       );
@@ -85,10 +84,11 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#e3e3e3',
     borderWidth: 1,
-    borderTopColor: 'pink',
-    borderBottomColor: 'pink',
+    borderTopColor: 'white',
+    borderBottomColor: 'white',
+    margin: 5,
   },
   rightContainer: {
     flex: 1,
@@ -103,11 +103,11 @@ var styles = StyleSheet.create({
    fontSize: 18,
   },
   thumbnail: {
-   width: 60,
-  height: 90,
+   width: 120,
+  height: 100,
   },
   listView: {
-   paddingTop: 20,
+   paddingTop: 60,
   //  backgroundColor: '#111111',
   },
 });

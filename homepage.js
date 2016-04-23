@@ -82,9 +82,6 @@ class Homepage extends Component {
       <View style={styles.container}>
         <View
           style={styles.swipeArea}
-          onMoveShouldSetResponder = {self.onMoveShouldSetResponder}
-          onResponderMove = {self.onResponderMove}
-          onResponderRelease = {self.onResponderRelease}
           >
             <Image
               style={styles.thumbnail}
