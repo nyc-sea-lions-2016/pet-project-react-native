@@ -17,7 +17,6 @@ import UsersShow from './UsersShow';
 import ShelterMap from './shelterMap';
 import UsersEdit from './UsersEdit';
 
-
 class PetProject extends Component {
   onRightButtonPress() {
     this.refs.nav.push({
