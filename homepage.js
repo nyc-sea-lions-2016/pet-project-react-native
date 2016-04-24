@@ -180,7 +180,7 @@ var styles = StyleSheet.create({
     height: 350,
   },
   swipeArea: {
-    backgroundColor: '#e3e3e3',
+    backgroundColor: '#bdc3c7',
     padding: 7
   },
   name: {
