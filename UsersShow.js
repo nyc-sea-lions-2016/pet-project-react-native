@@ -49,8 +49,10 @@ class UsersShow extends Component {
      if (!this.state.loaded) {
        return this.renderLoadingView();
      }
-     else if(this.state.clickedPet != undefined) {
-       <PetShow clickedPet={self.state.clickedPet}/>
+     else if (this.state.clickedPet != undefined) {
+       return (
+         <PetShow clickedPet={self.state.clickedPet}/>
+       )
      }
      return (
         <ListView
@@ -70,9 +72,8 @@ class UsersShow extends Component {
      );
    }
    loadAnimalDetails(clickedPet){
-     (console.log(this))
      console.log(clickedPet)
-    //  this.setState({clickedPet: clickedPet})
+     this.setState({clickedPet: clickedPet})
    }
     renderPet(pet) {
       var photo = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/rounded-glossy-black-icons-animals/016572-rounded-glossy-black-icon-animals-animal-cat-print.png'
@@ -81,7 +82,7 @@ class UsersShow extends Component {
       }
       var self = this;
       return (
-        <TouchableHighlight onPress={self.loadAnimalDetails(pet)} >
+        <TouchableHighlight onPress={self.loadAnimalDetails.bind(self, pet)} >
           <View style={styles.favoritesContainer}>
             <Image
               source={{uri: photo}}

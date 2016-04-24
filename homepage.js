@@ -69,7 +69,6 @@ class Homepage extends Component {
     this.setState({detailsClicked: true})
   }
   refreshPage(){
-    console.log("got here")
     this.setState({detailsClicked: false, settingsClicked: false})
   }
   refreshPageWithNewAnimal(){
@@ -85,7 +84,9 @@ class Homepage extends Component {
       return (
         <PetShow  refreshPage={self.refreshPage.bind(self)}
                   refreshPageWithNewAnimal={self.refreshPageWithNewAnimal.bind(self)}
-                  onLikeButtonPress={self.onLikeButtonPress.bind(self)}/>
+                  onLikeButtonPress={self.onLikeButtonPress.bind(self)}
+                  clickedPet={pet}
+        />
       )
     } else if (this.state.settingsClicked){
       return (
