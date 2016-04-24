@@ -39,7 +39,6 @@ class PetShow extends Component {
     }
   }
   _handleDislike() {
-    console.log(this)
     this.props.refreshPageWithNewAnimal()
   }
   _handleBack(){

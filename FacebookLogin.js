@@ -14,12 +14,12 @@ var FBLoginManager = require('NativeModules').FBLoginManager;
 var FB_PHOTO_WIDTH = 200;
 
 class Login extends Component {
-  getInitialState: function(){
-    return {
-      user: null,
-    };
-  },
-
+  constructor(props) {
+   super(props);
+   this.state = {
+     user: null,
+   };
+ }
   render() {
     var _this = this;
     var user = this.state.user;

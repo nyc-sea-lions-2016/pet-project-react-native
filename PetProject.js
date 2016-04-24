@@ -14,6 +14,8 @@ var {
 // import Login from './FacebookLogin';
 import Homepage from './homepage';
 import UsersShow from './UsersShow';
+import ShelterMap from './shelterMap';
+import UsersEdit from './UsersEdit';
 
 
 class PetProject extends Component {
@@ -25,8 +27,8 @@ class PetProject extends Component {
   }
   onLeftButtonPress() {
     this.refs.nav.push({
-      title: 'Profile',
-      component: UsersEdit
+      title: 'Map',
+      component: ShelterMap
     })
   }
   render() {
@@ -39,7 +41,7 @@ class PetProject extends Component {
           title: 'Next Best Friend',
           rightButtonTitle: 'Favorites',
           onRightButtonPress: this.onRightButtonPress.bind(this),
-          leftButtonTitle: 'Settings',
+          leftButtonTitle: 'Map',
           onLeftButtonPress: this.onLeftButtonPress.bind(this),
         }}
         tintColor="#FFFFFF"
