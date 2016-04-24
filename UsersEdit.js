@@ -13,6 +13,7 @@ var {
 } = React;
 
 var USER_INFO = 'http://localhost:3000/users/1/edit.json';
+var USER_UPDATE = 'http://localhost:3000/users/1.json'
 
 class UsersEdit extends Component {
    constructor(props) {
@@ -26,7 +27,6 @@ class UsersEdit extends Component {
     fetch(USER_INFO)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData)
         this.setState({
           userInfo: responseData,
           loaded: true,
@@ -36,6 +36,22 @@ class UsersEdit extends Component {
   }
   goHome(){
     this.props.refreshPage()
+  }
+  componentWillUnmount(){
+    console.log('hi')
+    this.addLocationToUser(this.state)
+  }
+  addLocationToUser(location){
+    var obj = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({location})
+    }
+    fetch(USER_UPDATE, obj)
+      .done();
+  }
+  updateSlider(e){
+    console.log(e)
   }
   render() {
      if (!this.state.loaded) {
@@ -50,14 +66,21 @@ class UsersEdit extends Component {
             <Text style={styles.username}>{self.state.userInfo.name}</Text>
           </View>
           <View style={styles.bottomContainer}>
-            <Text style={styles.settingsDetails}>location</Text>
+            <Text style={styles.settingsDetails}>zip code</Text>
             <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              style={styles.inputBox}
+              onChangeText={(text) => this.setState({text})}
               value={this.state.text}
-              placeholder='location'
+              keyboardType='number-pad'
             />
             <Text style={styles.settingsDetails}>search distance</Text>
-            <Slider></Slider>
+            <Slider
+              minimumValue={10}
+              maximumValue={3000}
+              step={5}
+              onSlidingComplete={this.updateSlider}
+              style={styles.slider}
+            />
             <Text style={styles.settingsDetails}>preferences</Text>
             <Button onPress={self.goHome.bind(self)}>
               <Image
@@ -86,6 +109,10 @@ class UsersEdit extends Component {
      alignItems: 'center',
      overflow: 'hidden'
    },
+   slider: {
+     height: 50,
+     margin: 10
+   },
    username: {
      marginTop: 10,
      fontSize: 30
@@ -94,6 +121,15 @@ class UsersEdit extends Component {
     marginTop: 100,
     height: 50,
     width: 50
+   },
+   inputBox: {
+     height: 40,
+     borderWidth: 1,
+     borderColor: 'gray',
+     width: 100,
+     marginLeft: 200,
+     marginTop: 10,
+     marginBottom: 10
    },
    topContainer: {
      height: 320,

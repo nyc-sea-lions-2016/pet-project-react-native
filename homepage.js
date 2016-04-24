@@ -23,7 +23,6 @@ var PET_URL = 'http://localhost:3000/pets/1.json';
 
 class Card extends Component {
   render() {
-    console.log(this.props)
     return(
       <View
         style={styles.swipeArea}
@@ -37,6 +36,7 @@ class Card extends Component {
     )
   }
 }
+
 class Homepage extends Component {
   constructor(props){
     super(props);
@@ -74,7 +74,6 @@ class Homepage extends Component {
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
-        // console.log(responseData)
         this.setState({
           currentPet: responseData,
           loaded: true,
