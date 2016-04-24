@@ -4,6 +4,8 @@ var UsersShow = require("./UsersShow");
 var PetShow = require('./PetShow');
 var UsersEdit = require('./UsersEdit')
 
+import SwipeCards from 'react-native-swipe-cards';
+
 var {
   StyleSheet,
   Component,
@@ -19,6 +21,22 @@ var REQUEST_URL = 'http://localhost:3000/index.json';
 var FAVORITE_URL = 'http://localhost:3000/pets.json';
 var PET_URL = 'http://localhost:3000/pets/1.json';
 
+class Card extends Component {
+  render() {
+    console.log(this.props)
+    return(
+      <View
+        style={styles.swipeArea}
+        >
+          <Image
+            style={styles.thumbnail}
+            source={{uri: this.props.url}}
+            />
+          <Text style={styles.name}> {this.props.name} </Text>
+      </View>
+    )
+  }
+}
 class Homepage extends Component {
   constructor(props){
     super(props);
@@ -95,18 +113,17 @@ class Homepage extends Component {
       )
     }
 
-    var image = this.state.currentPet.url
+    var cardData = self.state.currentPet
     return (
       <View style={styles.container}>
-        <View
-          style={styles.swipeArea}
-          >
-            <Image
-              style={styles.thumbnail}
-              source={{uri: image}}
-              />
-          <Text style={styles.name}> {this.state.currentPet.name} </Text>
-        </View>
+        <SwipeCards
+          cards={[cardData]}
+          renderCard={(cardData) => <Card {...cardData} />}
+          showYup={true}
+          showNope={true}
+          handleYup={self.onLikeButtonPress.bind(self)}
+          handleNope={self.fetchData.bind(self)}
+        />
         <View style={styles.likeDislikeButtons}>
           <Button onPress={self.fetchData.bind(self)}>
             <Image
@@ -150,8 +167,15 @@ class Homepage extends Component {
 };
 
 var styles = StyleSheet.create({
+  card: {
+    alignItems: 'center',
+    borderRadius: 5,
+    overflow: 'hidden',
+    borderWidth: 1,
+    elevation: 1,
+  },
   container: {
-    flex: 1,
+    marginTop: 70,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -183,7 +207,7 @@ var styles = StyleSheet.create({
   },
   swipeArea: {
     backgroundColor: '#bdc3c7',
-    padding: 7
+    padding: 7,
   },
   name: {
     fontSize: 40,
