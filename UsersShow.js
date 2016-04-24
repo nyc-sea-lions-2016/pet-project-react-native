@@ -1,3 +1,4 @@
+var Button = require('react-native-button');
 var React = require('react-native');
 
 var {
@@ -7,8 +8,11 @@ var {
   View,
   ListView,
   TextInput,
-  Image
+  Image,
+  TouchableHighlight
 } = React;
+
+var PetShow = require('./PetShow');
 
 var REQUEST_URL = 'http://localhost:3000/users/show.json';
 
@@ -20,12 +24,12 @@ class UsersShow extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      clickedPet: undefined
     };
   }
   componentDidMount() {
       this.fetchData();
-    }
-
+  }
   fetchData() {
     fetch(REQUEST_URL)
       .then((response) => response.json())
@@ -34,18 +38,24 @@ class UsersShow extends Component {
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
+          clickedPet:undefined
         });
       })
       .done();
   }
   render() {
+     var self = this
+
      if (!this.state.loaded) {
        return this.renderLoadingView();
+     }
+     else if(this.state.clickedPet != undefined) {
+       <PetShow clickedPet={self.state.clickedPet}/>
      }
      return (
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderPet}
+          renderRow={this.renderPet.bind(self)}
           style={styles.listView}
          />
      );
@@ -59,22 +69,30 @@ class UsersShow extends Component {
        </View>
      );
    }
+   loadAnimalDetails(clickedPet){
+     (console.log(this))
+     console.log(clickedPet)
+    //  this.setState({clickedPet: clickedPet})
+   }
     renderPet(pet) {
       var photo = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/rounded-glossy-black-icons-animals/016572-rounded-glossy-black-icon-animals-animal-cat-print.png'
       if (pet.photos.length > 0) {
         photo = pet.photos[0].url
       }
+      var self = this;
       return (
-        <View style={styles.favoritesContainer}>
-          <Image
-          source={{uri: photo}}
-          style={styles.thumbnail}
-          />
-          <View style={styles.rightContainer}>
-            <Text style={styles.name}>{pet.name}</Text>
-            <Text style={styles.contact_city}>{pet.age} {pet.breed}</Text>
+        <TouchableHighlight onPress={self.loadAnimalDetails(pet)} >
+          <View style={styles.favoritesContainer}>
+            <Image
+              source={{uri: photo}}
+              style={styles.thumbnail}
+            />
+            <View style={styles.rightContainer}>
+              <Text style={styles.name}>{pet.name}</Text>
+              <Text style={styles.contact_city}>{pet.age} {pet.breed}</Text>
+            </View>
           </View>
-        </View>
+        </TouchableHighlight>
       );
     }
  }
