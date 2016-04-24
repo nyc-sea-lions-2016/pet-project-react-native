@@ -1,5 +1,6 @@
 var Button = require('react-native-button');
 var Swiper = require('react-native-swiper');
+var TableView = require('react-native-tableview-simple');
 var React = require('react-native');
 
 var {
@@ -13,6 +14,13 @@ var {
   Image,
   TouchableHighlight,
 } = React;
+
+var {
+  Cell,
+  Section,
+  TableView,
+} = TableView;
+
 
 class PetShow extends Component {
   _handleDislike() {
@@ -73,23 +81,25 @@ class PetShow extends Component {
             </Button>
           </View>
 
-
-          <ScrollView
-            style={styles.details}
-            showsVerticalScrollIndicator true
-          >
-            <Text>name: {currentPet.name}</Text>
-            <Text>animal: {currentPet.animal}</Text>
-            <Text>age: {currentPet.age}</Text>
-            <Text>altered: {currentPet.altered}</Text>
-            <Text>animal: {currentPet.animal}</Text>
-            <Text>breed: {currentPet.breed}</Text>
-            <Text>gender: {currentPet.gender}</Text>
-            <Text>shots: {currentPet.shots}</Text>
-            <Text>size: {currentPet.size}</Text>
-            <Text>notes: {currentPet.special_needs}</Text>
-            <Text>description: {currentPet.description}</Text>
-          </ScrollView>
+            <ScrollView
+              style={styles.details}
+              showsVerticalScrollIndicator true
+            >
+              <TableView>
+                <Section header="Details">
+                <Cell cellstyle="RightDetail" title="Name" detail={currentPet.name}/>
+                <Cell cellstyle="RightDetail" title="Animal" detail={currentPet.animal}/>
+                <Cell cellstyle="RightDetail" title="Age" detail={currentPet.age}/>
+                <Cell cellstyle="RightDetail" title="Breed" detail={currentPet.breed}/>
+                <Cell cellstyle="RightDetail" title="Altered?" detail={currentPet.altered}/>
+                <Cell cellstyle="RightDetail" title="Gender" detail={currentPet.gender}/>
+                <Cell cellstyle="RightDetail" title="Shots?" detail={currentPet.shots}/>
+                <Cell cellstyle="RightDetail" title="Size" detail={currentPet.size}/>
+                <Cell cellstyle="RightDetail" title="Notes" detail={currentPet.special_needs}/>
+                <Cell cellstyle="RightDetail" title="Description" detail={currentPet.description}/>
+                </Section>
+              </TableView>
+            </ScrollView>
         </View>
       );
     } else if (this.props.favorited == true){
@@ -114,17 +124,20 @@ class PetShow extends Component {
             style={styles.details}
             showsVerticalScrollIndicator true
           >
-            <Text>name: {currentPet.name}</Text>
-            <Text>animal: {currentPet.animal}</Text>
-            <Text>age: {currentPet.age}</Text>
-            <Text>altered: {currentPet.altered}</Text>
-            <Text>animal: {currentPet.animal}</Text>
-            <Text>breed: {currentPet.breed}</Text>
-            <Text>gender: {currentPet.gender}</Text>
-            <Text>shots: {currentPet.shots}</Text>
-            <Text>size: {currentPet.size}</Text>
-            <Text>notes: {currentPet.special_needs}</Text>
-            <Text>description: {currentPet.description}</Text>
+            <TableView>
+              <Section header="Details">
+              <Cell cellstyle="RightDetail" title="Name" detail={currentPet.name}/>
+              <Cell cellstyle="RightDetail" title="Animal" detail={currentPet.animal}/>
+              <Cell cellstyle="RightDetail" title="Age" detail={currentPet.age}/>
+              <Cell cellstyle="RightDetail" title="Breed" detail={currentPet.breed}/>
+              <Cell cellstyle="RightDetail" title="Altered?" detail={currentPet.altered}/>
+              <Cell cellstyle="RightDetail" title="Gender" detail={currentPet.gender}/>
+              <Cell cellstyle="RightDetail" title="Shots?" detail={currentPet.shots}/>
+              <Cell cellstyle="RightDetail" title="Size" detail={currentPet.size}/>
+              <Cell cellstyle="RightDetail" title="Notes" detail={currentPet.special_needs}/>
+              <Cell cellstyle="RightDetail" title="Description" detail={currentPet.description}/>
+              </Section>
+            </TableView>
           </ScrollView>
         </View>
       );
@@ -182,8 +195,15 @@ var styles = StyleSheet.create({
   },
   details: {
     flex: 1,
+    flexWrap: 'wrap',
     flexDirection: 'column',
     backgroundColor: '#F5FCFF',
+    paddingHorizontal: 7,
+  },
+  detailName: {
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+    paddingVertical: 7,
   },
   text: {
     color: '#fff',
