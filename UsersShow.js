@@ -84,11 +84,9 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#e3e3e3',
-    borderWidth: 1,
-    borderTopColor: 'white',
-    borderBottomColor: 'white',
+    backgroundColor: '#ecf0f1',
     margin: 5,
+    borderRadius: 10
   },
   rightContainer: {
     flex: 1,
@@ -104,11 +102,12 @@ var styles = StyleSheet.create({
   },
   thumbnail: {
    width: 120,
-  height: 100,
+   height: 100,
+   borderRadius: 10
   },
   listView: {
-   paddingTop: 60,
-  //  backgroundColor: '#111111',
+   paddingTop: 70,
+   backgroundColor: '#1abc9c',
   },
 });
 
