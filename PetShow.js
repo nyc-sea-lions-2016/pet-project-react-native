@@ -26,9 +26,15 @@ class PetShow extends Component {
   }
   render() {
     var currentPet = this.props.clickedPet
-    var image = this.props.clickedPet.photos[0].url;
+    var image = ''
+      if (this.props.clickedPet.url) {
+          image = this.props.clickedPet.url
+      } else {
+          image = this.props.clickedPet.photos[0].url
+      };
     var self = this;
 
+    if (this.props.favorited == false){
       return (
         <View style={styles.container}>
           <View style={styles.pictures}>
@@ -86,6 +92,45 @@ class PetShow extends Component {
           </ScrollView>
         </View>
       );
+    } else if (this.props.favorited == true){
+      return (
+        <View style={styles.container}>
+          <View style={styles.pictures}>
+            <View style={styles.slide1}>
+              <Image
+                style={styles.thumbnail}
+                source={{uri: image}}
+              />
+            </View>
+            <View style={styles.slide2}>
+              <Text style={styles.text}>Second image</Text>
+            </View>
+            <View style={styles.slide3}>
+              <Text style={styles.text}>Third Image</Text>
+            </View>
+          </View>
+
+          <ScrollView
+            style={styles.details}
+            showsVerticalScrollIndicator true
+          >
+            <Text>name: {currentPet.name}</Text>
+            <Text>animal: {currentPet.animal}</Text>
+            <Text>age: {currentPet.age}</Text>
+            <Text>altered: {currentPet.altered}</Text>
+            <Text>animal: {currentPet.animal}</Text>
+            <Text>breed: {currentPet.breed}</Text>
+            <Text>gender: {currentPet.gender}</Text>
+            <Text>shots: {currentPet.shots}</Text>
+            <Text>size: {currentPet.size}</Text>
+            <Text>notes: {currentPet.special_needs}</Text>
+            <Text>description: {currentPet.description}</Text>
+          </ScrollView>
+        </View>
+      );
+    }
+
+
     }
 };
 

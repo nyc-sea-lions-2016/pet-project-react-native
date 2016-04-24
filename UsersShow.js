@@ -51,7 +51,7 @@ class UsersShow extends Component {
      }
      else if (this.state.clickedPet != undefined) {
        return (
-         <PetShow clickedPet={self.state.clickedPet}/>
+         <PetShow clickedPet={self.state.clickedPet} favorited={true}/>
        )
      }
      return (

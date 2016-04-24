@@ -86,6 +86,7 @@ class Homepage extends Component {
                   refreshPageWithNewAnimal={self.refreshPageWithNewAnimal.bind(self)}
                   onLikeButtonPress={self.onLikeButtonPress.bind(self)}
                   clickedPet={pet}
+                  favorited={false}
         />
       )
     } else if (this.state.settingsClicked){
