@@ -1,4 +1,5 @@
 var Button = require('react-native-button');
+var TableView = require('react-native-tableview-simple');
 var React = require('react-native');
 
 var {
@@ -11,6 +12,12 @@ var {
   Image,
   Slider
 } = React;
+
+var {
+  Cell,
+  Section,
+  TableView,
+} = TableView;
 
 var USER_INFO = 'http://localhost:3000/users/1/edit.json';
 var USER_UPDATE = 'http://localhost:3000/users/1.json'
@@ -38,20 +45,31 @@ class UsersEdit extends Component {
     this.props.refreshPage()
   }
   componentWillUnmount(){
-    console.log('hi')
-    this.addLocationToUser(this.state)
+    this.addLocationToUser(this.state.text)
+    this.addSearchRadiusToUser(this.state.searchRadius)
   }
   addLocationToUser(location){
+    console.log("adding location to user!")
     var obj = {
-      method: 'POST',
+      method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({location})
     }
     fetch(USER_UPDATE, obj)
-      .done();
+  }
+  addSearchRadiusToUser(searchRadius) {
+    console.log("adding search radius to user!")
+    var obj = {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({searchRadius})
+    }
+    fetch(USER_UPDATE, obj)
   }
   updateSlider(e){
     console.log(e)
+    this.setState({searchRadius: ''})
+    //set state to slider value
   }
   render() {
      if (!this.state.loaded) {
