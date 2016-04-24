@@ -14,6 +14,7 @@ var {
 // import Login from './FacebookLogin';
 import Homepage from './homepage';
 import UsersShow from './UsersShow';
+import ShelterMap from './shelterMap';
 import UsersEdit from './UsersEdit';
 
 class PetProject extends Component {
@@ -25,8 +26,8 @@ class PetProject extends Component {
   }
   onLeftButtonPress() {
     this.refs.nav.push({
-      title: 'Profile',
-      component: UsersEdit
+      title: 'Map',
+      component: ShelterMap
     })
   }
   render() {
