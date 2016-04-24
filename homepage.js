@@ -23,7 +23,6 @@ var PET_URL = 'http://localhost:3000/pets/1.json';
 
 class Card extends Component {
   render() {
-    console.log(this.props)
     return(
       <View
         style={styles.swipeArea}
