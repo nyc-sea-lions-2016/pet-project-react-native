@@ -5,7 +5,6 @@ var PetShow = require('./PetShow');
 var UsersEdit = require('./UsersEdit')
 
 import SwipeCards from 'react-native-swipe-cards';
-import Tinder from './Tinder.js'
 
 var {
   StyleSheet,
@@ -22,21 +21,21 @@ var REQUEST_URL = 'http://localhost:3000/index.json';
 var FAVORITE_URL = 'http://localhost:3000/pets.json';
 var PET_URL = 'http://localhost:3000/pets/1.json';
 
-
-let Pet = React.createClass({
+class Card extends Component {
   render() {
-    return (
-      <View style={styles.pet}>
-        <Image
-          style={styles.thumbnail}
-          source={{uri: image}}
-          />
+    return(
+      <View
+        style={styles.swipeArea}
+        >
+          <Image
+            style={styles.thumbnail}
+            source={{uri: this.image}}
+            />
         <Text style={styles.name}> {this.state.currentPet.name} </Text>
       </View>
     )
   }
-})
-
+}
 class Homepage extends Component {
   constructor(props){
     super(props);
@@ -94,12 +93,6 @@ class Homepage extends Component {
     console.log(this)
     this.fetchData()
   }
-  handleFavorite (card) {
-    console.log("LOVE!")
-  }
-  handleNext (card) {
-    console.log("You Sure?!")
-  }
   render() {
     var self = this;
     if (!this.state.loaded){
@@ -118,25 +111,17 @@ class Homepage extends Component {
     }
 
     var image = this.state.currentPet.url
+    var cardData = self.state.currentPet
     return (
       <View style={styles.container}>
         <SwipeCards
-          cards={this.state.cards}
-
-          renderCard={(this.state.pet) => swipe area section}
-
-          handleYup={this.Onlike function}
-          handleNope={this.handleNope}
+          cards={[cardData]}
+          renderCard={(cardData) => <Card {...cardData} />}
+          showYup={true}
+          showNope={true}
+          handleYup={self.onLikeButtonPress}
+          handleNope={self.fetchData.bind(self)}
         />
-        <View
-          style={styles.swipeArea}
-          >
-            <Image
-              style={styles.thumbnail}
-              source={{uri: image}}
-              />
-          <Text style={styles.name}> {this.state.currentPet.name} </Text>
-        </View>
         <View style={styles.likeDislikeButtons}>
           <Button onPress={self.fetchData.bind(self)}>
             <Image

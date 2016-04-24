@@ -42,7 +42,7 @@ export default React.createClass({
 
         renderCard={(this.state.pet) => swipe area section}
 
-        handleYup={this.Onlike function}
+        handleYup={this.onLikeButtonPress()}
         handleNope={this.handleNope}
       />
     )
