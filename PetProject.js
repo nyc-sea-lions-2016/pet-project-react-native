@@ -19,18 +19,6 @@ import UsersEdit from './UsersEdit';
 
 
 class PetProject extends Component {
-  onRightButtonPress() {
-    this.refs.nav.push({
-        title: 'Favorites',
-        component: UsersShow
-    })
-  }
-  onLeftButtonPress() {
-    this.refs.nav.push({
-      title: 'Map',
-      component: ShelterMap
-    })
-  }
   render() {
     return (
         <NavigatorIOS
@@ -39,10 +27,6 @@ class PetProject extends Component {
           initialRoute={{
             component: Login,
             title: 'Next Best Friend',
-            rightButtonTitle: 'Favorites',
-            onRightButtonPress: this.onRightButtonPress.bind(this),
-            leftButtonTitle: 'Map',
-            onLeftButtonPress: this.onLeftButtonPress.bind(this),
           }}
           tintColor="#FFFFFF"
           barTintColor="#183E63"

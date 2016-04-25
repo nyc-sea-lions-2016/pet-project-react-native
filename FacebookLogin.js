@@ -10,10 +10,10 @@ var {
   Component,
 } = React;
 
+import Homepage from './homepage';
 var FBLogin = require('react-native-facebook-login');
 var FBLoginManager = require('NativeModules').FBLoginManager;
-var Video = require('react-native-video');
-// import Video from 'react-native-video';
+var REQUEST_URL = 'http://localhost:3000/users/new.json'
 
 var FB_PHOTO_WIDTH = 200;
 
@@ -21,18 +21,29 @@ class Login extends Component {
   constructor(props) {
    super(props);
    this.state = {
-     user: null,
+     currentUser: null,
    };
  }
- addUser(user){
-   var obj = {
-     method: 'POST',
-     body: JSON.stringify({user})
-   }
-  fetch(FAVORITE_URL, obj)
-     .then((response) => this.fetchData())
-     .done();
+ onRightButtonPress() {
+   this.refs.nav.push({
+       title: 'Favorites',
+       component: UsersShow
+   })
  }
+ onLeftButtonPress() {
+   this.refs.nav.push({
+     title: 'Map',
+     component: ShelterMap
+   })
+ }
+//  addUser(user){
+//    var obj = {
+//      method: 'POST',
+//    }
+//   fetch(, obj)
+//     .then()
+//     .done();
+// }
   render() {
     var _this = this;
     var user = this.state.user;
@@ -46,18 +57,34 @@ class Login extends Component {
         <View style={styles.loginContainer}>
 
           <FBLogin style={{ marginBottom: 10, }}
-            permissions={["email","user_friends"]}
+            permissions={["public_profile","email","user_friends"]}
             onLogin={function(data){
               console.log("Logged in!");
               console.log(data);
-              this.addUser()
-              _this.setState({ user : data.credentials });
+              // _this.addUser(data)
+              _this.props.navigator.push({
+                title: "Next Best Friend",
+                component: Homepage,
+                rightButtonTitle: 'Favorites',
+                onRightButtonPress: _this.onRightButtonPress.bind(this),
+                leftButtonTitle: 'Map',
+                onLeftButtonPress: _this.onLeftButtonPress.bind(this),
+              })
+              // _this.setState({ user : data.credentials });
             }}
             onLogout={function(){
               console.log("Logged out.");
               _this.setState({ user : null });
             }}
             onLoginFound={function(data){
+              _this.props.navigator.push({
+                title: "Next Best Friend",
+                component: Homepage,
+                rightButtonTitle: 'Favorites',
+                onRightButtonPress: _this.onRightButtonPress.bind(this),
+                leftButtonTitle: 'Map',
+                onLeftButtonPress: _this.onLeftButtonPress.bind(this),
+              })
               _this.setState({ user : data.credentials });
             }}
             onLoginNotFound={function(){
