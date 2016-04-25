@@ -10,7 +10,8 @@ var {
   ListView,
   TextInput,
   Image,
-  Slider
+  Slider,
+  TouchableHighlight
 } = React;
 
 var {
@@ -49,7 +50,6 @@ class UsersEdit extends Component {
     this.addSearchRadiusToUser(this.state.searchRadius)
   }
   addLocationToUser(location){
-    console.log("adding location to user!")
     var obj = {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
@@ -58,18 +58,12 @@ class UsersEdit extends Component {
     fetch(USER_UPDATE, obj)
   }
   addSearchRadiusToUser(searchRadius) {
-    console.log("adding search radius to user!")
     var obj = {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({searchRadius})
     }
     fetch(USER_UPDATE, obj)
-  }
-  updateSlider(e){
-    console.log(e)
-    this.setState({searchRadius: ''})
-    //set state to slider value
   }
   render() {
      if (!this.state.loaded) {
@@ -92,14 +86,18 @@ class UsersEdit extends Component {
               keyboardType='number-pad'
             />
             <Text style={styles.settingsDetails}>search distance</Text>
+            <Text>{this.state.searchRadius} miles</Text>
             <Slider
+              onValueChange={(searchRadius) => self.setState({searchRadius: searchRadius})}
               minimumValue={10}
               maximumValue={3000}
               step={5}
-              onSlidingComplete={this.updateSlider}
               style={styles.slider}
             />
             <Text style={styles.settingsDetails}>preferences</Text>
+            <View style={this.preferenceButtons}>
+              <TouchableHighlight onPress={this._onPressButton}><Text>Cats</Text></TouchableHighlight>
+            </View>
             <Button onPress={self.goHome.bind(self)}>
               <Image
                 source={{uri: 'http://www.iconsdb.com/icons/preview/gray/home-5-xxl.png'}}
@@ -128,15 +126,15 @@ class UsersEdit extends Component {
      overflow: 'hidden'
    },
    slider: {
-     height: 50,
-     margin: 10
+     width: 200,
+     margin: 5
    },
    username: {
      marginTop: 10,
      fontSize: 30
    },
    backButton: {
-    marginTop: 100,
+    marginTop: 50,
     height: 50,
     width: 50
    },
