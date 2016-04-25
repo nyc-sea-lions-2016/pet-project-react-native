@@ -35,9 +35,12 @@ class UsersEdit extends Component {
     fetch(USER_INFO)
       .then((response) => response.json())
       .then((responseData) => {
+        console.log(responseData)
         this.setState({
           userInfo: responseData,
           loaded: true,
+          searchRadius: responseData.preferred_search_radius,
+          text: responseData.preferred_location,
         });
       })
       .done();
@@ -91,6 +94,7 @@ class UsersEdit extends Component {
               onValueChange={(searchRadius) => self.setState({searchRadius: searchRadius})}
               minimumValue={10}
               maximumValue={3000}
+              value={this.state.searchRadius}
               step={5}
               style={styles.slider}
             />
