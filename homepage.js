@@ -89,7 +89,6 @@ class Homepage extends Component {
     this.setState({detailsClicked: false, settingsClicked: false})
   }
   refreshPageWithNewAnimal(){
-    console.log(this)
     this.fetchData()
   }
   render() {
