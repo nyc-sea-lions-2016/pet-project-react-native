@@ -96,6 +96,7 @@ class Login extends Component {
               console.log("Check permissions!");
             }}
           />
+
         </View>
       </View>
     );
