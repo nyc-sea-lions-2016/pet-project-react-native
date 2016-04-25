@@ -55,9 +55,6 @@ class PetShow extends Component {
             <View style={styles.slide2}>
               <Text style={styles.text}>Second image</Text>
             </View>
-            <View style={styles.slide3}>
-              <Text style={styles.text}>Third Image</Text>
-            </View>
           </View>
 
           <View style={styles.likeDislikeButtons}>
@@ -136,6 +133,12 @@ class PetShow extends Component {
               <Cell cellstyle="RightDetail" title="Size" detail={currentPet.size}/>
               <Cell cellstyle="RightDetail" title="Notes" detail={currentPet.special_needs}/>
               <Cell cellstyle="RightDetail" title="Description" detail={currentPet.description}/>
+              <Cell cellstyle="RightDetail" title="Contact Email" detail={currentPet.contact.email}/>
+              <Cell cellstyle="RightDetail" title="Description" detail={currentPet.contact.phone}/>
+              <Cell cellstyle="RightDetail" title="Contact Address" detail={currentPet.contact.address}/>
+              <Cell cellstyle="RightDetail" title="Contact City" detail={currentPet.contact.city}/>
+              <Cell cellstyle="RightDetail" title="Contact State" detail={currentPet.contact.state}/>
+              <Cell cellstyle="RightDetail" title="Contact Zip" detail={currentPet.contact.zip}/>
               </Section>
             </TableView>
           </ScrollView>
