@@ -29,7 +29,7 @@ class Card extends Component {
         >
           <Image
             style={styles.thumbnail}
-            source={{uri: this.props.url}}
+            source={{uri: this.props.photos[0].url}}
             />
           <Text style={styles.name}> {this.props.name} </Text>
       </View>
@@ -74,8 +74,9 @@ class Homepage extends Component {
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
+        console.log(responseData.pet)
         this.setState({
-          currentPet: responseData,
+          currentPet: responseData.pet,
           loaded: true,
           detailsClicked: false,
         });
