@@ -1,5 +1,6 @@
 var Button = require('react-native-button');
 var React = require('react-native');
+var PetShow = require('./PetShow');
 
 var {
   StyleSheet,
@@ -12,7 +13,6 @@ var {
   TouchableHighlight
 } = React;
 
-var PetShow = require('./PetShow');
 
 var REQUEST_URL = 'http://localhost:3000/users/show.json';
 
@@ -72,7 +72,6 @@ class UsersShow extends Component {
      );
    }
    loadAnimalDetails(clickedPet){
-     console.log(clickedPet)
      this.setState({clickedPet: clickedPet})
    }
     renderPet(pet) {

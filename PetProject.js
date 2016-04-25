@@ -1,6 +1,10 @@
 'use strict';
-
-var React = require("react-native");
+import React from "react-native";
+import Login from './FacebookLogin';
+import Homepage from './Homepage';
+import UsersShow from './UsersShow';
+import ShelterMap from './shelterMap';
+import UsersEdit from './UsersEdit';
 
 var {
   Component,
@@ -10,13 +14,6 @@ var {
   View,
   NavigatorIOS,
 } = React;
-
-import Login from './FacebookLogin';
-import Homepage from './homepage';
-import UsersShow from './UsersShow';
-import ShelterMap from './shelterMap';
-import UsersEdit from './UsersEdit';
-
 
 class PetProject extends Component {
   onRightButtonPress() {
@@ -33,7 +30,7 @@ class PetProject extends Component {
   }
   render() {
     return (
-        <NavigatorIOS
+      <NavigatorIOS
           ref="nav"
           style={styles.container}
           initialRoute={{
@@ -48,8 +45,7 @@ class PetProject extends Component {
           barTintColor="#183E63"
           titleTextColor="#FFFFFF"
           translucent={true}
-        />
-
+      />
     )
   }
 }

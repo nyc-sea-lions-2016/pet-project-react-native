@@ -1,9 +1,8 @@
-var Button = require('react-native-button');
-var React = require('react-native');
-var UsersShow = require("./UsersShow");
-var PetShow = require('./PetShow');
-var UsersEdit = require('./UsersEdit')
-
+import Button from 'react-native-button';
+import React from 'react-native';
+import UsersShow from "./UsersShow";
+import PetShow from './PetShow';
+import UsersEdit from './UsersEdit';
 import SwipeCards from 'react-native-swipe-cards';
 
 var {
@@ -18,20 +17,27 @@ var {
 } = React;
 
 var REQUEST_URL = 'http://localhost:3000/index.json';
+var REQUEST_ONE_URL = 'http://localhost:3000/one.json';
 var FAVORITE_URL = 'http://localhost:3000/pets.json';
 var PET_URL = 'http://localhost:3000/pets/1.json';
 
 class Card extends Component {
+  componentDidMount(){
+    console.log("component will mount")
+    var pet = this.props.pet
+    this.props.updateCurrentPet(pet)
+  }
   render() {
+    console.log("render")
     return(
       <View
         style={styles.swipeArea}
         >
           <Image
             style={styles.thumbnail}
-            source={{uri: this.props.photos[0].url}}
+            source={{uri: this.props.pet.photos[0].url}}
             />
-          <Text style={styles.name}> {this.props.name} </Text>
+          <Text style={styles.name}> {this.props.pet.name} </Text>
       </View>
     )
   }
@@ -55,7 +61,6 @@ class Homepage extends Component {
   }
   onLikeButtonPress(pet) {
     this.addFavorite(pet);
-
   }
   addFavorite(pet){
     var obj = {
@@ -85,17 +90,32 @@ class Homepage extends Component {
       })
       .done();
   }
+  fetchOne(){
+    fetch(REQUEST_ONE_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          pets: this.state.pets.concat(responseData)
+        });
+      })
+      .done();
+  }
   showDetails(){
     this.setState({detailsClicked: true})
   }
   refreshPage(){
-    console.log("refreshing page")
     this.setState({detailsClicked: false, settingsClicked: false})
   }
   refreshPageWithNewAnimal(){
     this.fetchData()
   }
+  updateCurrentPet(pet){
+    console.log("update homepage state")
+    this.setState({currentPet: pet})
+  }
   render() {
+    console.log("state in the render:")
+    console.log(this.state.currentPet)
     var self = this;
     if (!this.state.loaded){
       return this.renderLoadingView();
@@ -114,17 +134,19 @@ class Homepage extends Component {
         <UsersEdit refreshPage={self.refreshPage.bind(self)}/>
       )
     }
-
     var cardData = self.state.pets
     return (
       <View style={styles.container}>
         <SwipeCards
           cards={cardData}
-          renderCard={(cardData) => <Card {...cardData}/>}
+          renderCard={(singleCard) => {
+            var p = {pet: singleCard, updateCurrentPet: self.updateCurrentPet.bind(self)}
+            return <Card {...p}/>}
+          }
           showYup={true}
           showNope={true}
           handleYup={self.onLikeButtonPress.bind(self)}
-          handleNope={self.fetchData.bind(self)}
+          handleNope={self.fetchOne.bind(self)}
         />
         <View style={styles.likeDislikeButtons}>
           <Button onPress={self.fetchData.bind(self)}>

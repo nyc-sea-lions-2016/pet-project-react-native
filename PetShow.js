@@ -1,7 +1,7 @@
-var Button = require('react-native-button');
-var Swiper = require('react-native-swiper');
-var TableView = require('react-native-tableview-simple');
-var React = require('react-native');
+import Button from 'react-native-button';
+import Swiper from 'react-native-swiper';
+import TableView from 'react-native-tableview-simple';
+import React from 'react-native';
 
 var {
   StyleSheet,
