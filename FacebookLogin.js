@@ -24,6 +24,15 @@ class Login extends Component {
      user: null,
    };
  }
+ addUser(user){
+   var obj = {
+     method: 'POST',
+     body: JSON.stringify({user})
+   }
+  fetch(FAVORITE_URL, obj)
+     .then((response) => this.fetchData())
+     .done();
+ }
   render() {
     var _this = this;
     var user = this.state.user;
@@ -41,6 +50,7 @@ class Login extends Component {
             onLogin={function(data){
               console.log("Logged in!");
               console.log(data);
+              this.addUser()
               _this.setState({ user : data.credentials });
             }}
             onLogout={function(){
@@ -48,24 +58,19 @@ class Login extends Component {
               _this.setState({ user : null });
             }}
             onLoginFound={function(data){
-              console.log("Existing login found.");
-              console.log(data);
               _this.setState({ user : data.credentials });
             }}
             onLoginNotFound={function(){
-              console.log("No user logged in.");
               _this.setState({ user : null });
             }}
             onError={function(data){
               console.log("ERROR");
-              console.log(data);
             }}
             onCancel={function(){
               console.log("User cancelled.");
             }}
             onPermissionsMissing={function(data){
               console.log("Check permissions!");
-              console.log(data);
             }}
           />
         </View>

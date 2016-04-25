@@ -62,10 +62,12 @@
   [FBSDKAppEvents activateApp];
 }
 
-// - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//   [[FBSDKApplicationDelegate sharedInstance] application:application
-//                            didFinishLaunchingWithOptions:launchOptions];
-//   return YES;
+// - (void)viewDidLoad
+// {
+//   [super viewDidLoad];
+//   if ([FBSDKAccessToken currentAccessToken]) {
+//    // User is logged in, do work such as go to next view controller.
+//   }
 // }
 
 - (BOOL)application:(UIApplication *)application

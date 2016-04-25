@@ -37,7 +37,7 @@ class PetProject extends Component {
           ref="nav"
           style={styles.container}
           initialRoute={{
-            component: Homepage,
+            component: Login,
             title: 'Next Best Friend',
             rightButtonTitle: 'Favorites',
             onRightButtonPress: this.onRightButtonPress.bind(this),
