@@ -117,11 +117,32 @@ class PetShow extends Component {
             </View>
           </View>
 
+          <View style={styles.likeDislikeButtons}>
+            <Button onPress={self._handleDislike.bind(self)}>
+              <Image
+                style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
+              />
+            </Button>
+            <Button onPress={self.onLikeButtonPress.bind(self)}>
+              <Image
+                style={styles.buttonImg}
+                source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
+              />
+            </Button>
+          </View>
+          <View style={styles.backButton}>
+            <Button
+              style={{borderWidth: 1, borderColor: 'blue'}}
+              onPress={this._handleBack.bind(self)}>
+              Back
+            </Button>
+          </View>
+
           <ScrollView
             style={styles.details}
             showsVerticalScrollIndicator true
           >
-            <TableView>
+            <ListView>
               <Section header="Details">
               <Cell cellstyle="RightDetail" title="Name" detail={currentPet.name}/>
               <Cell cellstyle="RightDetail" title="Animal" detail={currentPet.animal}/>
@@ -140,7 +161,7 @@ class PetShow extends Component {
               <Cell cellstyle="RightDetail" title="Contact State" detail={currentPet.contact.state}/>
               <Cell cellstyle="RightDetail" title="Contact Zip" detail={currentPet.contact.zip}/>
               </Section>
-            </TableView>
+            </ListView>
           </ScrollView>
         </View>
       );
