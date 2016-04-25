@@ -18,7 +18,12 @@ class ShelterMap extends Component {
     super(props);
     this.state = {
       loaded: false,
-      mapRegion: undefined,
+      mapRegion: {
+        latitude: 40.7230,
+        longitude: -73.985130,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
       mapRegionInput: undefined,
       annotations: [],
       isFirstLoad: true

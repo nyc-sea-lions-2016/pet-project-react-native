@@ -36,6 +36,7 @@ class Card extends Component {
     )
   }
 }
+
 class Homepage extends Component {
   constructor(props){
     super(props);
@@ -73,7 +74,6 @@ class Homepage extends Component {
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
-        // console.log(responseData)
         this.setState({
           currentPet: responseData,
           loaded: true,
@@ -89,7 +89,6 @@ class Homepage extends Component {
     this.setState({detailsClicked: false, settingsClicked: false})
   }
   refreshPageWithNewAnimal(){
-    console.log(this)
     this.fetchData()
   }
   render() {
