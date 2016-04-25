@@ -23,6 +23,7 @@ var PET_URL = 'http://localhost:3000/pets/1.json';
 
 class Card extends Component {
   render() {
+  
     return(
       <View
         style={styles.swipeArea}
@@ -44,6 +45,7 @@ class Homepage extends Component {
       currentPet: null,
       loaded: false,
       detailsClicked: false,
+      pets: []
     }
   }
   onPress() {
@@ -53,7 +55,7 @@ class Homepage extends Component {
     });
   }
   onLikeButtonPress() {
-    this.addFavorite(this.state.currentPet)
+    this.addFavorite(this.state.currentPet);
   }
   addFavorite(pet){
     var obj = {
@@ -74,11 +76,12 @@ class Homepage extends Component {
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData.pet)
+        console.log(responseData)
         this.setState({
-          currentPet: responseData.pet,
+          currentPet: responseData[0],
           loaded: true,
           detailsClicked: false,
+          pets: responseData
         });
       })
       .done();
@@ -112,11 +115,11 @@ class Homepage extends Component {
       )
     }
 
-    var cardData = self.state.currentPet
+    var cardData = self.state.pets
     return (
       <View style={styles.container}>
         <SwipeCards
-          cards={[cardData]}
+          cards={cardData}
           renderCard={(cardData) => <Card {...cardData} />}
           showYup={true}
           showNope={true}
