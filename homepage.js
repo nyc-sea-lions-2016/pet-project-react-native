@@ -22,9 +22,10 @@ var FAVORITE_URL = 'http://localhost:3000/pets.json';
 var PET_URL = 'http://localhost:3000/pets/1.json';
 
 class Card extends Component {
+  componentDidMount(){
+    this.props.mother(this.props)
+  }
   render() {
-    console.log(this)
-    console.log(this.props)
     return(
       <View
         style={styles.swipeArea}
@@ -95,6 +96,9 @@ class Homepage extends Component {
   refreshPageWithNewAnimal(){
     this.fetchData()
   }
+  updateCurrentCard(card){
+    this.setState({current_pet: card})
+  }
   render() {
     var self = this;
     if (!this.state.loaded){
@@ -120,7 +124,7 @@ class Homepage extends Component {
       <View style={styles.container}>
         <SwipeCards
           cards={cardData}
-          renderCard={(cardData) => <Card {...cardData} />}
+          renderCard={(cardData) => <Card {...cardData} mother={self.updateCurrentCard.bind(self)}/>}
           showYup={true}
           showNope={true}
           handleYup={self.onLikeButtonPress.bind(self)}
