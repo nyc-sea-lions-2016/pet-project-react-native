@@ -23,10 +23,6 @@ var PET_URL = 'http://localhost:3000/pets/1.json';
 
 class Card extends Component {
   render() {
-<<<<<<< HEAD
-
-=======
->>>>>>> master
     return(
       <View
         style={styles.swipeArea}
@@ -51,8 +47,6 @@ class Homepage extends Component {
       pets: []
     }
   }
-  onLikeButtonPress() {
-    this.addFavorite(this.state.currentPet);
   onLikeButtonPress(pet) {
     this.addFavorite(pet);
   }
