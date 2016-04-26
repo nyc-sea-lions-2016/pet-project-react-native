@@ -3,6 +3,7 @@ import React from "react-native";
 import Login from './FacebookLogin';
 import UsersShow from './UsersShow';
 import ShelterMap from './shelterMap';
+import Homepage from './homepage';
 import UsersEdit from './UsersEdit';
 
 var {
@@ -33,11 +34,11 @@ export default class PetProject extends Component {
           ref="nav"
           style={styles.container}
           initialRoute={{
-            component: Homepage,
+            component: Login,
             title: 'Next Best Friend',
           }}
           tintColor="#FFFFFF"
-          barTintColor="#183E63"
+          barTintColor="#34495e"
           titleTextColor="#FFFFFF"
           translucent={true}
       />

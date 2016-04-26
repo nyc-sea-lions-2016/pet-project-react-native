@@ -51,7 +51,7 @@ export default class PetShow extends Component {
             <Button onPress={() => Communications.email([`${currentPet.contact_email}`],null,null,`Inquiry about ${currentPet.name}`,`Hi, I found ${currentPet.name} on the app NextBestFriend, and I was hoping I could get some more information about the adoption process. Thanks so much!`)}>
               <Image
                 style={styles.buttonImg}
-                source={{uri: 'https://cdn0.iconfinder.com/data/icons/social-15/200/mail-icon-128.png'}}
+                source={{uri: 'https://cdn.gene.com/assets/frontend/img/icon-share-email.png'}}
               />
             </Button>
             {/*<Button

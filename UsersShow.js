@@ -13,9 +13,7 @@ var {
   TouchableHighlight
 } = React;
 
-var PetShow = require('./PetShow');
-
-var REQUEST_URL = 'http://10.0.2.62:3000/users/show.json';
+var REQUEST_URL = 'http://localhost:3000/users/show.json';
 
 export default class UsersShow extends Component {
    constructor(props) {
@@ -76,7 +74,12 @@ export default class UsersShow extends Component {
    loadAnimalDetails(clickedPet){
      this.setState({clickedPet: clickedPet})
    }
-    renderPet(pet) {
+   deleteFavorite(e){
+     console.log("deleting favorite")
+     console.log(this)
+     console.log(e)
+   }
+   renderPet(pet) {
       var photo = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/rounded-glossy-black-icons-animals/016572-rounded-glossy-black-icon-animals-animal-cat-print.png'
       if (pet.photos.length > 0) {
         photo = pet.photos[0].url
@@ -93,6 +96,7 @@ export default class UsersShow extends Component {
               <Text style={styles.name}>{pet.name}</Text>
               <Text style={styles.contact_city}>{pet.age} {pet.breed}</Text>
             </View>
+            <TouchableHighlight onPress={self.deleteFavorite.bind(self,pet.petfinder_id)}><Text style={styles.deleteFavorite}>x</Text></TouchableHighlight>
           </View>
         </TouchableHighlight>
       );
@@ -127,4 +131,9 @@ var styles = StyleSheet.create({
    paddingTop: 70,
    backgroundColor: '#1abc9c',
   },
+  deleteFavorite: {
+    marginBottom: 70,
+    marginRight: 5,
+    fontSize: 22
+  }
 });
