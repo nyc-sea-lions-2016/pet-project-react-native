@@ -17,25 +17,18 @@ var {
 } = React;
 
 export default class PetShow extends Component {
-  _handleDislike() {
-    this.props.refreshPageWithNewAnimal()
-  }
   _handleBack(){
     this.props.refreshPage()
   }
-  onLikeButtonPress() {
-    this.props.onLikeButtonPress()
-  }
   render() {
     var currentPet = this.props.clickedPet
-    console.log(currentPet.photos)
+    var self = this;
     var image = ''
       if (this.props.clickedPet.url) {
           image = this.props.clickedPet.url
       } else {
           image = this.props.clickedPet.photos[0].url
       };
-    var self = this;
     var images = currentPet.photos.map(function(photo, i){
       return (
         <View style={styles.slide}
@@ -47,8 +40,6 @@ export default class PetShow extends Component {
         </View>
       )
     })
-
-    if (!this.props.favorited){
       return (
         <View style={styles.container}>
           <View style={styles.pictures}>
@@ -57,16 +48,10 @@ export default class PetShow extends Component {
             </Swiper>
           </View>
           <View style={styles.likeDislikeButtons}>
-            <Button onPress={self._handleDislike.bind(self)}>
+            <Button onPress={() => Communications.phonecall(`${currentPet.contact_phone}`, true)}>
               <Image
                 style={styles.buttonImg}
-                source={require('./images/X-Mark.png')}
-              />
-            </Button>
-            <Button onPress={self.onLikeButtonPress.bind(self)}>
-              <Image
-                style={styles.buttonImg}
-                source={require('./images/Heart.png')}
+                source={require('./images/Phone-Booth.png')}
               />
             </Button>
             <Button onPress={() => Communications.email([`${currentPet.contact_email}`],null,null,`Inquiry about ${currentPet.name}`,`Hi, I found ${currentPet.name} on the app NextBestFriend, and I was hoping I could get some more information about the adoption process. Thanks so much!`)}>
@@ -75,21 +60,7 @@ export default class PetShow extends Component {
                 source={require('./images/Mail-Icon.png')}
               />
             </Button>
-            <Button onPress={() => Communications.phonecall(`${currentPet.contact_phone}`, true)}>
-              <Image
-                style={styles.buttonImg}
-                source={require('./images/Phone-Booth.png')}
-              />
-            </Button>
           </View>
-          <View style={styles.backButton}>
-            <Button
-              style={{borderWidth: 1, borderColor: 'blue'}}
-              onPress={this._handleBack.bind(self)}>
-              Back
-            </Button>
-          </View>
-
             <ScrollView
               style={styles.details}
               showsVerticalScrollIndicator true
@@ -113,7 +84,8 @@ export default class PetShow extends Component {
                 <Text style={styles.detailName}>Altered: </Text><Text style={styles.detailContent}>{this.props.clickedPet.altered}</Text>
               </View>
               <View style={styles.detailRow}>
-                <Text style={styles.detailName}>Shots: </Text><Text style={styles.detailContent}>{this.props.clickedPet.shots}</Text>
+                <Text style={styles.detailName}>Shots: </Text>
+                <Text style={styles.detailContent}>{this.props.clickedPet.shots}</Text>
               </View>
               <View style={styles.detailRow}>
                 <Text style={styles.detailName}>Size: </Text><Text style={styles.detailContent}>{this.props.clickedPet.size}</Text>
@@ -122,128 +94,30 @@ export default class PetShow extends Component {
                 <Text style={styles.detailName}>Notes: </Text><Text style={styles.detailContent}>{this.props.clickedPet.special_needs}</Text>
               </View>
               <View style={styles.detailRow}>
-                <Text style={styles.detailName}>Description: </Text><Text style={styles.detailContent}>{this.props.clickedPet.description}</Text>
+                <Text style={styles.detailName}>About: </Text>
+                <Text style={styles.detailContent}>{this.props.clickedPet.description}</Text>
               </View>
               <View style={styles.detailRow}>
-                <Text style={styles.detailName}>Contact Email: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_email}</Text>
+                <Text style={styles.detailName}>Email: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_email}</Text>
               </View>
               <View style={styles.detailRow}>
-                <Text style={styles.detailName}>Contact Phone: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_phone}</Text>
+                <Text style={styles.detailName}>Phone: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_phone}</Text>
               </View>
               <View style={styles.detailRow}>
-                <Text style={styles.detailName}>Contact Address: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_address}</Text>
+                <Text style={styles.detailName}>Address: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_address}</Text>
               </View>
               <View style={styles.detailRow}>
-                <Text style={styles.detailName}>Contact City: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_city}</Text>
+                <Text style={styles.detailName}>City: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_city}</Text>
               </View>
               <View style={styles.detailRow}>
-                <Text style={styles.detailName}>Contact State: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_state}</Text>
+                <Text style={styles.detailName}>State: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_state}</Text>
               </View>
               <View style={styles.detailRow}>
-                <Text style={styles.detailName}>Contact Zip: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_zip}</Text>
+                <Text style={styles.detailName}>Zip Code: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_zip}</Text>
               </View>
             </ScrollView>
         </View>
       );
-    } else if (this.props.favorited) {
-      return (
-        <View style={styles.container}>
-          <View style={styles.pictures}>
-            <Swiper>
-                {images}
-            </Swiper>
-          </View>
-          <View style={styles.likeDislikeButtons}>
-            <Button onPress={self._handleDislike.bind(self)}>
-              <Image
-                style={styles.buttonImg}
-                source={require('./images/X-Mark.png')}
-              />
-            </Button>
-            <Button onPress={self.onLikeButtonPress.bind(self)}>
-              <Image
-                style={styles.buttonImg}
-                source={require('./images/Heart.png')}
-              />
-            </Button>
-            <Button>
-              <Image
-                style={styles.buttonImg}
-                source={require('./images/Mail-Icon.png')}
-              />
-            </Button>
-            <Button onPress={() => Communications.phonecall(`${currentPet.contact_phone}`, true)}>
-              <Image
-                style={styles.buttonImg}
-                source={require('./images/Phone-Booth.png')}
-              />
-            </Button>
-          </View>
-          <View style={styles.backButton}>
-            <Button
-              style={{borderWidth: 1, borderColor: 'blue'}}
-              onPress={this._handleBack.bind(self)}>
-              Back
-            </Button>
-          </View>
-
-          <ScrollView
-            style={styles.details}
-            showsVerticalScrollIndicator true
-          >
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Name: </Text><Text style={styles.detailContent}>{this.props.clickedPet.name}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Animal: </Text><Text style={styles.detailContent}>{this.props.clickedPet.animal}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Age: </Text><Text style={styles.detailContent}>{this.props.clickedPet.age}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Gender: </Text><Text style={styles.detailContent}>{this.props.clickedPet.gender}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Breed: </Text><Text style={styles.detailContent}>{this.props.clickedPet.breed}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Altered: </Text><Text style={styles.detailContent}>{this.props.clickedPet.altered}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Shots: </Text><Text style={styles.detailContent}>{this.props.clickedPet.shots}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Size: </Text><Text style={styles.detailContent}>{this.props.clickedPet.size}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Notes: </Text><Text style={styles.detailContent}>{this.props.clickedPet.special_needs}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Description: </Text><Text style={styles.detailContent}>{this.props.clickedPet.description}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Contact Email: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_email}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Contact Phone: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_phone}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Contact Address: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_address}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Contact City: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_city}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Contact State: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_state}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailName}>Contact Zip: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_zip}</Text>
-          </View>
-          </ScrollView>
-        </View>
-      );
-    }
-
     }
 };
 
@@ -253,27 +127,37 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#1abc9c',
   },
   pictures: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    marginTop: 150,
   },
   buttonImg: {
     width: 50,
     height: 50,
-    margin: 20,
+    marginRight: 10,
+    marginLeft: 10
   },
   likeDislikeButtons: {
-    flexDirection: 'row'
+    marginTop: 78,
+    flexDirection: 'row',
   },
   backButton: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     height: 25,
+  },
+  name: {
+    marginTop: 5,
+    marginBottom: 5,
+    fontSize: 22,
+  },
+  description: {
+    fontSize: 14,
   },
   slide: {
     flex: 1,
@@ -284,21 +168,29 @@ var styles = StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     flexDirection: 'column',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#1abc9c',
     paddingHorizontal: 7,
   },
   detailRow: {
     alignItems: 'stretch',
+    backgroundColor:'#16a085',
+    marginBottom: 2,
   },
   detailName: {
     flex: 1,
     justifyContent: 'flex-start',
     fontWeight: 'bold',
-    textDecorationLine: 'underline',
     paddingVertical: 7,
+    color: 'white',
+    fontSize: 14,
+    width: 70,
+
   },
   detailContent: {
     flex: 1,
+    color: 'white',
+    marginLeft: 75,
+    marginTop: -25
   },
   text: {
     color: '#fff',

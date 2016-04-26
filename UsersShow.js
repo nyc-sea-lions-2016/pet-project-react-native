@@ -13,13 +13,15 @@ var {
   TouchableHighlight
 } = React;
 
-var REQUEST_URL = 'http://10.0.2.62:3000/users/show.json';
+var REQUEST_URL = 'http://localhost:3000/users/show.json';
+var DELETE_FAVORITE_URL = 'http://localhost:3000/pets/';
+
 
 export default class UsersShow extends Component {
    constructor(props) {
     super(props);
     this.state = {
-      dataSource: new ListView.DataSource({
+      emptyDataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
@@ -35,8 +37,9 @@ export default class UsersShow extends Component {
       .then((responseData) => {
         console.log("the data:")
         console.log(responseData)
+        this.setState({ favoritePets: responseData })
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData),
+          dataSource: this.state.emptyDataSource.cloneWithRows(responseData),
           loaded: true,
           clickedPet:undefined
         });
@@ -74,8 +77,21 @@ export default class UsersShow extends Component {
    loadAnimalDetails(clickedPet){
      this.setState({clickedPet: clickedPet})
    }
-    renderPet(pet) {
-      var photo = require('./images/Cat-Print.png')
+   deleteFavorite(petID){
+     console.log("deleting favorite")
+     var filteredPets = this.state.favoritePets.filter((pet) => pet.id != petID)
+     console.log('filtered', filteredPets);
+     var obj = {
+       method: 'DELETE',
+       body: JSON.stringify({petID})
+     }
+     fetch(DELETE_FAVORITE_URL + petID, obj)
+       .then((response) =>{
+        this.setState({favoritePets: filteredPets, dataSource: this.state.emptyDataSource.cloneWithRows(filteredPets)});
+      });
+   }
+   renderPet(pet) {
+     var photo = require('./images/Cat-Print.png')
       if (pet.photos.length > 0) {
         photo = pet.photos[0].url
       }
@@ -91,6 +107,7 @@ export default class UsersShow extends Component {
               <Text style={styles.name}>{pet.name}</Text>
               <Text style={styles.contact_city}>{pet.age} {pet.breed}</Text>
             </View>
+            <TouchableHighlight onPress={self.deleteFavorite.bind(self,pet.id)}><Text style={styles.deleteFavorite}>x</Text></TouchableHighlight>
           </View>
         </TouchableHighlight>
       );
@@ -125,4 +142,9 @@ var styles = StyleSheet.create({
    paddingTop: 70,
    backgroundColor: '#1abc9c',
   },
+  deleteFavorite: {
+    marginBottom: 70,
+    marginRight: 5,
+    fontSize: 22
+  }
 });
