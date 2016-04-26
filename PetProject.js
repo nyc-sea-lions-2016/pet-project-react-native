@@ -34,12 +34,8 @@ export default class PetProject extends Component {
           ref="nav"
           style={styles.container}
           initialRoute={{
-            component: Homepage,
+            component: Login,
             title: 'Next Best Friend',
-            rightButtonTitle: 'Favorites',
-            onRightButtonPress: this.onRightButtonPress.bind(this),
-            leftButtonTitle: 'Map',
-            onLeftButtonPress: this.onLeftButtonPress.bind(this),
           }}
           tintColor="#FFFFFF"
           barTintColor="#183E63"

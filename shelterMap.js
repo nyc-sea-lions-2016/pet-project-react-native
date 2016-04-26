@@ -19,19 +19,25 @@ export default class ShelterMap extends Component {
     this.state = {
       loaded: false,
       mapRegion: {
-        latitude: 40.7230,
-        longitude: -73.985130,
+        latitude: null,
+        longitude: null,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
       mapRegionInput: undefined,
       annotations: [],
-      isFirstLoad: true
+      isFirstLoad: true,
+      initialPosition: undefined
     };
   }
   componentDidMount() {
       this.fetchData();
-    }
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          var initialPosition = JSON.stringify(position);
+          this.setState({initialPosition});
+    })
+  }
   fetchData() {
     fetch(SHELTER_INFO)
       .then((response) => response.json())
@@ -77,12 +83,16 @@ export default class ShelterMap extends Component {
           <MapView
             style={styles.map}
             showsUserLocation={true}
-            followUserLocation={true}
+            followUserLocation={false}
             onRegionChange={self._onRegionChange.bind(self)}
             onRegionChangeComplete={self._onRegionChangeComplete.bind(self)}
             region={this.state.mapRegion}
             annotations={this.state.annotations}
           />
+        <Text>
+          <Text style={styles.title}>Initial position: </Text>
+            {this.state.initialPosition}
+        </Text>
        </View>
      );
    }
