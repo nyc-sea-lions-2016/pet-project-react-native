@@ -83,12 +83,13 @@ export default class Login extends Component {
     var user = this.state.currentUser;
 
     return (
-      <View style={styles.background}>
-        <Image
-        source={require('./images/Dogs-Gif.gif')}
-               style={styles.backgroundImage}
-        />
-
+      <View style={{flex: 1}}>
+        <View style= {styles.background}>
+          <Image
+          source={require('./images/Dogs-Gif.gif')}
+                 style={styles.backgroundImage}
+          />
+        </View>
         <View style={styles.loginContainer}>
 
           <FBLogin style={{ marginBottom: 10, }}
@@ -102,7 +103,7 @@ export default class Login extends Component {
               _this.setState({ user : null });
             }}
             onLoginFound={function(data){
-              _this.createUser(data)
+              // _this.createUser(data)
               _this.setState({ user : data.credentials });
             }}
             onLoginNotFound={function(){
@@ -128,7 +129,6 @@ export default class Login extends Component {
 var styles = StyleSheet.create({
   loginContainer: {
     marginTop: 150,
-
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -139,26 +139,13 @@ var styles = StyleSheet.create({
   },
   background: {
     position: 'absolute',
-    top: 0,
     left: 0,
+    top: 0,
     right: 0,
     bottom: 0,
   },
   backgroundImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
     flex: 1,
-    resizeMode: 'cover'
-  },
-  buttonText: {
-    fontSize: 20,
-    fontFamily: 'Gill Sans',
-    textAlign: 'center',
-    color: '#ffffff',
-    margin: 10,
-    opacity: 0.8,
+    alignItems: 'stretch',
   },
 });
