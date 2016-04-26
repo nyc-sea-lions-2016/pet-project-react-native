@@ -76,8 +76,6 @@ export default class Homepage extends Component {
     this.addFavorite(pet);
   }
   addFavorite(pet){
-    console.log("Adding favorite")
-    console.log(pet)
     var obj = {
       method: 'POST',
       body: JSON.stringify({pet})
