@@ -5,7 +5,7 @@ import Video from 'react-native-video';
 import UsersShow from './UsersShow';
 import ShelterMap from './shelterMap';
 import UsersEdit from './UsersEdit';
-import Homepage from './Homepage';
+import Homepage from './homepage';
 
 var {
   StyleSheet,
@@ -80,14 +80,7 @@ export default class Login extends Component {
               _this.setState({ user : null });
             }}
             onLoginFound={function(data){
-              _this.props.navigator.push({
-                title: "Next Best Friend",
-                component: Homepage,
-                rightButtonTitle: 'Favorites',
-                onRightButtonPress: _this.onRightButtonPress.bind(_this),
-                leftButtonTitle: 'Map',
-                onLeftButtonPress: _this.onLeftButtonPress.bind(_this),
-              })
+              
               _this.setState({ user : data.credentials });
             }}
             onLoginNotFound={function(){

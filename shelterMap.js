@@ -19,14 +19,12 @@ export default class ShelterMap extends Component {
    constructor(props) {
     super(props);
     this.state = {
-      loaded: false,
-      mapRegion: {
-        longitude: "",
-        latitude: "",
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+      region: {
+        longitude: 0,
+        latitude: 0,
+        // latitudeDelta: 0.0922,
+        // longitudeDelta: 0.0421,
       },
-      initialPosition: "unknown",
       mapRegionInput: undefined,
       annotations: [],
       isFirstLoad: true,
@@ -36,32 +34,21 @@ export default class ShelterMap extends Component {
     this.fetchData()
     navigator.geolocation.getCurrentPosition(
     (position) => {
-      var longit = parseFloat(JSON.stringify(position["coords"]["longitude"]))
-      var lat = parseFloat(JSON.stringify(position["coords"]["latitude"]))
-      this.setState({mapRegion: {longitude: longit, latitude: lat}})
-      var location = {
-        latitude: lat,
-        longitude: longit
-      }
-      RNGeocoder.reverseGeocodeLocation(location, (err, data) => {
-        if (err) {
-          return;
-        }
-        console.log(data);
-      });
-      // this.sendUserLocation(data)
-    },
-    (error) => alert(error.message),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      var longit = parseFloat(JSON.stringify(position["coords"]["longitude"]));
+      var lat = parseFloat(JSON.stringify(position["coords"]["latitude"]));
+      this.setState({region: {longitude: longit, latitude: lat}});
+      },
+      (error) => alert(error.message),
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
   }
-
+    // this.sendUserLocation(data)
   sendUserLocation(location){
     var obj = {
       method: 'get',
       body: JSON.stringify({location})
     }
-   fetch(ZIP_CODE, obj)
+    fetch(ZIP_CODE, obj)
      .then((response) => response.json())
      .done();
   }
@@ -69,36 +56,36 @@ export default class ShelterMap extends Component {
     fetch(SHELTER_INFO)
       .then((response) => response.json())
       .then((responseData) => {
+        parsed = responseData.map(function(item){
+          return {title: item.title,
+                  longitude: Number.parseFloat(item.longitude),
+                  latitude: Number.parseFloat(item.latitude) }
+        })
         this.setState({
-          shelterInfo: responseData,
+          shelterInfo: parsed,
           loaded: true,
         });
       })
       .done();
   }
-  _getAnnotations(region){
-    return(this.state.shelterInfo)
-  }
-  _onRegionChange(region){
+  // _getAnnotations(region) {
+  //   return(this.state.shelterInfo)
+  // }
+
+  _onRegionChange(region) {
     this.setState({
       mapRegionInput: region,
-    })
+    });
   }
-  _onRegionChangeComplete(region){
-    if(this.state.isFirstLoad){
+
+  _onRegionChangeComplete(region) {
+    if (this.state.isFirstLoad) {
       this.setState({
         mapRegionInput: region,
-        annotations: this._getAnnotations(region),
-        isFirstLoad: false
-      })
+        annotations: this.state.shelterInfo,
+        isFirstLoad: false,
+      });
     }
-  }
-  _onRegionInputChanged(region){
-    this.setState({
-      mapRegion: region,
-      mapRegionInput: region,
-      annotations: this._getAnnotations(region)
-    })
   }
   render() {
      if (!this.state.loaded) {
@@ -110,11 +97,11 @@ export default class ShelterMap extends Component {
           <MapView
             style={styles.map}
             showsUserLocation={true}
-            followUserLocation={false}
+            followUserLocation={true}
             onRegionChange={self._onRegionChange.bind(self)}
             onRegionChangeComplete={self._onRegionChangeComplete.bind(self)}
-            region={this.state.mapRegion}
-            annotations={this.state.annotations}
+            region={this.state.region}
+            annotations={this.state.shelterInfo}
           />
        </View>
      );
@@ -140,5 +127,5 @@ export default class ShelterMap extends Component {
    map: {
      width: 500,
      height: 800
-   }
+   },
  })
