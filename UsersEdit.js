@@ -1,6 +1,5 @@
-var Button = require('react-native-button');
-var TableView = require('react-native-tableview-simple');
-var React = require('react-native');
+import Button from 'react-native-button';
+import React from'react-native';
 
 var {
   StyleSheet,
@@ -14,23 +13,17 @@ var {
   TouchableHighlight
 } = React;
 
-var {
-  Cell,
-  Section,
-  TableView,
-} = TableView;
-
 var USER_INFO = 'http://localhost:3000/users/1/edit.json';
 var USER_UPDATE = 'http://localhost:3000/users/1.json'
 
-class UsersEdit extends Component {
+export default class UsersEdit extends Component {
    constructor(props) {
     super(props);
     this.state = {};
   }
   componentDidMount() {
       this.fetchData();
-    }
+  }
   fetchData() {
     fetch(USER_INFO)
       .then((response) => response.json())
@@ -173,5 +166,3 @@ class UsersEdit extends Component {
      fontSize: 18,
    }
  })
-
-module.exports = UsersEdit;
