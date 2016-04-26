@@ -34,7 +34,7 @@ export default class PetProject extends Component {
           ref="nav"
           style={styles.container}
           initialRoute={{
-            component: Login,
+            component: Homepage,
             title: 'Next Best Friend',
           }}
           tintColor="#FFFFFF"
