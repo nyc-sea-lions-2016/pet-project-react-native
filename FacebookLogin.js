@@ -80,7 +80,14 @@ class Login extends Component {
               _this.setState({ user : null });
             }}
             onLoginFound={function(data){
-
+              _this.props.navigator.push({
+                title: "Next Best Friend",
+                component: Homepage,
+                rightButtonTitle: 'Favorites',
+                onRightButtonPress: _this.onRightButtonPress.bind(_this),
+                leftButtonTitle: 'Map',
+                onLeftButtonPress: _this.onLeftButtonPress.bind(_this),
+              })
               _this.setState({ user : data.credentials });
             }}
             onLoginNotFound={function(){

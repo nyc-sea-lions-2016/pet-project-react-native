@@ -12,6 +12,8 @@ var {
 } = React;
 
 var SHELTER_INFO = 'http://localhost:3000/shelters.json';
+var ZIP_CODE = 'http://localhost:3000/shelters/zip_code.json';
+var RNGeocoder = require('react-native-geocoder');
 
 class ShelterMap extends Component {
    constructor(props) {
@@ -19,24 +21,49 @@ class ShelterMap extends Component {
     this.state = {
       loaded: false,
       mapRegion: {
-        latitude: null,
-        longitude: null,
+        longitude: "",
+        latitude: "",
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
+      initialPosition: "unknown",
       mapRegionInput: undefined,
       annotations: [],
       isFirstLoad: true,
-      initialPosition: undefined
     };
   }
   componentDidMount() {
-      this.fetchData();
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          var initialPosition = JSON.stringify(position);
-          this.setState({initialPosition});
-    })
+    this.fetchData()
+    navigator.geolocation.getCurrentPosition(
+    (position) => {
+      var longit = parseFloat(JSON.stringify(position["coords"]["longitude"]))
+      var lat = parseFloat(JSON.stringify(position["coords"]["latitude"]))
+      this.setState({mapRegion: {longitude: longit, latitude: lat}})
+      var location = {
+        latitude: lat,
+        longitude: longit
+      }
+      RNGeocoder.reverseGeocodeLocation(location, (err, data) => {
+        if (err) {
+          return;
+        }
+        console.log(data);
+      });
+      this.sendUserLocation(data)
+    },
+    (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
+
+  sendUserLocation(location){
+    var obj = {
+      method: 'get',
+      body: JSON.stringify({location})
+    }
+   fetch(ZIP_CODE, obj)
+     .then((response) => response.json())
+     .done();
   }
   fetchData() {
     fetch(SHELTER_INFO)
@@ -89,10 +116,6 @@ class ShelterMap extends Component {
             region={this.state.mapRegion}
             annotations={this.state.annotations}
           />
-        <Text>
-          <Text style={styles.title}>Initial position: </Text>
-            {this.state.initialPosition}
-        </Text>
        </View>
      );
    }

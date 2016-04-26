@@ -10,6 +10,7 @@
     "react-native": "^0.24.1",
     "react-native-button": "^1.4.2",
     "react-native-facebook-login": "^1.0.3",
+    "react-native-geocoder": "^0.3.1",
     "react-native-swipe-cards": "0.0.7",
     "react-native-swiper": "^1.4.3",
     "react-native-tableview": "^1.5.0",
