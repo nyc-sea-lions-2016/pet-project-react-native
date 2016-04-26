@@ -59,20 +59,26 @@ export default class PetShow extends Component {
           <View style={styles.likeDislikeButtons}>
             <Button onPress={self._handleDislike.bind(self)}>
               <Image
-                style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
+                style={styles.buttonImg}
+                source={require('./images/X-Mark.png')}
               />
             </Button>
             <Button onPress={self.onLikeButtonPress.bind(self)}>
               <Image
                 style={styles.buttonImg}
-                source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
+                source={require('./images/Heart.png')}
               />
             </Button>
             <Button onPress={() => Communications.email([`${currentPet.contact_email}`],null,null,`Inquiry about ${currentPet.name}`,`Hi, I found ${currentPet.name} on the app NextBestFriend, and I was hoping I could get some more information about the adoption process. Thanks so much!`)}>
               <Image
                 style={styles.buttonImg}
-                source={{uri: 'https://cdn0.iconfinder.com/data/icons/social-15/200/mail-icon-128.png'}}
-                // {this.props.currentPet.contact_email}
+                source={require('./images/Mail-Icon.png')}
+              />
+            </Button>
+            <Button onPress={() => Communications.phonecall(`${currentPet.contact_phone}`, true)}>
+              <Image
+                style={styles.buttonImg}
+                source={require('./images/Phone-Booth.png')}
               />
             </Button>
           </View>
@@ -157,20 +163,26 @@ export default class PetShow extends Component {
           <View style={styles.likeDislikeButtons}>
             <Button onPress={self._handleDislike.bind(self)}>
               <Image
-                style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
+                style={styles.buttonImg}
+                source={require('./images/X-Mark.png')}
               />
             </Button>
             <Button onPress={self.onLikeButtonPress.bind(self)}>
               <Image
                 style={styles.buttonImg}
-                source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
+                source={require('./images/Heart.png')}
               />
             </Button>
             <Button>
               <Image
                 style={styles.buttonImg}
-                source={{uri: 'https://cdn0.iconfinder.com/data/icons/social-15/200/mail-icon-128.png'}}
-                // {this.props.currentPet.contact_email}
+                source={require('./images/Mail-Icon.png')}
+              />
+            </Button>
+            <Button onPress={() => Communications.phonecall(`${currentPet.contact_phone}`, true)}>
+              <Image
+                style={styles.buttonImg}
+                source={require('./images/Phone-Booth.png')}
               />
             </Button>
           </View>
