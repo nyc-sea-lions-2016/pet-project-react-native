@@ -1,9 +1,9 @@
 import Button from 'react-native-button';
-import React from 'react-native';
 import UsersShow from "./UsersShow";
 import PetShow from './PetShow';
 import UsersEdit from './UsersEdit';
 import SwipeCards from 'react-native-swipe-cards';
+import React from 'react-native';
 
 var {
   StyleSheet,
@@ -23,26 +23,29 @@ var PET_URL = 'http://localhost:3000/pets/1.json';
 
 export default class Card extends Component {
   componentDidMount(){
-    console.log("component will mount")
+    console.log("component did mount")
     var pet = this.props.pet
     this.props.updateCurrentPet(pet)
   }
+  selectAnimal(){
+    var pet = this.props.pet
+    this.props.showAnimalDetails(pet)
+  }
   render() {
-<<<<<<< HEAD
-    console.log("render")
-=======
-
->>>>>>> master
+    var self = this
     return(
+      <TouchableHighlight onPress={self.selectAnimal.bind(self)}>
       <View
         style={styles.swipeArea}
-        >
+      >
           <Image
             style={styles.thumbnail}
             source={{uri: this.props.pet.photos[0].url}}
             />
           <Text style={styles.name}> {this.props.pet.name} </Text>
+          <Text style={styles.description}> {this.props.pet.age} {this.props.pet.breed} </Text>
       </View>
+      </TouchableHighlight>
     )
   }
 }
@@ -111,6 +114,9 @@ export default class Homepage extends Component {
     console.log("update homepage state")
     this.setState({currentPet: pet})
   }
+  showAnimalDetails(pet){
+    this.setState({detailsClicked: true, currentPet: pet})
+  }
   render() {
     console.log("state in the render:")
     console.log(this.state.currentPet)
@@ -137,14 +143,13 @@ export default class Homepage extends Component {
       <View style={styles.container}>
         <SwipeCards
           cards={cardData}
-<<<<<<< HEAD
           renderCard={(singleCard) => {
-            var p = {pet: singleCard, updateCurrentPet: self.updateCurrentPet.bind(self)}
+            var p = {
+              pet: singleCard,
+              updateCurrentPet: self.updateCurrentPet.bind(self), 
+              showAnimalDetails: self.showAnimalDetails.bind(self)}
             return <Card {...p}/>}
           }
-=======
-          renderCard={(cardData) => <Card {...cardData} />}
->>>>>>> master
           showYup={true}
           showNope={true}
           handleYup={self.onLikeButtonPress.bind(self)}
@@ -235,5 +240,8 @@ var styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     fontSize: 22,
+  },
+  description: {
+    fontSize: 14,
   }
-  });
+});
