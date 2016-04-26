@@ -1,6 +1,6 @@
 import Button from 'react-native-button';
-import React from 'react-native';
 import PetShow from './PetShow';
+import React from 'react-native';
 
 var {
   StyleSheet,
@@ -104,7 +104,6 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ecf0f1',
     margin: 5,
-    borderRadius: 10
   },
   rightContainer: {
     flex: 1,
@@ -121,7 +120,6 @@ var styles = StyleSheet.create({
   thumbnail: {
    width: 120,
    height: 100,
-   borderRadius: 10
   },
   listView: {
    paddingTop: 70,

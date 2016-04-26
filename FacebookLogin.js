@@ -1,11 +1,11 @@
 'use strict';
-import React from 'react-native';
 import FBLogin from 'react-native-facebook-login';
 import Video from 'react-native-video';
 import UsersShow from './UsersShow';
 import ShelterMap from './shelterMap';
 import UsersEdit from './UsersEdit';
 import Homepage from './homepage';
+import React from 'react-native';
 
 var {
   StyleSheet,
@@ -80,7 +80,7 @@ export default class Login extends Component {
               _this.setState({ user : null });
             }}
             onLoginFound={function(data){
-              
+
               _this.setState({ user : data.credentials });
             }}
             onLoginNotFound={function(){
