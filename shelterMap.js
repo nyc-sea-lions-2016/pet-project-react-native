@@ -1,4 +1,4 @@
-var React = require('react-native');
+import React from 'react-native';
 
 var {
   StyleSheet,
@@ -13,7 +13,7 @@ var {
 
 var SHELTER_INFO = 'http://localhost:3000/shelters.json';
 
-class ShelterMap extends Component {
+export default class ShelterMap extends Component {
    constructor(props) {
     super(props);
     this.state = {
@@ -109,5 +109,3 @@ class ShelterMap extends Component {
      height: 800
    }
  })
-
-module.exports = ShelterMap;

@@ -1,6 +1,6 @@
-var Button = require('react-native-button');
-var React = require('react-native');
-var PetShow = require('./PetShow');
+import Button from 'react-native-button';
+import React from 'react-native';
+import PetShow from './PetShow';
 
 var {
   StyleSheet,
@@ -13,10 +13,9 @@ var {
   TouchableHighlight
 } = React;
 
-
 var REQUEST_URL = 'http://localhost:3000/users/show.json';
 
-class UsersShow extends Component {
+export default class UsersShow extends Component {
    constructor(props) {
     super(props);
     this.state = {
@@ -34,6 +33,7 @@ class UsersShow extends Component {
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
+        console.log("the data:")
         console.log(responseData)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData),
@@ -128,5 +128,3 @@ var styles = StyleSheet.create({
    backgroundColor: '#1abc9c',
   },
 });
-
-  module.exports = UsersShow;

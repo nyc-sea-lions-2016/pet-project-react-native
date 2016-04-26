@@ -1,6 +1,5 @@
 import Button from 'react-native-button';
 import Swiper from 'react-native-swiper';
-import TableView from 'react-native-tableview-simple';
 import React from 'react-native';
 
 var {
@@ -15,14 +14,7 @@ var {
   TouchableHighlight,
 } = React;
 
-var {
-  Cell,
-  Section,
-  TableView,
-} = TableView;
-
-
-class PetShow extends Component {
+export default class PetShow extends Component {
   _handleDislike() {
     this.props.refreshPageWithNewAnimal()
   }
@@ -34,6 +26,7 @@ class PetShow extends Component {
   }
   render() {
     var currentPet = this.props.clickedPet
+    console.log(currentPet.photos)
     var image = ''
       if (this.props.clickedPet.url) {
           image = this.props.clickedPet.url
@@ -41,25 +34,28 @@ class PetShow extends Component {
           image = this.props.clickedPet.photos[0].url
       };
     var self = this;
+    var images = currentPet.photos.map(function(photo, i){
+      return (
+        <View style={styles.slide}>
+          <Image
+            style={styles.thumbnail}
+            source={{uri: photo.url}}
+          />
+        </View>
+      )
+    })
+    console.log(images)
 
     if (this.props.favorited == false){
       return (
         <View style={styles.container}>
           <View style={styles.pictures}>
-            <View style={styles.slide1}>
-              <Image
-                style={styles.thumbnail}
-                source={{uri: image}}
-              />
-            </View>
-            <View style={styles.slide2}>
-              <Text style={styles.text}>Second image</Text>
-            </View>
-            <View style={styles.slide3}>
-              <Text style={styles.text}>Third Image</Text>
-            </View>
+            <Swiper>
+              <View>
+                {images}
+              </View>
+            </Swiper>
           </View>
-
           <View style={styles.likeDislikeButtons}>
             <Button onPress={self._handleDislike.bind(self)}>
               <Image
@@ -85,20 +81,54 @@ class PetShow extends Component {
               style={styles.details}
               showsVerticalScrollIndicator true
             >
-              <TableView>
-                <Section header="Details">
-                <Cell cellstyle="RightDetail" title="Name" detail={currentPet.name}/>
-                <Cell cellstyle="RightDetail" title="Animal" detail={currentPet.animal}/>
-                <Cell cellstyle="RightDetail" title="Age" detail={currentPet.age}/>
-                <Cell cellstyle="RightDetail" title="Breed" detail={currentPet.breed}/>
-                <Cell cellstyle="RightDetail" title="Altered?" detail={currentPet.altered}/>
-                <Cell cellstyle="RightDetail" title="Gender" detail={currentPet.gender}/>
-                <Cell cellstyle="RightDetail" title="Shots?" detail={currentPet.shots}/>
-                <Cell cellstyle="RightDetail" title="Size" detail={currentPet.size}/>
-                <Cell cellstyle="RightDetail" title="Notes" detail={currentPet.special_needs}/>
-                <Cell cellstyle="RightDetail" title="Description" detail={currentPet.description}/>
-                </Section>
-              </TableView>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Name: </Text><Text style={styles.detailContent}>{this.props.clickedPet.name}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Animal: </Text><Text style={styles.detailContent}>{this.props.clickedPet.animal}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Age: </Text><Text style={styles.detailContent}>{this.props.clickedPet.age}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Gender: </Text><Text style={styles.detailContent}>{this.props.clickedPet.gender}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Breed: </Text><Text style={styles.detailContent}>{this.props.clickedPet.breed}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Altered: </Text><Text style={styles.detailContent}>{this.props.clickedPet.altered}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Shots: </Text><Text style={styles.detailContent}>{this.props.clickedPet.shots}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Size: </Text><Text style={styles.detailContent}>{this.props.clickedPet.size}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Notes: </Text><Text style={styles.detailContent}>{this.props.clickedPet.special_needs}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Description: </Text><Text style={styles.detailContent}>{this.props.clickedPet.description}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Contact Email: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_email}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Contact Phone: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_phone}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Contact Address: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_address}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Contact City: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_city}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Contact State: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_state}</Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailName}>Contact Zip: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_zip}</Text>
+              </View>
             </ScrollView>
         </View>
       );
@@ -115,34 +145,85 @@ class PetShow extends Component {
             <View style={styles.slide2}>
               <Text style={styles.text}>Second image</Text>
             </View>
-            <View style={styles.slide3}>
-              <Text style={styles.text}>Third Image</Text>
-            </View>
+          </View>
+
+          <View style={styles.likeDislikeButtons}>
+            <Button onPress={self._handleDislike.bind(self)}>
+              <Image
+                style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
+              />
+            </Button>
+            <Button onPress={self.onLikeButtonPress.bind(self)}>
+              <Image
+                style={styles.buttonImg}
+                source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
+              />
+            </Button>
+          </View>
+          <View style={styles.backButton}>
+            <Button
+              style={{borderWidth: 1, borderColor: 'blue'}}
+              onPress={this._handleBack.bind(self)}>
+              Back
+            </Button>
           </View>
 
           <ScrollView
             style={styles.details}
             showsVerticalScrollIndicator true
           >
-            <TableView>
-              <Section header="Details">
-              <Cell cellstyle="RightDetail" title="Name" detail={currentPet.name}/>
-              <Cell cellstyle="RightDetail" title="Animal" detail={currentPet.animal}/>
-              <Cell cellstyle="RightDetail" title="Age" detail={currentPet.age}/>
-              <Cell cellstyle="RightDetail" title="Breed" detail={currentPet.breed}/>
-              <Cell cellstyle="RightDetail" title="Altered?" detail={currentPet.altered}/>
-              <Cell cellstyle="RightDetail" title="Gender" detail={currentPet.gender}/>
-              <Cell cellstyle="RightDetail" title="Shots?" detail={currentPet.shots}/>
-              <Cell cellstyle="RightDetail" title="Size" detail={currentPet.size}/>
-              <Cell cellstyle="RightDetail" title="Notes" detail={currentPet.special_needs}/>
-              <Cell cellstyle="RightDetail" title="Description" detail={currentPet.description}/>
-              </Section>
-            </TableView>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Name: </Text><Text style={styles.detailContent}>{this.props.clickedPet.name}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Animal: </Text><Text style={styles.detailContent}>{this.props.clickedPet.animal}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Age: </Text><Text style={styles.detailContent}>{this.props.clickedPet.age}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Gender: </Text><Text style={styles.detailContent}>{this.props.clickedPet.gender}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Breed: </Text><Text style={styles.detailContent}>{this.props.clickedPet.breed}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Altered: </Text><Text style={styles.detailContent}>{this.props.clickedPet.altered}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Shots: </Text><Text style={styles.detailContent}>{this.props.clickedPet.shots}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Size: </Text><Text style={styles.detailContent}>{this.props.clickedPet.size}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Notes: </Text><Text style={styles.detailContent}>{this.props.clickedPet.special_needs}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Description: </Text><Text style={styles.detailContent}>{this.props.clickedPet.description}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Contact Email: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_email}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Contact Phone: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_phone}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Contact Address: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_address}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Contact City: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_city}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Contact State: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_state}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailName}>Contact Zip: </Text><Text style={styles.detailContent}>{this.props.clickedPet.contact_zip}</Text>
+          </View>
           </ScrollView>
         </View>
       );
     }
-
 
     }
 };
@@ -175,23 +256,10 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     height: 25,
   },
-  slide1: {
+  slide: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#9DD6EB',
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9',
   },
   details: {
     flex: 1,
@@ -200,10 +268,18 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
     paddingHorizontal: 7,
   },
+  detailRow: {
+    alignItems: 'stretch',
+  },
   detailName: {
+    flex: 1,
+    justifyContent: 'flex-start',
     fontWeight: 'bold',
     textDecorationLine: 'underline',
     paddingVertical: 7,
+  },
+  detailContent: {
+    flex: 1,
   },
   text: {
     color: '#fff',
@@ -215,5 +291,3 @@ var styles = StyleSheet.create({
     height: 350,
   }
 })
-
-module.exports = PetShow;

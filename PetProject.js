@@ -15,7 +15,7 @@ var {
   NavigatorIOS,
 } = React;
 
-class PetProject extends Component {
+export default class PetProject extends Component {
   onRightButtonPress() {
     this.refs.nav.push({
         title: 'Favorites',
@@ -56,5 +56,3 @@ var styles = StyleSheet.create({
     backgroundColor: '#000000',
   },
 })
-
-module.exports = PetProject;

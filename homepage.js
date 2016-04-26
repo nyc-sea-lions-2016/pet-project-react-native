@@ -21,7 +21,7 @@ var REQUEST_ONE_URL = 'http://localhost:3000/one.json';
 var FAVORITE_URL = 'http://localhost:3000/pets.json';
 var PET_URL = 'http://localhost:3000/pets/1.json';
 
-class Card extends Component {
+export default class Card extends Component {
   componentDidMount(){
     console.log("component will mount")
     var pet = this.props.pet
@@ -43,7 +43,7 @@ class Card extends Component {
   }
 }
 
-class Homepage extends Component {
+export default class Homepage extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -147,13 +147,16 @@ class Homepage extends Component {
           showNope={true}
           handleYup={self.onLikeButtonPress.bind(self)}
           handleNope={self.fetchOne.bind(self)}
-        />
+        >
+        <Button
+          onPress={this.showDetails.bind(this)}>
+          <Image
+            style={styles.buttonImg}
+            source={{uri: 'http://www.iconsdb.com/icons/preview/gray/info-2-xxl.png'}}
+          />
+        </Button>
+        </SwipeCards>
         <View style={styles.likeDislikeButtons}>
-          <Button onPress={self.fetchData.bind(self)}>
-            <Image
-              style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
-            />
-          </Button>
           <Button
             onPress={this.showDetails.bind(this)}>
             <Image
@@ -161,21 +164,14 @@ class Homepage extends Component {
               source={{uri: 'http://www.iconsdb.com/icons/preview/gray/info-2-xxl.png'}}
             />
           </Button>
-          <Button onPress={self.onLikeButtonPress.bind(self)}>
-            <Image
-              style={styles.buttonImg}
-              source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
-            />
-          </Button>
-        </View>
-        <View style={styles.detailsButton}>
           <Button onPress={this.showSettings.bind(this)}>
             <Image
-              style={styles.infoButtonImg}
+              style={styles.buttonImg}
               source={{uri: 'https://cdn3.iconfinder.com/data/icons/fez/512/FEZ-04-128.png'}}
               />
           </Button>
         </View>
+
       </View>
     );
   }
@@ -227,16 +223,15 @@ var styles = StyleSheet.create({
   },
   thumbnail: {
     width: 350,
-    height: 350,
+    height: 400,
   },
   swipeArea: {
     backgroundColor: '#bdc3c7',
     padding: 7,
   },
   name: {
-    fontSize: 40,
+    marginTop: 5,
+    marginBottom: 5,
+    fontSize: 18,
   }
   });
-
-
-module.exports = Homepage;

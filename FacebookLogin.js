@@ -1,6 +1,7 @@
 'use strict';
-var React = require('react-native');
-
+import React from 'react-native';
+import FBLogin from 'react-native-facebook-login';
+import Video from 'react-native-video';
 
 var {
   StyleSheet,
@@ -10,14 +11,11 @@ var {
   Component,
 } = React;
 
-var FBLogin = require('react-native-facebook-login');
 var FBLoginManager = require('NativeModules').FBLoginManager;
-var Video = require('react-native-video');
-// import Video from 'react-native-video';
 
 var FB_PHOTO_WIDTH = 200;
 
-class Login extends Component {
+export default class Login extends Component {
   constructor(props) {
    super(props);
    this.state = {
@@ -110,5 +108,3 @@ var styles = StyleSheet.create({
     opacity: 0.8,
   },
 });
-
-module.exports = Login;
