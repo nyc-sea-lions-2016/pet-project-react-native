@@ -144,7 +144,10 @@ export default class Homepage extends Component {
         <SwipeCards
           cards={cardData}
           renderCard={(singleCard) => {
-            var p = {pet: singleCard, updateCurrentPet: self.updateCurrentPet.bind(self), showAnimalDetails: self.showAnimalDetails.bind(self)}
+            var p = {
+              pet: singleCard,
+              updateCurrentPet: self.updateCurrentPet.bind(self), 
+              showAnimalDetails: self.showAnimalDetails.bind(self)}
             return <Card {...p}/>}
           }
           showYup={true}
