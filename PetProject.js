@@ -37,9 +37,9 @@ export default class PetProject extends Component {
             component: Login,
             title: 'Next Best Friend',
           }}
-          tintColor="#FFFFFF"
-          barTintColor="#34495e"
-          titleTextColor="#FFFFFF"
+          tintColor="black"
+          barTintColor="#ecf0f1"
+          titleTextColor="black"
           translucent={true}
       />
     )
@@ -49,6 +49,6 @@ export default class PetProject extends Component {
 var styles = StyleSheet.create({
   container: {
     flex:1,
-    backgroundColor: '#000000',
+    backgroundColor: '#000000'
   },
 })
