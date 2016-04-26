@@ -23,6 +23,7 @@ var PET_URL = 'http://localhost:3000/pets/1.json';
 
 class Card extends Component {
   render() {
+
     return(
       <View
         style={styles.swipeArea}
@@ -55,7 +56,6 @@ class Homepage extends Component {
   }
   onLikeButtonPress(pet) {
     this.addFavorite(pet);
-
   }
   addFavorite(pet){
     var obj = {
@@ -89,7 +89,6 @@ class Homepage extends Component {
     this.setState({detailsClicked: true})
   }
   refreshPage(){
-    console.log("refreshing page")
     this.setState({detailsClicked: false, settingsClicked: false})
   }
   refreshPageWithNewAnimal(){
@@ -120,7 +119,7 @@ class Homepage extends Component {
       <View style={styles.container}>
         <SwipeCards
           cards={cardData}
-          renderCard={(cardData) => <Card {...cardData}/>}
+          renderCard={(cardData) => <Card {...cardData} />}
           showYup={true}
           showNope={true}
           handleYup={self.onLikeButtonPress.bind(self)}
