@@ -22,8 +22,8 @@ export default class ShelterMap extends Component {
       mapRegion: {
         longitude: 0,
         latitude: 0,
-        // latitudeDelta: 0.0922,
-        // longitudeDelta: 0.0421,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
       },
       mapRegionInput: undefined,
       annotations: [],
@@ -32,23 +32,33 @@ export default class ShelterMap extends Component {
     };
   }
   componentDidMount() {
-    this.fetchData()
     navigator.geolocation.getCurrentPosition(
-    (position) => {
-      console.log(position)
-      var longit = parseFloat(JSON.stringify(position["coords"]["longitude"]))
-      var lat = parseFloat(JSON.stringify(position["coords"]["latitude"]))
-      console.log(longit)
-      console.log(lat)
-      this.setState({mapRegion: {longitude: longit, latitude: lat}})
+      (position) => {
+        var cords = {
+          latitude: parseFloat(JSON.stringify(position.coords.latitude)),
+          longitude: parseFloat(JSON.stringify(position.coords.longitude))
+        }
+        RNGeocoder.reverseGeocodeLocation(cords, (err, data) => {
+          if (err) {
+            return;
+          }
+          this.sendUserLocation(data[0])
+          this.setState({
+            mapRegion: {longitude: cords.longitude, latitude: cords.latitude}
+          })
+        });
       },
-      (error) => console.log(error.message),
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      (error) => {
+        console.log(error.message)
+      },
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
+    this.fetchData()
   }
+
   sendUserLocation(location){
     var obj = {
-      method: 'GET',
+      method: 'POST',
       body: JSON.stringify({location})
     }
     fetch(ZIP_CODE, obj)
