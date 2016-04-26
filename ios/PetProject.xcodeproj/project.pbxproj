@@ -94,13 +94,6 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
-		22821B621CCC282A007EBBCB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 22821B531CCC282A007EBBCB /* RNTableView.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 873769951B7CD6E900F7C3C2;
-			remoteInfo = RNTableView;
-		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -294,14 +287,6 @@
 			isa = PBXGroup;
 			children = (
 				146834041AC3E56700842450 /* libReact.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		22821B541CCC282A007EBBCB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				22821B631CCC282A007EBBCB /* libRNTableView.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -583,14 +568,6 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-
-		22821B631CCC282A007EBBCB /* libRNTableView.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNTableView.a;
-			remoteRef = 22821B621CCC282A007EBBCB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
