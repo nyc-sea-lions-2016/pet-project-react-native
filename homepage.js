@@ -54,8 +54,8 @@ class Homepage extends Component {
         component: UsersShow
     });
   }
-  onLikeButtonPress() {
-    this.addFavorite(this.state.currentPet);
+  onLikeButtonPress(pet) {
+    this.addFavorite(pet);
   }
   addFavorite(pet){
     var obj = {
