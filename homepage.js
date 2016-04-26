@@ -157,8 +157,9 @@ export default class Homepage extends Component {
           onPress={this.showDetails.bind(this)}>
           <Image
             style={styles.buttonImg}
-            source={{uri: 'http://www.iconsdb.com/icons/preview/gray/info-2-xxl.png'}}
+            source={require('./images/Info.png')}
           />
+
         </Button>
         </SwipeCards>
         <View style={styles.likeDislikeButtons}>
@@ -166,13 +167,13 @@ export default class Homepage extends Component {
             onPress={this.showDetails.bind(this)}>
             <Image
               style={styles.buttonImg}
-              source={{uri: 'http://www.iconsdb.com/icons/preview/gray/info-2-xxl.png'}}
+              source={require('./images/Info.png')}
             />
           </Button>
           <Button onPress={this.showSettings.bind(this)}>
             <Image
               style={styles.buttonImg}
-              source={{uri: 'https://cdn3.iconfinder.com/data/icons/fez/512/FEZ-04-128.png'}}
+              source={require('./images/Settings-Gear.png')}
               />
           </Button>
         </View>

@@ -149,17 +149,10 @@ export default class PetShow extends Component {
       return (
         <View style={styles.container}>
           <View style={styles.pictures}>
-            <View style={styles.slide1}>
-              <Image
-                style={styles.thumbnail}
-                source={{uri: image}}
-              />
-            </View>
-            <View style={styles.slide2}>
-              <Text style={styles.text}>Second image</Text>
-            </View>
+            <Swiper>
+                {images}
+            </Swiper>
           </View>
-
           <View style={styles.likeDislikeButtons}>
             <Button onPress={self._handleDislike.bind(self)}>
               <Image

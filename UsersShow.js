@@ -75,7 +75,7 @@ export default class UsersShow extends Component {
      this.setState({clickedPet: clickedPet})
    }
     renderPet(pet) {
-      var photo = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/rounded-glossy-black-icons-animals/016572-rounded-glossy-black-icon-animals-animal-cat-print.png'
+      var photo = require('./images/Cat-Print.png')
       if (pet.photos.length > 0) {
         photo = pet.photos[0].url
       }
