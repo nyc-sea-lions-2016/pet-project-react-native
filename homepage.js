@@ -252,7 +252,7 @@ var styles = StyleSheet.create({
     height: 400,
   },
   swipeArea: {
-    backgroundColor: '#ecf0f1',
+    backgroundColor: 'white',
     padding: 7,
   },
   name: {
