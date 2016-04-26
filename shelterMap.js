@@ -12,8 +12,8 @@ var {
   MapView
 } = React;
 
-var SHELTER_INFO = 'http://localhost:3000/shelters.json';
-var ZIP_CODE = 'http://localhost:3000/shelters/zip_code.json';
+var SHELTER_INFO = 'http://10.0.2.129:3000/shelters.json';
+var ZIP_CODE = 'http://10.0.2.129:3000/shelters/zip_code.json';
 
 export default class ShelterMap extends Component {
    constructor(props) {
@@ -22,8 +22,8 @@ export default class ShelterMap extends Component {
       mapRegion: {
         longitude: 0,
         latitude: 0,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        maxDelta: 0.0922,
+        minDelta: 0.0421,
       },
       mapRegionInput: undefined,
       annotations: [],
@@ -32,27 +32,6 @@ export default class ShelterMap extends Component {
     };
   }
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        var cords = {
-          latitude: parseFloat(JSON.stringify(position.coords.latitude)),
-          longitude: parseFloat(JSON.stringify(position.coords.longitude))
-        }
-        RNGeocoder.reverseGeocodeLocation(cords, (err, data) => {
-          if (err) {
-            return;
-          }
-          this.sendUserLocation(data[0])
-          this.setState({
-            mapRegion: {longitude: cords.longitude, latitude: cords.latitude}
-          })
-        });
-      },
-      (error) => {
-        console.log(error.message)
-      },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
     this.fetchData()
   }
 

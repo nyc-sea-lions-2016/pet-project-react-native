@@ -16,10 +16,10 @@ var {
   TouchableHighlight,
 } = React;
 
-var REQUEST_URL = 'http://localhost:3000/index.json';
-var REQUEST_ONE_URL = 'http://localhost:3000/one.json';
-var FAVORITE_URL = 'http://localhost:3000/pets.json';
-var PET_URL = 'http://localhost:3000/pets/1.json';
+var REQUEST_URL = 'http://10.0.2.129:3000/index.json';
+var REQUEST_ONE_URL = 'http://10.0.2.129:3000/one.json';
+var FAVORITE_URL = 'http://10.0.2.129:3000/pets.json';
+var PET_URL = 'http://10.0.2.129:3000/pets/1.json';
 
 export default class Card extends Component {
   componentDidMount(){
