@@ -28,7 +28,11 @@ export default class Card extends Component {
     this.props.updateCurrentPet(pet)
   }
   render() {
+<<<<<<< HEAD
     console.log("render")
+=======
+
+>>>>>>> master
     return(
       <View
         style={styles.swipeArea}
@@ -139,10 +143,14 @@ export default class Homepage extends Component {
       <View style={styles.container}>
         <SwipeCards
           cards={cardData}
+<<<<<<< HEAD
           renderCard={(singleCard) => {
             var p = {pet: singleCard, updateCurrentPet: self.updateCurrentPet.bind(self)}
             return <Card {...p}/>}
           }
+=======
+          renderCard={(cardData) => <Card {...cardData} />}
+>>>>>>> master
           showYup={true}
           showNope={true}
           handleYup={self.onLikeButtonPress.bind(self)}

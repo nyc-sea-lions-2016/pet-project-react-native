@@ -36,7 +36,8 @@ export default class PetShow extends Component {
     var self = this;
     var images = currentPet.photos.map(function(photo, i){
       return (
-        <View style={styles.slide}>
+        <View style={styles.slide}
+                key={i}>
           <Image
             style={styles.thumbnail}
             source={{uri: photo.url}}
@@ -50,9 +51,7 @@ export default class PetShow extends Component {
         <View style={styles.container}>
           <View style={styles.pictures}>
             <Swiper>
-              <View>
                 {images}
-              </View>
             </Swiper>
           </View>
           <View style={styles.likeDislikeButtons}>
@@ -65,6 +64,13 @@ export default class PetShow extends Component {
               <Image
                 style={styles.buttonImg}
                 source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
+              />
+            </Button>
+            <Button>
+              <Image
+                style={styles.buttonImg}
+                source={{uri: 'https://cdn0.iconfinder.com/data/icons/social-15/200/mail-icon-128.png'}}
+                // {this.props.currentPet.contact_email}
               />
             </Button>
           </View>
@@ -156,6 +162,13 @@ export default class PetShow extends Component {
               <Image
                 style={styles.buttonImg}
                 source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
+              />
+            </Button>
+            <Button>
+              <Image
+                style={styles.buttonImg}
+                source={{uri: 'https://cdn0.iconfinder.com/data/icons/social-15/200/mail-icon-128.png'}}
+                // {this.props.currentPet.contact_email}
               />
             </Button>
           </View>
