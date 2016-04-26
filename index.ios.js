@@ -1,6 +1,5 @@
- var React = require('react-native');
- var { AppRegistry } = React;
- var PetProject = require('./PetProject');
+import React from 'react-native';
+var { AppRegistry } = React;
+import PetProject from './PetProject';
 
-
- AppRegistry.registerComponent('PetProject', () => PetProject);
+AppRegistry.registerComponent('PetProject', () => PetProject);

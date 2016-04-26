@@ -1,5 +1,6 @@
-var Button = require('react-native-button');
-var React = require('react-native');
+import Button from 'react-native-button';
+import PetShow from './PetShow';
+import React from 'react-native';
 
 var {
   StyleSheet,
@@ -16,7 +17,7 @@ var PetShow = require('./PetShow');
 
 var REQUEST_URL = 'http://10.0.2.62:3000/users/show.json';
 
-class UsersShow extends Component {
+export default class UsersShow extends Component {
    constructor(props) {
     super(props);
     this.state = {
@@ -34,6 +35,7 @@ class UsersShow extends Component {
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
+        console.log("the data:")
         console.log(responseData)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData),
@@ -72,7 +74,6 @@ class UsersShow extends Component {
      );
    }
    loadAnimalDetails(clickedPet){
-     console.log(clickedPet)
      this.setState({clickedPet: clickedPet})
    }
     renderPet(pet) {
@@ -105,7 +106,6 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ecf0f1',
     margin: 5,
-    borderRadius: 10
   },
   rightContainer: {
     flex: 1,
@@ -122,12 +122,9 @@ var styles = StyleSheet.create({
   thumbnail: {
    width: 120,
    height: 100,
-   borderRadius: 10
   },
   listView: {
    paddingTop: 70,
    backgroundColor: '#1abc9c',
   },
 });
-
-  module.exports = UsersShow;

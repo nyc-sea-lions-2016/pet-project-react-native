@@ -1,10 +1,9 @@
-var Button = require('react-native-button');
-var React = require('react-native');
-var UsersShow = require("./UsersShow");
-var PetShow = require('./PetShow');
-var UsersEdit = require('./UsersEdit')
-
+import Button from 'react-native-button';
+import UsersShow from "./UsersShow";
+import PetShow from './PetShow';
+import UsersEdit from './UsersEdit';
 import SwipeCards from 'react-native-swipe-cards';
+import React from 'react-native';
 
 var {
   StyleSheet,
@@ -18,27 +17,40 @@ var {
 } = React;
 
 var REQUEST_URL = 'http://10.0.2.62:3000/index.json';
+var REQUEST_ONE_URL = 'http://10.0.2.62:3000/one.json';
 var FAVORITE_URL = 'http://10.0.2.62:3000/pets.json';
 var PET_URL = 'http://10.0.2.62:3000/pets/1.json';
 
-class Card extends Component {
+export default class Card extends Component {
+  componentDidMount(){
+    console.log("component did mount")
+    var pet = this.props.pet
+    this.props.updateCurrentPet(pet)
+  }
+  selectAnimal(){
+    var pet = this.props.pet
+    this.props.showAnimalDetails(pet)
+  }
   render() {
-
+    var self = this
     return(
+      <TouchableHighlight onPress={self.selectAnimal.bind(self)}>
       <View
         style={styles.swipeArea}
-        >
+      >
           <Image
             style={styles.thumbnail}
-            source={{uri: this.props.photos[0].url}}
+            source={{uri: this.props.pet.photos[0].url}}
             />
-          <Text style={styles.name}> {this.props.name} </Text>
+          <Text style={styles.name}> {this.props.pet.name} </Text>
+          <Text style={styles.description}> {this.props.pet.age} {this.props.pet.breed} </Text>
       </View>
+      </TouchableHighlight>
     )
   }
 }
 
-class Homepage extends Component {
+export default class Homepage extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -47,12 +59,6 @@ class Homepage extends Component {
       detailsClicked: false,
       pets: []
     }
-  }
-  onPress() {
-    this.props.navigator.push({
-        title: 'Favorites',
-        component: UsersShow
-    });
   }
   onLikeButtonPress(pet) {
     this.addFavorite(pet);
@@ -85,6 +91,16 @@ class Homepage extends Component {
       })
       .done();
   }
+  fetchOne(){
+    fetch(REQUEST_ONE_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          pets: this.state.pets.concat(responseData)
+        });
+      })
+      .done();
+  }
   showDetails(){
     this.setState({detailsClicked: true})
   }
@@ -93,6 +109,13 @@ class Homepage extends Component {
   }
   refreshPageWithNewAnimal(){
     this.fetchData()
+  }
+  updateCurrentPet(pet){
+    console.log("update homepage state")
+    this.setState({currentPet: pet})
+  }
+  showAnimalDetails(pet){
+    this.setState({detailsClicked: true, currentPet: pet})
   }
   render() {
     var self = this;
@@ -113,24 +136,32 @@ class Homepage extends Component {
         <UsersEdit refreshPage={self.refreshPage.bind(self)}/>
       )
     }
-
     var cardData = self.state.pets
     return (
       <View style={styles.container}>
         <SwipeCards
           cards={cardData}
-          renderCard={(cardData) => <Card {...cardData} />}
+          renderCard={(singleCard) => {
+            var p = {
+              pet: singleCard,
+              updateCurrentPet: self.updateCurrentPet.bind(self),
+              showAnimalDetails: self.showAnimalDetails.bind(self)}
+            return <Card {...p}/>}
+          }
           showYup={true}
           showNope={true}
           handleYup={self.onLikeButtonPress.bind(self)}
-          handleNope={self.fetchData.bind(self)}
-        />
+          handleNope={self.fetchOne.bind(self)}
+        >
+        <Button
+          onPress={this.showDetails.bind(this)}>
+          <Image
+            style={styles.buttonImg}
+            source={{uri: 'http://www.iconsdb.com/icons/preview/gray/info-2-xxl.png'}}
+          />
+        </Button>
+        </SwipeCards>
         <View style={styles.likeDislikeButtons}>
-          <Button onPress={self.fetchData.bind(self)}>
-            <Image
-              style={styles.buttonImg} source={{uri: 'http://www.iconsdb.com/icons/preview/tropical-blue/x-mark-xxl.png'}}
-            />
-          </Button>
           <Button
             onPress={this.showDetails.bind(this)}>
             <Image
@@ -138,21 +169,14 @@ class Homepage extends Component {
               source={{uri: 'http://www.iconsdb.com/icons/preview/gray/info-2-xxl.png'}}
             />
           </Button>
-          <Button onPress={self.onLikeButtonPress.bind(self)}>
-            <Image
-              style={styles.buttonImg}
-              source={{uri: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-128.png'}}
-            />
-          </Button>
-        </View>
-        <View style={styles.detailsButton}>
           <Button onPress={this.showSettings.bind(this)}>
             <Image
-              style={styles.infoButtonImg}
+              style={styles.buttonImg}
               source={{uri: 'https://cdn3.iconfinder.com/data/icons/fez/512/FEZ-04-128.png'}}
               />
           </Button>
         </View>
+
       </View>
     );
   }
@@ -204,16 +228,18 @@ var styles = StyleSheet.create({
   },
   thumbnail: {
     width: 350,
-    height: 350,
+    height: 400,
   },
   swipeArea: {
     backgroundColor: '#bdc3c7',
     padding: 7,
   },
   name: {
-    fontSize: 40,
+    marginTop: 5,
+    marginBottom: 5,
+    fontSize: 22,
+  },
+  description: {
+    fontSize: 14,
   }
-  });
-
-
-module.exports = Homepage;
+});
