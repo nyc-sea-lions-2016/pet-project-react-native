@@ -1,4 +1,5 @@
 import React from 'react-native';
+import RNGeocoder from 'react-native-geocoder';
 
 var {
   StyleSheet,
@@ -13,7 +14,6 @@ var {
 
 var SHELTER_INFO = 'http://localhost:3000/shelters.json';
 var ZIP_CODE = 'http://localhost:3000/shelters/zip_code.json';
-import RNGeocoder from 'react-native-geocoder';
 
 export default class ShelterMap extends Component {
    constructor(props) {
@@ -28,6 +28,7 @@ export default class ShelterMap extends Component {
       mapRegionInput: undefined,
       annotations: [],
       isFirstLoad: true,
+      loaded: false,
     };
   }
   componentDidMount() {
@@ -35,13 +36,13 @@ export default class ShelterMap extends Component {
     navigator.geolocation.getCurrentPosition(
     (position) => {
       console.log(position)
-      var longit = parseFloat(JSON.stringify(position["coords"]["longitude"]));
-      var lat = parseFloat(JSON.stringify(position["coords"]["latitude"]));
+      var longit = parseFloat(JSON.stringify(position["coords"]["longitude"]))
+      var lat = parseFloat(JSON.stringify(position["coords"]["latitude"]))
       console.log(longit)
       console.log(lat)
-      this.setState({mapRegion: {longitude: longit, latitude: lat}});
+      this.setState({mapRegion: {longitude: longit, latitude: lat}})
       },
-      (error) => alert(error.message),
+      (error) => console.log(error.message),
         {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
   }
@@ -84,7 +85,7 @@ export default class ShelterMap extends Component {
     if (this.state.isFirstLoad) {
       this.setState({
         mapRegionInput: region,
-        annotations: this.state.shelterInfo,
+        annotations: this._getAnnotations(region),
         isFirstLoad: false,
       });
     }
