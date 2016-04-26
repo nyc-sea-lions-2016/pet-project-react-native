@@ -37,10 +37,8 @@ export default class Card extends Component {
   render() {
     var self = this
     return(
-      <TouchableHighlight onPress={self.selectAnimal.bind(self)}>
-      <View
-        style={styles.swipeArea}
-      >
+      <TouchableHighlight style={styles.cardButton} onPress={self.selectAnimal.bind(self)}>
+      <View style={styles.swipeArea}>
           <Image
             style={styles.thumbnail}
             source={{uri: this.props.pet.photos[0].url}}
@@ -149,6 +147,7 @@ export default class Homepage extends Component {
     }
     var cardData = self.state.pets
     return (
+      <View style={styles.topBox}>
       <View style={styles.container}>
         <SwipeCards
           cards={cardData}
@@ -178,16 +177,17 @@ export default class Homepage extends Component {
             onPress={this.showDetails.bind(this)}>
             <Image
               style={styles.buttonImg}
-              source={{uri: 'http://www.iconsdb.com/icons/preview/gray/info-2-xxl.png'}}
+              source={{uri: 'http://www.iconsdb.com/icons/preview/white/info-xxl.png'}}
             />
           </Button>
           <Button onPress={this.showSettings.bind(this)}>
             <Image
               style={styles.buttonImg}
-              source={{uri: 'https://cdn3.iconfinder.com/data/icons/fez/512/FEZ-04-128.png'}}
+              source={{uri: 'http://www.iconsdb.com/icons/preview/white/settings-9-xxl.png'}}
               />
           </Button>
         </View>
+      </View>
       </View>
     );
   }
@@ -203,17 +203,27 @@ export default class Homepage extends Component {
 };
 
 var styles = StyleSheet.create({
+  topBox: {
+    backgroundColor: '#1abc9c',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    width: 380,
+  },
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#1abc9c',
+    marginTop: 70
+  },
   card: {
     alignItems: 'center',
     borderRadius: 5,
     overflow: 'hidden',
     borderWidth: 1,
     elevation: 1,
-  },
-  container: {
-    marginTop: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   buttonImg: {
     width: 50,
@@ -242,7 +252,7 @@ var styles = StyleSheet.create({
     height: 400,
   },
   swipeArea: {
-    backgroundColor: '#bdc3c7',
+    backgroundColor: '#ecf0f1',
     padding: 7,
   },
   name: {
@@ -252,5 +262,8 @@ var styles = StyleSheet.create({
   },
   description: {
     fontSize: 14,
+  },
+  cardButton: {
+    backgroundColor: '#1abc9c',
   }
 });
