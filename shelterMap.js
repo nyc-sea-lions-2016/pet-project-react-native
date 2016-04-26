@@ -34,16 +34,15 @@ export default class ShelterMap extends Component {
   componentDidMount() {
     this.fetchData()
   }
-
-  sendUserLocation(location){
-    var obj = {
-      method: 'POST',
-      body: JSON.stringify({location})
-    }
-    fetch(ZIP_CODE, obj)
-     .then((response) => response.json())
-     .done();
-  }
+  // sendUserLocation(location){
+  //   var obj = {
+  //     method: 'POST',
+  //     body: JSON.stringify({location})
+  //   }
+  //   fetch(ZIP_CODE, obj)
+  //    .then((response) => response.json())
+  //    .done();
+  // }
   fetchData() {
     fetch(SHELTER_INFO)
       .then((response) => response.json())

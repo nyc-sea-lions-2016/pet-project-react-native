@@ -3,6 +3,7 @@ import React from "react-native";
 import Login from './FacebookLogin';
 import UsersShow from './UsersShow';
 import ShelterMap from './shelterMap';
+import Homepage from './homepage';
 import UsersEdit from './UsersEdit';
 
 var {
@@ -36,9 +37,9 @@ export default class PetProject extends Component {
             component: Login,
             title: 'Next Best Friend',
           }}
-          tintColor="#FFFFFF"
-          barTintColor="#183E63"
-          titleTextColor="#FFFFFF"
+          tintColor="black"
+          barTintColor="#ecf0f1"
+          titleTextColor="black"
           translucent={true}
       />
     )
@@ -48,6 +49,6 @@ export default class PetProject extends Component {
 var styles = StyleSheet.create({
   container: {
     flex:1,
-    backgroundColor: '#000000',
+    backgroundColor: '#000000'
   },
 })
