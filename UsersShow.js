@@ -13,8 +13,6 @@ var {
   TouchableHighlight
 } = React;
 
-var PetShow = require('./PetShow');
-
 var REQUEST_URL = 'http://10.0.2.62:3000/users/show.json';
 
 export default class UsersShow extends Component {
