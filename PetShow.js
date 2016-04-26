@@ -48,18 +48,18 @@ export default class PetShow extends Component {
             </Swiper>
           </View>
           <View style={styles.likeDislikeButtons}>
+            <Button onPress={() => Communications.phonecall(`${currentPet.contact_phone}`, true)}>
+              <Image
+                style={styles.buttonImg}
+                source={require('./images/Phone-Booth.png')}
+              />
+            </Button>
             <Button onPress={() => Communications.email([`${currentPet.contact_email}`],null,null,`Inquiry about ${currentPet.name}`,`Hi, I found ${currentPet.name} on the app NextBestFriend, and I was hoping I could get some more information about the adoption process. Thanks so much!`)}>
               <Image
                 style={styles.buttonImg}
-                source={{uri: 'https://cdn.gene.com/assets/frontend/img/icon-share-email.png'}}
+                source={require('./images/Mail-Icon.png')}
               />
             </Button>
-            {/*<Button
-              style={{borderWidth: 1, borderColor: 'blue'}}
-              onPress={this._handleBack.bind(self)}
-            >
-              <Text>Back</Text>
-            </Button>*/}
           </View>
             <ScrollView
               style={styles.details}
