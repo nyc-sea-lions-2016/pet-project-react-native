@@ -749,7 +749,7 @@
 				INFOPLIST_FILE = PetProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.PetProject;
 				PRODUCT_NAME = PetProject;
 				PROVISIONING_PROFILE = "";
 			};
@@ -772,7 +772,7 @@
 				INFOPLIST_FILE = PetProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.PetProject;
 				PRODUCT_NAME = PetProject;
 				PROVISIONING_PROFILE = "";
 			};
