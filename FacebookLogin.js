@@ -54,7 +54,8 @@ export default class Login extends Component {
 
     return (
       <View style={styles.background}>
-        <Image source={{uri: "https://49.media.tumblr.com/bf2c50acceda7c5ca82fce9f05b3cbe4/tumblr_o5ezn64DKD1qi4ucgo1_500.gif"}}
+        <Image
+        source={require('./images/Dogs-Gif.gif')}
                style={styles.backgroundImage}
         />
 

@@ -69,7 +69,8 @@ export default class UsersEdit extends Component {
      return (
        <View style={styles.container}>
           <View style={styles.topContainer}>
-            <Image source={{uri: 'https://cdn3.iconfinder.com/data/icons/avatars-9/145/Avatar_Cat-512.png'}}
+            <Image
+            source={require('./images/Cat-Avatar.png')}
             style={styles.thumbnail}/>
             <Text style={styles.username}>{self.state.userInfo.name}</Text>
           </View>
@@ -97,7 +98,7 @@ export default class UsersEdit extends Component {
             </View>
             <Button onPress={self.goHome.bind(self)}>
               <Image
-                source={{uri: 'http://www.iconsdb.com/icons/preview/gray/home-5-xxl.png'}}
+                source={require('./images/Home-Icon.png')}
                 style={styles.backButton}
                 />
             </Button>
