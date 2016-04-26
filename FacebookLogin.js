@@ -1,6 +1,11 @@
 'use strict';
-var React = require('react-native');
-
+import React from 'react-native';
+import FBLogin from 'react-native-facebook-login';
+import Video from 'react-native-video';
+import UsersShow from './UsersShow';
+import ShelterMap from './shelterMap';
+import UsersEdit from './UsersEdit';
+import Homepage from './Homepage';
 
 var {
   StyleSheet,
@@ -10,17 +15,12 @@ var {
   Component,
 } = React;
 
-import UsersShow from './UsersShow';
-import ShelterMap from './shelterMap';
-import UsersEdit from './UsersEdit';
-import Homepage from './homepage';
-
-var FBLogin = require('react-native-facebook-login');
 var FBLoginManager = require('NativeModules').FBLoginManager;
+
 var CREATE_USER = 'http://localhost:3000/users'
 var FB_PHOTO_WIDTH = 200;
 
-class Login extends Component {
+export default class Login extends Component {
   constructor(props) {
    super(props);
    this.state = {
@@ -146,5 +146,3 @@ var styles = StyleSheet.create({
     opacity: 0.8,
   },
 });
-
-module.exports = Login;

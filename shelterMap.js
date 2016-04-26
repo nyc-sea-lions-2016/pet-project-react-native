@@ -1,4 +1,4 @@
-var React = require('react-native');
+import React from 'react-native';
 
 var {
   StyleSheet,
@@ -15,7 +15,7 @@ var SHELTER_INFO = 'http://localhost:3000/shelters.json';
 var ZIP_CODE = 'http://localhost:3000/shelters/zip_code.json';
 var RNGeocoder = require('react-native-geocoder');
 
-class ShelterMap extends Component {
+export default class ShelterMap extends Component {
    constructor(props) {
     super(props);
     this.state = {
@@ -142,5 +142,3 @@ class ShelterMap extends Component {
      height: 800
    }
  })
-
-module.exports = ShelterMap;

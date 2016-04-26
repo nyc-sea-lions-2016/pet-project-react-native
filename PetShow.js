@@ -1,6 +1,6 @@
-var Button = require('react-native-button');
-var Swiper = require('react-native-swiper');
-var React = require('react-native');
+import Button from 'react-native-button';
+import Swiper from 'react-native-swiper';
+import React from 'react-native';
 
 var {
   StyleSheet,
@@ -14,8 +14,7 @@ var {
   TouchableHighlight,
 } = React;
 
-
-class PetShow extends Component {
+export default class PetShow extends Component {
   _handleDislike() {
     this.props.refreshPageWithNewAnimal()
   }
@@ -46,9 +45,8 @@ class PetShow extends Component {
         </View>
       )
     })
-    console.log(images)
 
-    if (this.props.favorited == false){
+    if (!this.props.favorited){
       return (
         <View style={styles.container}>
           <View style={styles.pictures}>
@@ -139,7 +137,7 @@ class PetShow extends Component {
             </ScrollView>
         </View>
       );
-    } else if (this.props.favorited == true){
+    } else if (this.props.favorited) {
       return (
         <View style={styles.container}>
           <View style={styles.pictures}>
@@ -305,5 +303,3 @@ var styles = StyleSheet.create({
     height: 350,
   }
 })
-
-module.exports = PetShow;
