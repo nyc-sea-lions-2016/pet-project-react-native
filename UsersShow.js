@@ -16,6 +16,7 @@ var {
 var REQUEST_URL = 'http://10.0.2.129:3000/users/show.json';
 var DELETE_FAVORITE_URL = 'http://localhost:3000/pets/';
 
+
 export default class UsersShow extends Component {
    constructor(props) {
     super(props);
@@ -90,7 +91,7 @@ export default class UsersShow extends Component {
       });
    }
    renderPet(pet) {
-      var photo = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/rounded-glossy-black-icons-animals/016572-rounded-glossy-black-icon-animals-animal-cat-print.png'
+     var photo = require('./images/Cat-Print.png')
       if (pet.photos.length > 0) {
         photo = pet.photos[0].url
       }
