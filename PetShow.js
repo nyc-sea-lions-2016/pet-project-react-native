@@ -1,6 +1,8 @@
 import Button from 'react-native-button';
 import Swiper from 'react-native-swiper';
 import React from 'react-native';
+import Communications from 'react-native-communications';
+
 
 var {
   StyleSheet,
@@ -46,7 +48,7 @@ export default class PetShow extends Component {
             </Swiper>
           </View>
           <View style={styles.likeDislikeButtons}>
-            <Button>
+            <Button onPress={() => Communications.email([`${currentPet.contact_email}`],null,null,`Inquiry about ${currentPet.name}`,`Hi, I found ${currentPet.name} on the app NextBestFriend, and I was hoping I could get some more information about the adoption process. Thanks so much!`)}>
               <Image
                 style={styles.buttonImg}
                 source={{uri: 'https://cdn0.iconfinder.com/data/icons/social-15/200/mail-icon-128.png'}}

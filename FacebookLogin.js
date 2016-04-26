@@ -4,7 +4,7 @@ import Video from 'react-native-video';
 import UsersShow from './UsersShow';
 import ShelterMap from './shelterMap';
 import UsersEdit from './UsersEdit';
-import Homepage from './Homepage';
+import Homepage from './homepage';
 import React from 'react-native';
 
 var {
