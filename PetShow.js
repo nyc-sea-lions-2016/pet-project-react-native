@@ -44,9 +44,8 @@ export default class PetShow extends Component {
         </View>
       )
     })
-    console.log(images)
 
-    if (this.props.favorited == false){
+    if (!this.props.favorited){
       return (
         <View style={styles.container}>
           <View style={styles.pictures}>
@@ -132,7 +131,7 @@ export default class PetShow extends Component {
             </ScrollView>
         </View>
       );
-    } else if (this.props.favorited == true){
+    } else if (this.props.favorited) {
       return (
         <View style={styles.container}>
           <View style={styles.pictures}>

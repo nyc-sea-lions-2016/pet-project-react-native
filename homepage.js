@@ -232,6 +232,6 @@ var styles = StyleSheet.create({
   name: {
     marginTop: 5,
     marginBottom: 5,
-    fontSize: 18,
+    fontSize: 22,
   }
   });
