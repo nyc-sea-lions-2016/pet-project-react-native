@@ -20,8 +20,8 @@ var {
   TableView,
 } = TableView;
 
-var USER_INFO = 'http://localhost:3000/users/1/edit.json';
-var USER_UPDATE = 'http://localhost:3000/users/1.json'
+var USER_INFO = 'http://10.0.2.62:3000/users/1/edit.json';
+var USER_UPDATE = 'http://10.0.2.62:3000/users/1.json'
 
 class UsersEdit extends Component {
    constructor(props) {

@@ -14,7 +14,7 @@ var {
 
 var PetShow = require('./PetShow');
 
-var REQUEST_URL = 'http://localhost:3000/users/show.json';
+var REQUEST_URL = 'http://10.0.2.62:3000/users/show.json';
 
 class UsersShow extends Component {
    constructor(props) {

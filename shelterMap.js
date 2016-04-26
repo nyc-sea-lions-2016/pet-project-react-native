@@ -11,7 +11,7 @@ var {
   MapView
 } = React;
 
-var SHELTER_INFO = 'http://localhost:3000/shelters.json';
+var SHELTER_INFO = 'http://10.0.2.62:3000/shelters.json';
 
 class ShelterMap extends Component {
    constructor(props) {
