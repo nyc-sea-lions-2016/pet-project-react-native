@@ -48,12 +48,6 @@ class Homepage extends Component {
       pets: []
     }
   }
-  onPress() {
-    this.props.navigator.push({
-        title: 'Favorites',
-        component: UsersShow
-    });
-  }
   onLikeButtonPress(pet) {
     this.addFavorite(pet);
   }
