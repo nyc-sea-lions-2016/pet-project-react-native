@@ -1,7 +1,6 @@
 'use strict';
 import React from "react-native";
 import Login from './FacebookLogin';
-import Homepage from './Homepage';
 import UsersShow from './UsersShow';
 import ShelterMap from './shelterMap';
 import UsersEdit from './UsersEdit';

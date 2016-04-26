@@ -118,8 +118,6 @@ export default class Homepage extends Component {
     this.setState({detailsClicked: true, currentPet: pet})
   }
   render() {
-    console.log("state in the render:")
-    console.log(this.state.currentPet)
     var self = this;
     if (!this.state.loaded){
       return this.renderLoadingView();
@@ -146,7 +144,7 @@ export default class Homepage extends Component {
           renderCard={(singleCard) => {
             var p = {
               pet: singleCard,
-              updateCurrentPet: self.updateCurrentPet.bind(self), 
+              updateCurrentPet: self.updateCurrentPet.bind(self),
               showAnimalDetails: self.showAnimalDetails.bind(self)}
             return <Card {...p}/>}
           }
