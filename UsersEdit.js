@@ -16,7 +16,7 @@ var {
 
 var USER_INFO = 'http://localhost:3000/users/1/edit.json';
 var USER_UPDATE = 'http://localhost:3000/users/1.json'
-var ANIMALS =  ['cat', 'dog', 'reptile', 'smallfurry', 'bird']
+var ANIMALS =  ['cat', 'dog', 'reptile', 'smallfurry', 'horse']
 
 export default class UsersEdit extends Component {
    constructor(props) {
@@ -32,7 +32,6 @@ export default class UsersEdit extends Component {
       this.fetchData();
   }
   fetchData() {
-    console.log("fetching Data")
     fetch(USER_INFO)
       .then((response) => response.json())
       .then((responseData) => {

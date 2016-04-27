@@ -112,6 +112,7 @@ export default class Homepage extends Component {
       settingsClicked: false,
       petPreference: petPreference
     })
+    this.fetchData()
   }
   refreshPageWithNewAnimal(){
     this.fetchOne()
