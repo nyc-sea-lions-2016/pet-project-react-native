@@ -16,7 +16,7 @@ var {
 
 var USER_INFO = 'http://localhost:3000/users/1/edit.json';
 var USER_UPDATE = 'http://localhost:3000/users/1.json'
-var ANIMALS =  ['cat', 'dog', 'reptile', 'smallfurry', 'other']
+var ANIMALS =  ['cat', 'dog', 'reptile', 'smallfurry', 'bird']
 
 export default class UsersEdit extends Component {
    constructor(props) {
@@ -46,7 +46,7 @@ export default class UsersEdit extends Component {
       .done();
   }
   goHome(){
-    this.props.refreshPage()
+    this.props.refreshPage(ANIMALS[this.state.selectedIndex])
   }
   componentWillUnmount(){
     this.addLocationToUser(this.state.text)

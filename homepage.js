@@ -60,7 +60,6 @@ export default class Homepage extends Component {
       loaded: false,
       detailsClicked: false,
       pets: [],
-      modalVisible: true
     }
   }
   componentDidMount(){
@@ -84,40 +83,35 @@ export default class Homepage extends Component {
       .then((response) => this.fetchData())
   }
   fetchData(){
-    this.setState({
-      currentPet: PET_DATA[0],
-      loaded: true,
-      detailsClicked: false,
-      pets: PET_DATA
-    });
-    // fetch(REQUEST_URL)
-    //   .then((response) => response.json())
-    //   .then((responseData) => {
-    //     console.log('fetch 25', JSON.stringify(responseData))
-    //     this.setState({
-    //       currentPet: responseData[0],
-    //       loaded: true,
-    //       detailsClicked: false,
-    //       pets: responseData
-    //     });
-    //   })
-    //   .done();
+    fetch(REQUEST_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('fetch 25', JSON.stringify(responseData))
+        this.setState({
+          currentPet: responseData[0],
+          loaded: true,
+          detailsClicked: false,
+          pets: responseData
+        });
+      })
+      .done();
   }
   fetchOne(){
-    this.setState({
-      pets: this.state.pets.concat(this.state.pets[0])
-    });
-    // fetch(REQUEST_ONE_URL)
-    //   .then((response) => response.json())
-    //   .then((responseData) => {
-    //     this.setState({
-    //       pets: this.state.pets.concat(responseData)
-    //     });
-    //   })
-    //   .done();
+    fetch(REQUEST_ONE_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          pets: this.state.pets.concat(responseData)
+        });
+      })
+      .done();
   }
-  refreshPage(){
-    this.setState({detailsClicked: false, settingsClicked: false})
+  refreshPage(petPreference){
+    this.setState({
+      detailsClicked: false,
+      settingsClicked: false,
+      petPreference: petPreference
+    })
   }
   refreshPageWithNewAnimal(){
     this.fetchOne()
@@ -128,9 +122,6 @@ export default class Homepage extends Component {
   showAnimalDetails(pet){
     this.setState({detailsClicked: true, currentPet: pet})
   }
-  toggleModal(){
-    this.setState({modalVisible: true})
-  }
   render() {
     var self = this;
     if (!this.state.loaded){
@@ -138,14 +129,16 @@ export default class Homepage extends Component {
     }else if (this.state.detailsClicked) {
       var pet = this.state.currentPet;
       return (
-        <PetShow  refreshPage={self.refreshPage.bind(self)}
-                  refreshPageWithNewAnimal={self.refreshPageWithNewAnimal.bind(self)}
-                  onLikeButtonPress={self.onLikeButtonPress.bind(self)}
-                  clickedPet={pet}
-                  favorited={false}
+        <PetShow
+          refreshPage={self.refreshPage.bind(self)}
+          refreshPageWithNewAnimal={self.refreshPageWithNewAnimal.bind(self)}
+          onLikeButtonPress={self.onLikeButtonPress.bind(self)}
+          clickedPet={pet}
+          favorited={false}
         />
       )
     } else if (this.state.settingsClicked){
+
       return (
         <UsersEdit refreshPage={self.refreshPage.bind(self)}/>
       )
