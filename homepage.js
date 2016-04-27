@@ -14,6 +14,7 @@ var {
   TextInput,
   Image,
   TouchableHighlight,
+  Modal,
 } = React;
 
 var REQUEST_URL = 'http://localhost:3000/index.json';
@@ -58,7 +59,8 @@ export default class Homepage extends Component {
       currentPet: null,
       loaded: false,
       detailsClicked: false,
-      pets: []
+      pets: [],
+      modalVisible: true
     }
   }
   componentDidMount(){
@@ -125,6 +127,9 @@ export default class Homepage extends Component {
   }
   showAnimalDetails(pet){
     this.setState({detailsClicked: true, currentPet: pet})
+  }
+  toggleModal(){
+    this.setState({modalVisible: true})
   }
   render() {
     var self = this;
@@ -263,6 +268,15 @@ var styles = StyleSheet.create({
   },
   description: {
     fontSize: 14,
+  },
+  overlay: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    flex: 1
   },
   cardButton: {
     backgroundColor: '#1abc9c',

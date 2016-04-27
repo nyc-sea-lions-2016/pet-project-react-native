@@ -10,11 +10,12 @@ var {
   TextInput,
   Image,
   Slider,
-  TouchableHighlight
+  TouchableHighlight,
+  PickerIOS
 } = React;
 
-var USER_INFO = 'http://10.0.2.62:3000/users/1/edit.json';
-var USER_UPDATE = 'http://10.0.2.62:3000/users/1.json'
+var USER_INFO = 'http://localhost:3000/users/1/edit.json';
+var USER_UPDATE = 'http://localhost:3000/users/1.json'
 
 export default class UsersEdit extends Component {
    constructor(props) {
@@ -62,10 +63,12 @@ export default class UsersEdit extends Component {
     fetch(USER_UPDATE, obj)
   }
   render() {
+    console.log("rendering edit page")
      if (!this.state.loaded) {
        return this.renderLoadingView();
      }
      var self = this;
+     var PickerItemIOS = PickerIOS.Item
      return (
        <View style={styles.container}>
           <View style={styles.topContainer}>
@@ -95,6 +98,7 @@ export default class UsersEdit extends Component {
             <Text style={styles.settingsDetails}>preferences</Text>
             <View style={this.preferenceButtons}>
               <TouchableHighlight onPress={this._onPressButton}><Text>Cats</Text></TouchableHighlight>
+              <PickerIOS></PickerIOS>
             </View>
             <Button onPress={self.goHome.bind(self)}>
               <Image

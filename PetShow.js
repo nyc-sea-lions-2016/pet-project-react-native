@@ -51,13 +51,13 @@ export default class PetShow extends Component {
             <Button onPress={() => Communications.phonecall(`${currentPet.contact_phone}`, true)}>
               <Image
                 style={styles.buttonImg}
-                source={require('./images/Phone-Booth.png')}
+                source={require('./images/phone-icon.png')}
               />
             </Button>
             <Button onPress={() => Communications.email([`${currentPet.contact_email}`],null,null,`Inquiry about ${currentPet.name}`,`Hi, I found ${currentPet.name} on the app NextBestFriend, and I was hoping I could get some more information about the adoption process. Thanks so much!`)}>
               <Image
                 style={styles.buttonImg}
-                source={require('./images/Mail-Icon.png')}
+                source={require('./images/email-icon.png')}
               />
             </Button>
           </View>
@@ -139,8 +139,7 @@ var styles = StyleSheet.create({
   buttonImg: {
     width: 50,
     height: 50,
-    marginRight: 10,
-    marginLeft: 10
+    margin: 10
   },
   likeDislikeButtons: {
     marginTop: 78,
