@@ -18,7 +18,7 @@ var {
 
 var FBLoginManager = require('NativeModules').FBLoginManager;
 
-var CREATE_USER = 'http://10.0.2.129:3000/users'
+var CREATE_USER = 'http://localhost:3000/users'
 var FB_PHOTO_WIDTH = 200;
 
 export default class Login extends Component {
@@ -103,7 +103,7 @@ export default class Login extends Component {
               _this.setState({ user : null });
             }}
             onLoginFound={function(data){
-              // _this.createUser(data)
+              _this.createUser(data)
               _this.setState({ user : data.credentials });
             }}
             onLoginNotFound={function(){

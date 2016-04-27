@@ -13,7 +13,7 @@ var {
   TouchableHighlight
 } = React;
 
-var REQUEST_URL = 'http://10.0.2.129:3000/users/show.json';
+var REQUEST_URL = 'http://localhost:3000/users/show.json';
 var DELETE_FAVORITE_URL = 'http://localhost:3000/pets/';
 
 

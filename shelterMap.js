@@ -1,5 +1,8 @@
+'use strict';
+
 import React from 'react-native';
 import RNGeocoder from 'react-native-geocoder';
+// import UIExplorerBlock from './UIExplorerBlock';
 
 var {
   StyleSheet,
@@ -9,11 +12,13 @@ var {
   ListView,
   TextInput,
   Image,
-  MapView
+  MapView,
+  Linking,
+  TouchableNativeFeedback,
 } = React;
 
-var SHELTER_INFO = 'http://10.0.2.129:3000/shelters.json';
-var ZIP_CODE = 'http://10.0.2.129:3000/shelters/zip_code.json';
+var SHELTER_INFO = 'http://localhost:3000/shelters.json';
+var ZIP_CODE = 'http://localhost:3000/shelters/zip_code.json';
 
 export default class ShelterMap extends Component {
    constructor(props) {
@@ -22,8 +27,8 @@ export default class ShelterMap extends Component {
       mapRegion: {
         longitude: 0,
         latitude: 0,
-        maxDelta: 0.0922,
-        minDelta: 0.0421,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
       },
       mapRegionInput: undefined,
       annotations: [],
@@ -38,7 +43,7 @@ export default class ShelterMap extends Component {
     fetch(SHELTER_INFO)
       .then((response) => response.json())
       .then((responseData) => {
-        parsed = responseData.map(function(item){
+        var parsed = responseData.map(function(item){
           return {title: item.title,
                   longitude: Number.parseFloat(item.longitude),
                   latitude: Number.parseFloat(item.latitude) }
@@ -49,6 +54,15 @@ export default class ShelterMap extends Component {
         });
       })
       .done();
+  }
+  handleClick() {
+    Linking.canOpenURL(this.props.url).then(supported => {
+      if (supported) {
+        Linking.openURL(this.props.url);
+      } else {
+        console.log('Don\'t know how to open URI: ' + this.props.url);
+      }
+    });
   }
   _getAnnotations(region) {
     return(this.state.shelterInfo)
@@ -106,15 +120,23 @@ export default class ShelterMap extends Component {
    }
  }
 
- var styles = StyleSheet.create({
-   container: {
-     flex: 1,
-     flexDirection: 'row',
-     justifyContent: 'center',
-     alignItems: 'center',
-   },
-   map: {
-     width: 500,
-     height: 800
-   },
- })
+  var styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    map: {
+      width: 500,
+      height: 800
+    },
+      button: {
+      padding: 10,
+      backgroundColor: '#3B5998',
+      marginBottom: 10,
+    },
+      text: {
+      color: 'white',
+    },
+  })
