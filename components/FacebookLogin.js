@@ -86,7 +86,7 @@ export default class Login extends Component {
       <View style={{flex: 1}}>
         <View style= {styles.background}>
           <Image
-          source={require('./images/Dogs-Gif.gif')}
+          source={require('../images/Dogs-Gif.gif')}
                  style={styles.backgroundImage}
           />
         </View>
@@ -95,8 +95,8 @@ export default class Login extends Component {
           <FBLogin style={{ marginBottom: 10, }}
             permissions={["public_profile","email","user_friends"]}
             onLogin={(data) => {
-              this.createUser(data);
-              this.setState({ user : data.credentials });
+              _this.createUser(data);
+              _this.setState({ user : data.credentials });
             }}
             onLogout={function(){
               console.log("Logged out.");
