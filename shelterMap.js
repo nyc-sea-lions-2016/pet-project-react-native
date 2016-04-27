@@ -1,5 +1,8 @@
+'use strict';
+
 import React from 'react-native';
 import RNGeocoder from 'react-native-geocoder';
+// import UIExplorerBlock from './UIExplorerBlock';
 
 var {
   StyleSheet,
@@ -9,7 +12,9 @@ var {
   ListView,
   TextInput,
   Image,
-  MapView
+  MapView,
+  Linking,
+  TouchableNativeFeedback,
 } = React;
 
 var SHELTER_INFO = 'http://localhost:3000/shelters.json';
@@ -22,8 +27,8 @@ export default class ShelterMap extends Component {
       mapRegion: {
         longitude: 0,
         latitude: 0,
-        // latitudeDelta: 0.0922,
-        // longitudeDelta: 0.0421,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
       },
       mapRegionInput: undefined,
       annotations: [],
@@ -33,33 +38,12 @@ export default class ShelterMap extends Component {
   }
   componentDidMount() {
     this.fetchData()
-    navigator.geolocation.getCurrentPosition(
-    (position) => {
-      console.log(position)
-      var longit = parseFloat(JSON.stringify(position["coords"]["longitude"]))
-      var lat = parseFloat(JSON.stringify(position["coords"]["latitude"]))
-      console.log(longit)
-      console.log(lat)
-      this.setState({mapRegion: {longitude: longit, latitude: lat}})
-      },
-      (error) => console.log(error.message),
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
-  }
-  sendUserLocation(location){
-    var obj = {
-      method: 'GET',
-      body: JSON.stringify({location})
-    }
-    fetch(ZIP_CODE, obj)
-     .then((response) => response.json())
-     .done();
   }
   fetchData() {
     fetch(SHELTER_INFO)
       .then((response) => response.json())
       .then((responseData) => {
-        parsed = responseData.map(function(item){
+        var parsed = responseData.map(function(item){
           return {title: item.title,
                   longitude: Number.parseFloat(item.longitude),
                   latitude: Number.parseFloat(item.latitude) }
@@ -70,6 +54,15 @@ export default class ShelterMap extends Component {
         });
       })
       .done();
+  }
+  handleClick() {
+    Linking.canOpenURL(this.props.url).then(supported => {
+      if (supported) {
+        Linking.openURL(this.props.url);
+      } else {
+        console.log('Don\'t know how to open URI: ' + this.props.url);
+      }
+    });
   }
   _getAnnotations(region) {
     return(this.state.shelterInfo)
@@ -127,15 +120,23 @@ export default class ShelterMap extends Component {
    }
  }
 
- var styles = StyleSheet.create({
-   container: {
-     flex: 1,
-     flexDirection: 'row',
-     justifyContent: 'center',
-     alignItems: 'center',
-   },
-   map: {
-     width: 500,
-     height: 800
-   },
- })
+  var styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    map: {
+      width: 500,
+      height: 800
+    },
+      button: {
+      padding: 10,
+      backgroundColor: '#3B5998',
+      marginBottom: 10,
+    },
+      text: {
+      color: 'white',
+    },
+  })

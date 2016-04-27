@@ -6,6 +6,7 @@ import ShelterMap from './shelterMap';
 import UsersEdit from './UsersEdit';
 import Homepage from './homepage';
 import React from 'react-native';
+import RNGeocoder from 'react-native-geocoder';
 
 var {
   StyleSheet,
@@ -39,6 +40,27 @@ export default class Login extends Component {
      component: ShelterMap
    })
  }
+ createUser(user){
+   navigator.geolocation.getCurrentPosition(
+     (position) => {
+       var cords = {
+         latitude: parseFloat(JSON.stringify(position.coords.latitude)),
+         longitude: parseFloat(JSON.stringify(position.coords.longitude))
+       };
+       RNGeocoder.reverseGeocodeLocation(cords, (err, location) => {
+         if (err) {
+           return;
+         }
+         user.preferred_location = location[0].postalCode;
+         this.addUser(user);
+       });
+     },
+     (error) => {
+       console.log(error.message)
+     },
+     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+   );
+ }
  addUser(user){
    var obj = {
      method: 'POST',
@@ -46,42 +68,42 @@ export default class Login extends Component {
    }
   fetch(CREATE_USER, obj)
     .then((response) => response.json())
+    .then(this.props.navigator.push({
+      title: "Next Best Friend",
+      component: Homepage,
+      rightButtonTitle: 'Favorites',
+      onRightButtonPress: this.onRightButtonPress.bind(this),
+      leftButtonTitle: 'Map',
+      onLeftButtonPress: this.onLeftButtonPress.bind(this),
+    }))
     .done();
 }
   render() {
     var _this = this;
-    var user = this.state.user;
+    var user = this.state.currentUser;
 
     return (
-      <View style={styles.background}>
-        <Image
-        source={require('./images/Dogs-Gif.gif')}
-               style={styles.backgroundImage}
-        />
-
+      <View style={{flex: 1}}>
+        <View style= {styles.background}>
+          <Image
+          source={require('./images/Dogs-Gif.gif')}
+                 style={styles.backgroundImage}
+          />
+        </View>
         <View style={styles.loginContainer}>
 
           <FBLogin style={{ marginBottom: 10, }}
             permissions={["public_profile","email","user_friends"]}
-            onLogin={function(data){
-              console.log(data);
-              _this.addUser(data)
-              _this.props.navigator.push({
-                title: "Next Best Friend",
-                component: Homepage,
-                rightButtonTitle: 'Favorites',
-                onRightButtonPress: _this.onRightButtonPress.bind(_this),
-                leftButtonTitle: 'Map',
-                onLeftButtonPress: _this.onLeftButtonPress.bind(_this),
-              })
-              _this.setState({ user : data.credentials });
+            onLogin={(data) => {
+              this.createUser(data);
+              this.setState({ user : data.credentials });
             }}
             onLogout={function(){
               console.log("Logged out.");
               _this.setState({ user : null });
             }}
             onLoginFound={function(data){
-
+              _this.createUser(data)
               _this.setState({ user : data.credentials });
             }}
             onLoginNotFound={function(){
@@ -107,7 +129,6 @@ export default class Login extends Component {
 var styles = StyleSheet.create({
   loginContainer: {
     marginTop: 150,
-
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -118,25 +139,13 @@ var styles = StyleSheet.create({
   },
   background: {
     position: 'absolute',
-    top: 0,
     left: 0,
+    top: 0,
     right: 0,
     bottom: 0,
   },
   backgroundImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    width: 380,
-  },
-  buttonText: {
-    fontSize: 20,
-    fontFamily: 'Gill Sans',
-    textAlign: 'center',
-    color: '#ffffff',
-    margin: 10,
-    opacity: 0.8,
+    flex: 1,
+    alignItems: 'stretch',
   },
 });

@@ -14,6 +14,7 @@ var {
   TextInput,
   Image,
   TouchableHighlight,
+  Modal,
 } = React;
 
 var REQUEST_URL = 'http://localhost:3000/index.json';
@@ -58,7 +59,7 @@ export default class Homepage extends Component {
       currentPet: null,
       loaded: false,
       detailsClicked: false,
-      pets: []
+      pets: [],
     }
   }
   componentDidMount(){
@@ -82,40 +83,36 @@ export default class Homepage extends Component {
       .then((response) => this.fetchData())
   }
   fetchData(){
-    this.setState({
-      currentPet: PET_DATA[0],
-      loaded: true,
-      detailsClicked: false,
-      pets: PET_DATA
-    });
-    // fetch(REQUEST_URL)
-    //   .then((response) => response.json())
-    //   .then((responseData) => {
-    //     console.log('fetch 25', JSON.stringify(responseData))
-    //     this.setState({
-    //       currentPet: responseData[0],
-    //       loaded: true,
-    //       detailsClicked: false,
-    //       pets: responseData
-    //     });
-    //   })
-    //   .done();
+    fetch(REQUEST_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('fetch 25', JSON.stringify(responseData))
+        this.setState({
+          currentPet: responseData[0],
+          loaded: true,
+          detailsClicked: false,
+          pets: responseData
+        });
+      })
+      .done();
   }
   fetchOne(){
-    this.setState({
-      pets: this.state.pets.concat(this.state.pets[0])
-    });
-    // fetch(REQUEST_ONE_URL)
-    //   .then((response) => response.json())
-    //   .then((responseData) => {
-    //     this.setState({
-    //       pets: this.state.pets.concat(responseData)
-    //     });
-    //   })
-    //   .done();
+    fetch(REQUEST_ONE_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          pets: this.state.pets.concat(responseData)
+        });
+      })
+      .done();
   }
-  refreshPage(){
-    this.setState({detailsClicked: false, settingsClicked: false})
+  refreshPage(petPreference){
+    this.setState({
+      detailsClicked: false,
+      settingsClicked: false,
+      petPreference: petPreference
+    })
+    this.fetchData()
   }
   refreshPageWithNewAnimal(){
     this.fetchOne()
@@ -133,14 +130,16 @@ export default class Homepage extends Component {
     }else if (this.state.detailsClicked) {
       var pet = this.state.currentPet;
       return (
-        <PetShow  refreshPage={self.refreshPage.bind(self)}
-                  refreshPageWithNewAnimal={self.refreshPageWithNewAnimal.bind(self)}
-                  onLikeButtonPress={self.onLikeButtonPress.bind(self)}
-                  clickedPet={pet}
-                  favorited={false}
+        <PetShow
+          refreshPage={self.refreshPage.bind(self)}
+          refreshPageWithNewAnimal={self.refreshPageWithNewAnimal.bind(self)}
+          onLikeButtonPress={self.onLikeButtonPress.bind(self)}
+          clickedPet={pet}
+          favorited={false}
         />
       )
     } else if (this.state.settingsClicked){
+
       return (
         <UsersEdit refreshPage={self.refreshPage.bind(self)}/>
       )
@@ -253,7 +252,7 @@ var styles = StyleSheet.create({
     height: 400,
   },
   swipeArea: {
-    backgroundColor: '#ecf0f1',
+    backgroundColor: 'white',
     padding: 7,
   },
   name: {
@@ -263,6 +262,15 @@ var styles = StyleSheet.create({
   },
   description: {
     fontSize: 14,
+  },
+  overlay: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    flex: 1
   },
   cardButton: {
     backgroundColor: '#1abc9c',

@@ -158,8 +158,7 @@ var styles = StyleSheet.create({
   buttonImg: {
     width: 50,
     height: 50,
-    marginRight: 10,
-    marginLeft: 10
+    margin: 10
   },
   likeDislikeButtons: {
     marginTop: 78,
