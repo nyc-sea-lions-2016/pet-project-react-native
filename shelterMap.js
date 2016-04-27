@@ -12,8 +12,8 @@ var {
   MapView
 } = React;
 
-var SHELTER_INFO = 'http://10.0.2.62:3000/shelters.json';
-var ZIP_CODE = 'http://10.0.2.62:3000/shelters/zip_code.json';
+var SHELTER_INFO = 'http://localhost:3000/shelters.json';
+var ZIP_CODE = 'http://localhost:3000/shelters/zip_code.json';
 
 export default class ShelterMap extends Component {
    constructor(props) {
