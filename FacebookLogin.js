@@ -16,16 +16,16 @@ var {
   Component,
 } = React;
 
-var FBLoginManager = require('NativeModules').FBLoginManager;
-
+var USER_INFO = 'http://localhost:3000/users/1/edit.json';
 var CREATE_USER = 'http://localhost:3000/users'
+var FBLoginManager = require('NativeModules').FBLoginManager;
 var FB_PHOTO_WIDTH = 200;
 
 export default class Login extends Component {
   constructor(props) {
    super(props);
    this.state = {
-     currentUser: null,
+     user: null,
    };
  }
  onRightButtonPress() {
@@ -40,6 +40,38 @@ export default class Login extends Component {
      component: ShelterMap
    })
  }
+ fetchData() {
+   fetch(USER_INFO)
+     .then((response) => response.json())
+     .then((user) => {
+       var photoApi = `https://graph.facebook.com/v2.3/${user.facebook_id}/picture?width=${FB_PHOTO_WIDTH}&redirect=false&access_token=${user.token}`;
+       fetch(photoApi)
+          .then((response) => response.json())
+          .then((photo) => {
+            console.log("photo", photo);
+            return ({
+              photo : {
+                url : photo.data.url,
+                height: photo.data.height,
+                width: photo.data.width,
+              },
+            });
+          var infoApi = `https://graph.facebook.com/v2.3/${user.userId}?fields=name,email&access_token=${user.token}`;
+          fetch(infoApi)
+             .then((response) => response.json())
+             .then((info) => {
+               console.log("info", info);
+               return ({
+                 info : {
+                   name : info.name,
+                   email: info.email,
+                 },
+               });
+             })
+          })
+          .done();
+    });
+ }
  createUser(user){
    navigator.geolocation.getCurrentPosition(
      (position) => {
@@ -51,7 +83,9 @@ export default class Login extends Component {
          if (err) {
            return;
          }
+
          user.preferred_location = location[0].postalCode;
+         this.fetchData();
          this.addUser(user);
        });
      },
@@ -75,12 +109,14 @@ export default class Login extends Component {
       onRightButtonPress: this.onRightButtonPress.bind(this),
       leftButtonTitle: 'Map',
       onLeftButtonPress: this.onLeftButtonPress.bind(this),
+      // passProps: {currentUser: this.props.currentUser}
     }))
     .done();
-}
+ }
+
   render() {
-    var _this = this;
-    var user = this.state.currentUser;
+    var self = this;
+    var user = this.state.user;
 
     return (
       <View style={{flex: 1}}>
@@ -95,19 +131,19 @@ export default class Login extends Component {
           <FBLogin style={{ marginBottom: 10, }}
             permissions={["public_profile","email","user_friends"]}
             onLogin={(data) => {
-              this.createUser(data);
-              this.setState({ user : data.credentials });
+              self.createUser(data);
+              self.setState({ user : data.credentials });
             }}
             onLogout={function(){
               console.log("Logged out.");
-              _this.setState({ user : null });
+              self.setState({ user : null });
             }}
             onLoginFound={function(data){
-              _this.createUser(data)
-              _this.setState({ user : data.credentials });
+              self.createUser(data)
+              self.setState({ user : data.credentials });
             }}
             onLoginNotFound={function(){
-              _this.setState({ user : null });
+              self.setState({ user : null });
             }}
             onError={function(data){
               console.log("ERROR");

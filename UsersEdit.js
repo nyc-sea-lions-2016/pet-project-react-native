@@ -12,14 +12,19 @@ var {
   Slider,
   TouchableHighlight
 } = React;
-
+// need to pass facebook id as route for current user
 var USER_INFO = 'http://localhost:3000/users/1/edit.json';
-var USER_UPDATE = 'http://localhost:3000/users/1.json'
+var USER_UPDATE = 'http://localhost:3000/users/1.json';
+var FB_PHOTO_WIDTH = 200;
 
 export default class UsersEdit extends Component {
    constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      photo: null,
+      user: null,
+      loaded: false,
+    };
   }
   componentDidMount() {
       this.fetchData();
@@ -27,16 +32,26 @@ export default class UsersEdit extends Component {
   fetchData() {
     fetch(USER_INFO)
       .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-        this.setState({
-          userInfo: responseData,
-          loaded: true,
-          searchRadius: responseData.preferred_search_radius,
-          text: responseData.preferred_location,
-        });
-      })
+      .then((user) => {
+        var api = `https://graph.facebook.com/v2.3/${user.facebook_id}/picture?width=${FB_PHOTO_WIDTH}&redirect=false&access_token=${user.token}`;
+        fetch(api)
+          .then((response) => response.json())
+          .then((responseData) => {
+            this.setState({
+              photo : {
+                url : responseData.data.url,
+                
+              },
+              user: {
+                userInfo: user,
+                searchRadius: user.preferred_search_radius,
+                text: user.preferred_location,
+              },
+              loaded: true,
+          });
+        })
       .done();
+    });
   }
   goHome(){
     this.props.refreshPage()
@@ -66,14 +81,15 @@ export default class UsersEdit extends Component {
        return this.renderLoadingView();
      }
      var self = this;
+     var photo = this.state.photo;
      return (
        <View style={styles.container}>
-          <View style={styles.topContainer}>
-            <Image
-            source={require('./images/Cat-Avatar.png')}
-            style={styles.thumbnail}/>
-            <Text style={styles.username}>{self.state.userInfo.name}</Text>
-          </View>
+         <View style={styles.topContainer}>
+           <Image
+             style={styles.thumbnail}
+             source={{uri: photo && photo.url}}
+             />
+         </View>
           <View style={styles.bottomContainer}>
             <Text style={styles.settingsDetails}>zip code</Text>
             <TextInput
