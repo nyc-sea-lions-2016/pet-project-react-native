@@ -16,7 +16,7 @@ var {
 
 var USER_INFO = 'http://localhost:3000/users/1/edit.json';
 var USER_UPDATE = 'http://localhost:3000/users/1.json'
-var ANIMALS =  ['cat', 'dog', 'reptile', 'smallfurry', 'horse']
+var ANIMALS =  ['cat', 'dog', 'reptile', 'smallfurry', 'none']
 
 export default class UsersEdit extends Component {
    constructor(props) {
@@ -35,11 +35,15 @@ export default class UsersEdit extends Component {
     fetch(USER_INFO)
       .then((response) => response.json())
       .then((responseData) => {
+        var animal_preference = responseData.animal_preference
+        if (responseData.animal_preference == ''){
+          animal_preference = 'none'
+        }
         this.setState({
           userInfo: responseData,
           loaded: true,
           text: responseData.preferred_location,
-          selectedIndex: ANIMALS.indexOf(responseData.animal_preference)
+          selectedIndex: ANIMALS.indexOf(animal_preference)
         });
       })
       .done();
