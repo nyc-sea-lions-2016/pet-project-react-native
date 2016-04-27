@@ -40,38 +40,30 @@ export default class Login extends Component {
      component: ShelterMap
    })
  }
- fetchData() {
-   fetch(USER_INFO)
-     .then((response) => response.json())
-     .then((user) => {
-       var photoApi = `https://graph.facebook.com/v2.3/${user.facebook_id}/picture?width=${FB_PHOTO_WIDTH}&redirect=false&access_token=${user.token}`;
-       fetch(photoApi)
-          .then((response) => response.json())
-          .then((photo) => {
-            console.log("photo", photo);
-            return ({
-              photo : {
-                url : photo.data.url,
-                height: photo.data.height,
-                width: photo.data.width,
-              },
-            });
-          var infoApi = `https://graph.facebook.com/v2.3/${user.userId}?fields=name,email&access_token=${user.token}`;
-          fetch(infoApi)
-             .then((response) => response.json())
-             .then((info) => {
-               console.log("info", info);
-               return ({
-                 info : {
-                   name : info.name,
-                   email: info.email,
-                 },
-               });
-             })
-          })
-          .done();
-    });
- }
+ fetchData(user) {
+   console.log(user);
+   var photoApi = `https://graph.facebook.com/v2.3/${user.credentials.userId}/picture?width=${FB_PHOTO_WIDTH}&redirect=false&access_token=${user.credentials.token}`;
+   fetch(photoApi)
+      .then((response) => response.json())
+      .then((photo) => {
+        console.log("photo", photo);
+        var infoApi = `https://graph.facebook.com/v2.3/${user.credentials.userId}?fields=name,email&access_token=${user.credentials.token}`;
+        fetch(infoApi)
+         .then((response) => response.json())
+         .then((info) => {
+           console.log("info", info);
+           user.photo = {
+             url : photo.data.url,
+           }
+           user.info = {
+             name : info.name,
+             email: info.email,
+           },
+           this.addUser(user);
+           });
+         })
+      .done();
+  }
  createUser(user){
    navigator.geolocation.getCurrentPosition(
      (position) => {
@@ -85,8 +77,7 @@ export default class Login extends Component {
          }
 
          user.preferred_location = location[0].postalCode;
-         this.fetchData();
-         this.addUser(user);
+         this.fetchData(user)
        });
      },
      (error) => {

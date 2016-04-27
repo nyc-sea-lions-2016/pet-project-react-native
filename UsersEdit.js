@@ -30,28 +30,7 @@ export default class UsersEdit extends Component {
       this.fetchData();
   }
   fetchData() {
-    fetch(USER_INFO)
-      .then((response) => response.json())
-      .then((user) => {
-        var api = `https://graph.facebook.com/v2.3/${user.facebook_id}/picture?width=${FB_PHOTO_WIDTH}&redirect=false&access_token=${user.token}`;
-        fetch(api)
-          .then((response) => response.json())
-          .then((responseData) => {
-            this.setState({
-              photo : {
-                url : responseData.data.url,
-                
-              },
-              user: {
-                userInfo: user,
-                searchRadius: user.preferred_search_radius,
-                text: user.preferred_location,
-              },
-              loaded: true,
-          });
-        })
-      .done();
-    });
+
   }
   goHome(){
     this.props.refreshPage()
