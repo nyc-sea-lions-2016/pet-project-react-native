@@ -10,34 +10,50 @@ var {
   TextInput,
   Image,
   Slider,
-  TouchableHighlight
+  TouchableHighlight,
+  SegmentedControlIOS,
 } = React;
 // need to pass facebook id as route for current user
 var USER_INFO = 'http://localhost:3000/users/1/edit.json';
-var USER_UPDATE = 'http://localhost:3000/users/1.json';
-var FB_PHOTO_WIDTH = 200;
+var USER_UPDATE = 'http://localhost:3000/users/1.json'
+var ANIMALS =  ['cat', 'dog', 'reptile', 'smallfurry', 'none']
 
 export default class UsersEdit extends Component {
    constructor(props) {
     super(props);
     this.state = {
-      photo: null,
-      user: null,
+      userInfo: null,
       loaded: false,
+      text: '',
+      selectedIndex: 0
     };
   }
   componentDidMount() {
       this.fetchData();
   }
   fetchData() {
-
+    fetch(USER_INFO)
+      .then((response) => response.json())
+      .then((responseData) => {
+        var animal_preference = responseData.animal_preference
+        if (responseData.animal_preference == ''){
+          animal_preference = 'none'
+        }
+        this.setState({
+          userInfo: responseData,
+          loaded: true,
+          text: responseData.preferred_location,
+          selectedIndex: ANIMALS.indexOf(animal_preference)
+        });
+      })
+      .done();
   }
   goHome(){
-    this.props.refreshPage()
+    this.props.refreshPage(ANIMALS[this.state.selectedIndex])
   }
   componentWillUnmount(){
     this.addLocationToUser(this.state.text)
-    this.addSearchRadiusToUser(this.state.searchRadius)
+    this.addAnimalPreferenceToUser(ANIMALS[this.state.selectedIndex])
   }
   addLocationToUser(location){
     var obj = {
@@ -47,49 +63,52 @@ export default class UsersEdit extends Component {
     }
     fetch(USER_UPDATE, obj)
   }
-  addSearchRadiusToUser(searchRadius) {
+  addAnimalPreferenceToUser(animalPreference) {
+    console.log(animalPreference)
     var obj = {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({searchRadius})
+      body: JSON.stringify({animalPreference})
     }
     fetch(USER_UPDATE, obj)
   }
   render() {
+    console.log("rendering edit page")
      if (!this.state.loaded) {
        return this.renderLoadingView();
      }
      var self = this;
-     var photo = this.state.photo;
+     var user = this.state.userInfo;
+     console.log(user);
      return (
        <View style={styles.container}>
          <View style={styles.topContainer}>
            <Image
              style={styles.thumbnail}
-             source={{uri: photo && photo.url}}
+             source={{uri: user.profile_pic}}
              />
+           <Text style={styles.username}>{user.name}</Text>
          </View>
-          <View style={styles.bottomContainer}>
-            <Text style={styles.settingsDetails}>zip code</Text>
+         <View style={styles.bottomContainer}>
+            <Text style={styles.settingsDetails}>Zip Code</Text>
             <TextInput
               style={styles.inputBox}
               onChangeText={(text) => this.setState({text})}
               value={this.state.text}
               keyboardType='number-pad'
             />
-            <Text style={styles.settingsDetails}>search distance</Text>
-            <Text>{this.state.searchRadius} miles</Text>
-            <Slider
-              onValueChange={(searchRadius) => self.setState({searchRadius: searchRadius})}
-              minimumValue={10}
-              maximumValue={3000}
-              value={this.state.searchRadius}
-              step={5}
-              style={styles.slider}
-            />
-            <Text style={styles.settingsDetails}>preferences</Text>
+            <Text style={styles.settingsDetails}>Pet Preference:</Text>
             <View style={this.preferenceButtons}>
-              <TouchableHighlight onPress={this._onPressButton}><Text>Cats</Text></TouchableHighlight>
+              <SegmentedControlIOS
+                values={ANIMALS}
+                selectedIndex={this.state.selectedIndex}
+                onChange={(event) => {
+                  this.setState({
+                    selectedIndex: event.nativeEvent.selectedSegmentIndex
+                  })
+                }}
+                style={styles.segmentedControl}
+              />
             </View>
             <Button onPress={self.goHome.bind(self)}>
               <Image
@@ -117,10 +136,6 @@ export default class UsersEdit extends Component {
      justifyContent: 'center',
      alignItems: 'center',
      overflow: 'hidden'
-   },
-   slider: {
-     width: 200,
-     margin: 5
    },
    username: {
      marginTop: 10,
@@ -160,5 +175,10 @@ export default class UsersEdit extends Component {
    },
    settingsDetails: {
      fontSize: 18,
-   }
+   },
+   segmentedControl: {
+     width: 350,
+     height: 30,
+     marginTop: 10
+   },
  })

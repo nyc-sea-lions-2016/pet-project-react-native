@@ -38,7 +38,7 @@ export default class PetProject extends Component {
             title: 'Next Best Friend',
           }}
           tintColor="black"
-          barTintColor="#ecf0f1"
+          barTintColor="white"
           titleTextColor="black"
           translucent={true}
       />

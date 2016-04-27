@@ -75,7 +75,6 @@ export default class Login extends Component {
          if (err) {
            return;
          }
-
          user.preferred_location = location[0].postalCode;
          this.fetchData(user)
        });
