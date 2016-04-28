@@ -20,6 +20,9 @@ export default class PetShow extends Component {
   _handleBack(){
     this.props.refreshPage()
   }
+  goHome(){
+    this.props.goHome()
+  }
   render() {
     var currentPet = this.props.clickedPet
     var self = this;
@@ -59,6 +62,12 @@ export default class PetShow extends Component {
                 style={styles.buttonImg}
                 source={require('./images/email-icon.png')}
               />
+            </Button>
+            <Button onPress={self.goHome.bind(self)}>
+              <Image
+                source={require('./images/homeicon.png')}
+                style={styles.buttonImg}
+                />
             </Button>
           </View>
             <ScrollView

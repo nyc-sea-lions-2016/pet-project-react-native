@@ -13,8 +13,8 @@ var {
   TouchableHighlight
 } = React;
 
-var REQUEST_URL = 'http://10.0.2.117:3000/users/show.json';
-var DELETE_FAVORITE_URL = 'http://10.0.2.117:3000/pets/';
+var REQUEST_URL = 'http://localhost:3000/users/show.json';
+var DELETE_FAVORITE_URL = 'http://localhost:3000/pets/';
 
 
 export default class UsersShow extends Component {
