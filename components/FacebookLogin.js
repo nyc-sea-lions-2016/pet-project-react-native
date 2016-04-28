@@ -17,11 +17,7 @@ var {
 } = React;
 
 var FB_PHOTO_WIDTH = 200;
-
 var CREATE_USER = process.env.NODE_ENV == "development" ? 'http://localhost:3000/users' : 'https://nextbestfriend.herokuapp.com/users';
-
-var USER_INFO = process.env.NODE_ENV == "development" ? 'http://localhost:3000/users/1/edit.json' : 'https://nextbestfriend.herokuapp.com/users/1/edit.json';
-
 var FBLoginManager = require('NativeModules').FBLoginManager;
 
 export default class Login extends Component {
@@ -44,17 +40,14 @@ export default class Login extends Component {
    })
  }
  fetchData(user) {
-   console.log(user);
    var photoApi = `https://graph.facebook.com/v2.3/${user.credentials.userId}/picture?width=${FB_PHOTO_WIDTH}&redirect=false&access_token=${user.credentials.token}`;
    fetch(photoApi)
       .then((response) => response.json())
       .then((photo) => {
-        console.log("photo", photo);
         var infoApi = `https://graph.facebook.com/v2.3/${user.credentials.userId}?fields=name,email&access_token=${user.credentials.token}`;
         fetch(infoApi)
          .then((response) => response.json())
          .then((info) => {
-           console.log("info", info);
            user.photo = {
              url : photo.data.url,
            }
