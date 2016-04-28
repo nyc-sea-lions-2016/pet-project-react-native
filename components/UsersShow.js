@@ -13,9 +13,9 @@ var {
   TouchableHighlight
 } = React;
 
-var REQUEST_URL = 'http://localhost:3000/users/show.json';
-var DELETE_FAVORITE_URL = 'http://localhost:3000/pets/';
+var REQUEST_URL = process.env.NODE_ENV == "development" ? 'http://localhost:3000/users/show.json' : 'https://nextbestfriend.herokuapp.com/users/show.json';
 
+var DELETE_FAVORITE_URL = process.env.NODE_ENV == "development" ? 'http://localhost:3000/pets/' : 'https://nextbestfriend.herokuapp.com/pets/';
 
 export default class UsersShow extends Component {
    constructor(props) {

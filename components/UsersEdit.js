@@ -14,8 +14,9 @@ var {
   SegmentedControlIOS,
 } = React;
 
-var USER_INFO = 'http://localhost:3000/users/1/edit.json';
-var USER_UPDATE = 'http://localhost:3000/users/1.json'
+var USER_INFO = process.env.NODE_ENV == "development" ? 'http://localhost:3000/users/1/edit.json' : 'https://nextbestfriend.herokuapp.com/users/1/edit.json';
+
+var USER_UPDATE = process.env.NODE_ENV == "development" ? 'http://localhost:3000/users/1.json' : 'https://nextbestfriend.herokuapp.com/users/1.json';
 
 // need to pass facebook id as route for current user
 
@@ -68,7 +69,6 @@ export default class UsersEdit extends Component {
     fetch(USER_UPDATE, obj)
   }
   addAnimalPreferenceToUser(animalPreference) {
-    console.log(animalPreference)
     var obj = {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
@@ -77,13 +77,11 @@ export default class UsersEdit extends Component {
     fetch(USER_UPDATE, obj)
   }
   render() {
-    console.log("rendering edit page")
      if (!this.state.loaded) {
        return this.renderLoadingView();
      }
      var self = this;
      var user = this.state.userInfo;
-     console.log(user);
      return (
        <View style={styles.container}>
          <View style={styles.topContainer}>
@@ -92,6 +90,12 @@ export default class UsersEdit extends Component {
              source={{uri: user.profile_pic}}
              />
            <Text style={styles.username}>{user.name}</Text>
+           <Button onPress={self.goHome.bind(self)}>
+             <Image
+               source={require('../images/homeicon.png')}
+               style={styles.backButton}
+               />
+           </Button>
          </View>
          <View style={styles.bottomContainer}>
             <Text style={styles.settingsDetails}>Zip Code</Text>
@@ -114,12 +118,6 @@ export default class UsersEdit extends Component {
                 style={styles.segmentedControl}
               />
             </View>
-            <Button onPress={self.goHome.bind(self)}>
-              <Image
-                source={require('../images/Home-Icon.png')}
-                style={styles.backButton}
-                />
-            </Button>
           </View>
        </View>
      );
@@ -146,9 +144,10 @@ export default class UsersEdit extends Component {
      fontSize: 30
    },
    backButton: {
-    marginTop: 50,
-    height: 50,
-    width: 50
+    marginBottom: 10,
+    marginTop: 10,
+    height: 40,
+    width: 40
    },
    inputBox: {
      height: 40,
@@ -160,7 +159,7 @@ export default class UsersEdit extends Component {
      marginBottom: 10
    },
    topContainer: {
-     height: 320,
+     height: 350,
      width: 500,
      backgroundColor: '#1abc9c',
      justifyContent: 'center',
@@ -169,7 +168,7 @@ export default class UsersEdit extends Component {
    bottomContainer: {
      height: 500,
      width: 500,
-     marginTop: 20,
+     marginTop: 10,
      alignItems: 'center',
    },
    thumbnail: {
