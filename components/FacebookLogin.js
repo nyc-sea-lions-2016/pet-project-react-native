@@ -18,9 +18,8 @@ var {
 
 var FB_PHOTO_WIDTH = 200;
 
-var CREATE_USER = process.env.NODE_ENV == "development" ? 'http://localhost:3000/users' : 'https://nextbestfriend.herokuapp.com/users';
-
-var USER_INFO = process.env.NODE_ENV == "development" ? 'http://localhost:3000/users/1/edit.json' : 'https://nextbestfriend.herokuapp.com/users/1/edit.json';
+var CREATE_USER = 'https://nextbestfriend.herokuapp.com/users';
+var USER_INFO = 'https://nextbestfriend.herokuapp.com/users/1/edit.json';
 
 var FBLoginManager = require('NativeModules').FBLoginManager;
 
