@@ -63,6 +63,18 @@ export default class PetShow extends Component {
             />
           </Button>
       }
+    var homeButton;
+      if (this.props.favorited){
+      }
+      else {
+        homeButton =
+          <Button onPress={self.goHome.bind(self)}>
+            <Image
+              source={require('../images/homeicon.png')}
+              style={styles.buttonImg}
+            />
+          </Button>
+      }
       return (
         <View style={styles.container}>
           <View style={styles.pictures}>
@@ -73,12 +85,7 @@ export default class PetShow extends Component {
           <View style={styles.likeDislikeButtons}>
             {phoneButton}
             {emailButton}
-            <Button onPress={self.goHome.bind(self)}>
-              <Image
-                source={require('../images/homeicon.png')}
-                style={styles.buttonImg}
-              />
-            </Button>
+            {homeButton}
           </View>
             <ScrollView
               style={styles.details}
