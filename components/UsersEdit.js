@@ -14,8 +14,8 @@ var {
   SegmentedControlIOS,
 } = React;
 
-var USER_INFO = 'http://10.0.2.117:3000/users/1/edit.json';
-var USER_UPDATE = 'http://10.0.2.117:3000/users/1.json'
+var USER_INFO = 'http://localhost:3000/users/1/edit.json';
+var USER_UPDATE = 'http://localhost:3000/users/1.json'
 
 // need to pass facebook id as route for current user
 
@@ -116,7 +116,7 @@ export default class UsersEdit extends Component {
             </View>
             <Button onPress={self.goHome.bind(self)}>
               <Image
-                source={require('./images/Home-Icon.png')}
+                source={require('../images/Home-Icon.png')}
                 style={styles.backButton}
                 />
             </Button>

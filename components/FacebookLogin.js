@@ -16,7 +16,7 @@ var {
   Component,
 } = React;
 
-var CREATE_USER = 'http://10.0.2.117:3000/users'
+var CREATE_USER = 'http://localhost:3000/users'
 var USER_INFO = 'http://localhost:3000/users/1/edit.json';
 var FB_PHOTO_WIDTH = 200;
 
@@ -113,7 +113,7 @@ export default class Login extends Component {
       <View style={{flex: 1}}>
         <View style= {styles.background}>
           <Image
-          source={require('./images/Dogs-Gif.gif')}
+          source={require('../images/Dogs-Gif.gif')}
                  style={styles.backgroundImage}
           />
         </View>
