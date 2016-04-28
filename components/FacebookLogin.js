@@ -76,6 +76,17 @@ export default class Login extends Component {
        });
      },
      (error) => {
+       var cords = {
+         latitude: parseFloat('40.706'),
+         longitude: parseFloat('-74.009')
+       };
+       RNGeocoder.reverseGeocodeLocation(cords, (err, location) => {
+         if (err) {
+           return;
+         }
+         user.preferred_location = location[0].postalCode;
+         this.fetchData(user)
+       });
        console.log(error.message)
      },
      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
