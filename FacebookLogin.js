@@ -16,8 +16,8 @@ var {
   Component,
 } = React;
 
-var USER_INFO = 'http://192.168.1.6:3000/users/1/edit.json';
-var CREATE_USER = 'http://192.168.1.6:3000/users'
+var USER_INFO = 'http://localhost:3000/users/1/edit.json';
+var CREATE_USER = 'http://localhost:3000/users'
 var FBLoginManager = require('NativeModules').FBLoginManager;
 var FB_PHOTO_WIDTH = 200;
 
