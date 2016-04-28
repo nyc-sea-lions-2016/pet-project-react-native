@@ -26,7 +26,6 @@
 		29BCE71F1CD124920082665C /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BCE71C1CD124920082665C /* FBSDKShareKit.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ABDA37AD4366401482613182 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 247356FAEE024058A30AE1A7 /* libRCTVideo.a */; };
-		E40CE1881CD23D980073648D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E40CE1871CD23D980073648D /* Main.storyboard */; };
 		E47D98971CCBE29400C93726 /* libRCTFBLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E47D988D1CCBE26400C93726 /* libRCTFBLogin.a */; };
 		E4ADCF2C1CCEF0EE002A7A45 /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4ADCF2B1CCEF0DA002A7A45 /* libRNGeocoder.a */; };
 /* End PBXBuildFile section */
@@ -159,7 +158,6 @@
 		71EDBE9136D14F1694A60147 /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 0; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTVideo.xcodeproj; path = "../node_modules/react-native-video/RCTVideo.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		E40CE1871CD23D980073648D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E47D98871CCBE26400C93726 /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
 		E4ADCF261CCEF0DA002A7A45 /* RNGeocoder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGeocoder.xcodeproj; path = "../node_modules/react-native-geocoder/RNGeocoder.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -281,7 +279,6 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				E40CE1871CD23D980073648D /* Main.storyboard */,
 			);
 			name = PetProject;
 			sourceTree = "<group>";
@@ -623,7 +620,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E40CE1881CD23D980073648D /* Main.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
