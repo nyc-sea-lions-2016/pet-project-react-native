@@ -116,7 +116,7 @@ export default class UsersEdit extends Component {
             </View>
             <Button onPress={self.goHome.bind(self)}>
               <Image
-                source={require('./images/Home-Icon.png')}
+                source={require('../images/Home-Icon.png')}
                 style={styles.backButton}
                 />
             </Button>
