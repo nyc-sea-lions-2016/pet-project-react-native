@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 
 #import "RCTRootView.h"
-#import "RCTLinkingManager.h"
+// #import "RCTLinkingManager.h"
 
 @implementation AppDelegate
 

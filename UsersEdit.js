@@ -16,6 +16,9 @@ var {
 
 var USER_INFO = 'http://10.0.2.117:3000/users/1/edit.json';
 var USER_UPDATE = 'http://10.0.2.117:3000/users/1.json'
+
+// need to pass facebook id as route for current user
+
 var ANIMALS =  ['cat', 'dog', 'reptile', 'smallfurry', 'none']
 
 export default class UsersEdit extends Component {
@@ -32,6 +35,7 @@ export default class UsersEdit extends Component {
       this.fetchData();
   }
   fetchData() {
+    var url = USER_INFO +  + '/edit.json'
     fetch(USER_INFO)
       .then((response) => response.json())
       .then((responseData) => {
@@ -78,16 +82,18 @@ export default class UsersEdit extends Component {
        return this.renderLoadingView();
      }
      var self = this;
+     var user = this.state.userInfo;
+     console.log(user);
      return (
        <View style={styles.container}>
-          <View style={styles.topContainer}>
-            <Image
-              source={require('./images/Cat-Avatar.png')}
-              style={styles.thumbnail}
-            />
-            <Text style={styles.username}>{self.state.userInfo.name}</Text>
-          </View>
-          <View style={styles.bottomContainer}>
+         <View style={styles.topContainer}>
+           <Image
+             style={styles.thumbnail}
+             source={{uri: user.profile_pic}}
+             />
+           <Text style={styles.username}>{user.name}</Text>
+         </View>
+         <View style={styles.bottomContainer}>
             <Text style={styles.settingsDetails}>Zip Code</Text>
             <TextInput
               style={styles.inputBox}

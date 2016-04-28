@@ -16,16 +16,17 @@ var {
   Component,
 } = React;
 
-var FBLoginManager = require('NativeModules').FBLoginManager;
-
 var CREATE_USER = 'http://10.0.2.117:3000/users'
+var USER_INFO = 'http://localhost:3000/users/1/edit.json';
 var FB_PHOTO_WIDTH = 200;
+
+var FBLoginManager = require('NativeModules').FBLoginManager;
 
 export default class Login extends Component {
   constructor(props) {
    super(props);
    this.state = {
-     currentUser: null,
+     user: null,
    };
  }
  onRightButtonPress() {
@@ -40,6 +41,30 @@ export default class Login extends Component {
      component: ShelterMap
    })
  }
+ fetchData(user) {
+   console.log(user);
+   var photoApi = `https://graph.facebook.com/v2.3/${user.credentials.userId}/picture?width=${FB_PHOTO_WIDTH}&redirect=false&access_token=${user.credentials.token}`;
+   fetch(photoApi)
+      .then((response) => response.json())
+      .then((photo) => {
+        console.log("photo", photo);
+        var infoApi = `https://graph.facebook.com/v2.3/${user.credentials.userId}?fields=name,email&access_token=${user.credentials.token}`;
+        fetch(infoApi)
+         .then((response) => response.json())
+         .then((info) => {
+           console.log("info", info);
+           user.photo = {
+             url : photo.data.url,
+           }
+           user.info = {
+             name : info.name,
+             email: info.email,
+           },
+           this.addUser(user);
+           });
+         })
+      .done();
+  }
  createUser(user){
    navigator.geolocation.getCurrentPosition(
      (position) => {
@@ -52,7 +77,7 @@ export default class Login extends Component {
            return;
          }
          user.preferred_location = location[0].postalCode;
-         this.addUser(user);
+         this.fetchData(user)
        });
      },
      (error) => {
@@ -75,12 +100,14 @@ export default class Login extends Component {
       onRightButtonPress: this.onRightButtonPress.bind(this),
       leftButtonTitle: 'Map',
       onLeftButtonPress: this.onLeftButtonPress.bind(this),
+      // passProps: {currentUser: this.props.currentUser}
     }))
     .done();
-}
+ }
+
   render() {
-    var _this = this;
-    var user = this.state.currentUser;
+    var self = this;
+    var user = this.state.user;
 
     return (
       <View style={{flex: 1}}>
@@ -95,19 +122,19 @@ export default class Login extends Component {
           <FBLogin style={{ marginBottom: 10, }}
             permissions={["public_profile","email","user_friends"]}
             onLogin={(data) => {
-              this.createUser(data);
-              this.setState({ user : data.credentials });
+              self.createUser(data);
+              self.setState({ user : data.credentials });
             }}
             onLogout={function(){
               console.log("Logged out.");
-              _this.setState({ user : null });
+              self.setState({ user : null });
             }}
             onLoginFound={function(data){
-              _this.createUser(data)
-              _this.setState({ user : data.credentials });
+              self.createUser(data)
+              self.setState({ user : data.credentials });
             }}
             onLoginNotFound={function(){
-              _this.setState({ user : null });
+              self.setState({ user : null });
             }}
             onError={function(data){
               console.log("ERROR");
