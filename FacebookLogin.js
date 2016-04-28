@@ -16,10 +16,11 @@ var {
   Component,
 } = React;
 
+var CREATE_USER = 'http://10.0.2.117:3000/users'
 var USER_INFO = 'http://localhost:3000/users/1/edit.json';
-var CREATE_USER = 'http://localhost:3000/users'
-var FBLoginManager = require('NativeModules').FBLoginManager;
 var FB_PHOTO_WIDTH = 200;
+
+var FBLoginManager = require('NativeModules').FBLoginManager;
 
 export default class Login extends Component {
   constructor(props) {
