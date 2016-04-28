@@ -156,7 +156,7 @@ export default class Homepage extends Component {
       <View style={styles.topBox}>
       <View style={styles.container}>
         <SwipeCards
-          cards={cardData}
+          cards={[cardData]}
           renderCard={(singleCard) => {
             var p = {
               pet: singleCard,
