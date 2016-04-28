@@ -17,8 +17,8 @@ var {
   TouchableNativeFeedback,
 } = React;
 
-var SHELTER_INFO = 'http://localhost:3000/shelters.json';
-var ZIP_CODE = 'http://localhost:3000/shelters/zip_code.json';
+var SHELTER_INFO = 'http://192.168.1.6:3000/shelters.json';
+var ZIP_CODE = 'http://192.168.1.6:3000/shelters/zip_code.json';
 
 export default class ShelterMap extends Component {
    constructor(props) {

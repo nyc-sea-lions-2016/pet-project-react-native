@@ -14,8 +14,8 @@ var {
   SegmentedControlIOS,
 } = React;
 // need to pass facebook id as route for current user
-var USER_INFO = 'http://localhost:3000/users/1/edit.json';
-var USER_UPDATE = 'http://localhost:3000/users/1.json'
+var USER_INFO = 'http://192.168.1.6:3000/users/1/edit.json';
+var USER_UPDATE = 'http://192.168.1.6:3000/users/1.json'
 var ANIMALS =  ['cat', 'dog', 'reptile', 'smallfurry', 'none']
 
 export default class UsersEdit extends Component {
