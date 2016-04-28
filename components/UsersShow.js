@@ -91,7 +91,7 @@ export default class UsersShow extends Component {
       });
    }
    renderPet(pet) {
-     var photo = require('./images/Cat-Print.png')
+     var photo = require('../images/Cat-Print.png')
       if (pet.photos.length > 0) {
         photo = pet.photos[0].url
       }

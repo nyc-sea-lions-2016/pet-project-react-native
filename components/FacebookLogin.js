@@ -113,7 +113,7 @@ export default class Login extends Component {
       <View style={{flex: 1}}>
         <View style= {styles.background}>
           <Image
-          source={require('./images/Dogs-Gif.gif')}
+          source={require('../images/Dogs-Gif.gif')}
                  style={styles.backgroundImage}
           />
         </View>

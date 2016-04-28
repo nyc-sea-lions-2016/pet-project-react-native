@@ -174,7 +174,7 @@ export default class Homepage extends Component {
           onPress={this.showDetails.bind(this)}>
           <Image
             style={styles.buttonImg}
-            source={require('./images/Info.png')}
+            source={require('../images/Info.png')}
           />
 
         </Button>
@@ -184,13 +184,13 @@ export default class Homepage extends Component {
             onPress={this.showDetails.bind(this)}>
             <Image
               style={styles.buttonImg}
-              source={require('./images/Info.png')}
+              source={require('../images/Info.png')}
             />
           </Button>
           <Button onPress={this.showSettings.bind(this)}>
             <Image
               style={styles.buttonImg}
-              source={require('./images/Settings-Gear.png')}
+              source={require('../images/Settings-Gear.png')}
               />
           </Button>
         </View>

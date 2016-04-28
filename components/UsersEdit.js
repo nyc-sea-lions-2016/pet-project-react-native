@@ -68,7 +68,6 @@ export default class UsersEdit extends Component {
     fetch(USER_UPDATE, obj)
   }
   addAnimalPreferenceToUser(animalPreference) {
-    console.log(animalPreference)
     var obj = {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
@@ -92,7 +91,7 @@ export default class UsersEdit extends Component {
            <Text style={styles.username}>{user.name}</Text>
            <Button onPress={self.goHome.bind(self)}>
              <Image
-               source={require('./images/homeicon.png')}
+               source={require('../images/homeicon.png')}
                style={styles.backButton}
                />
            </Button>

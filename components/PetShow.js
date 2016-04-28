@@ -43,6 +43,26 @@ export default class PetShow extends Component {
         </View>
       )
     })
+    var phoneButton;
+      if (currentPet.contact_phone !== 'No contact phone number on record') {
+        phoneButton =
+          <Button onPress={() => Communications.phonecall(`${currentPet.contact_phone}`, true)}>
+            <Image
+              style={styles.buttonImg}
+              source={require('../images/phone-icon.png')}
+            />
+          </Button>
+        }
+    var emailButton;
+      if (currentPet.contact_email !== 'No contact email address on record') {
+        emailButton =
+          <Button onPress={() => Communications.email([`${currentPet.contact_email}`],null,null,`Inquiry about ${currentPet.name}`,`Hi, I found ${currentPet.name} on the app NextBestFriend, and I was hoping I could get some more information about the adoption process. Thanks so much!`)}>
+            <Image
+              style={styles.buttonImg}
+              source={require('../images/email-icon.png')}
+            />
+          </Button>
+      }
       return (
         <View style={styles.container}>
           <View style={styles.pictures}>
@@ -51,23 +71,13 @@ export default class PetShow extends Component {
             </Swiper>
           </View>
           <View style={styles.likeDislikeButtons}>
-            <Button onPress={() => Communications.phonecall(`${currentPet.contact_phone}`, true)}>
-              <Image
-                style={styles.buttonImg}
-                source={require('./images/phone-icon.png')}
-              />
-            </Button>
-            <Button onPress={() => Communications.email([`${currentPet.contact_email}`],null,null,`Inquiry about ${currentPet.name}`,`Hi, I found ${currentPet.name} on the app NextBestFriend, and I was hoping I could get some more information about the adoption process. Thanks so much!`)}>
-              <Image
-                style={styles.buttonImg}
-                source={require('./images/email-icon.png')}
-              />
-            </Button>
+            {phoneButton}
+            {emailButton}
             <Button onPress={self.goHome.bind(self)}>
               <Image
-                source={require('./images/homeicon.png')}
+                source={require('../images/homeicon.png')}
                 style={styles.buttonImg}
-                />
+              />
             </Button>
           </View>
             <ScrollView
