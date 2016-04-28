@@ -20,6 +20,9 @@ export default class PetShow extends Component {
   _handleBack(){
     this.props.refreshPage()
   }
+  goHome(){
+    this.props.goHome()
+  }
   render() {
     var currentPet = this.props.clickedPet
     var self = this;
@@ -40,25 +43,23 @@ export default class PetShow extends Component {
         </View>
       )
     })
-
     var phoneButton;
       if (currentPet.contact_phone !== 'No contact phone number on record') {
         phoneButton =
           <Button onPress={() => Communications.phonecall(`${currentPet.contact_phone}`, true)}>
             <Image
               style={styles.buttonImg}
-              source={require('../images/Phone-Booth.png')}
+              source={require('../images/phone-icon.png')}
             />
           </Button>
         }
-
     var emailButton;
       if (currentPet.contact_email !== 'No contact email address on record') {
         emailButton =
           <Button onPress={() => Communications.email([`${currentPet.contact_email}`],null,null,`Inquiry about ${currentPet.name}`,`Hi, I found ${currentPet.name} on the app NextBestFriend, and I was hoping I could get some more information about the adoption process. Thanks so much!`)}>
             <Image
               style={styles.buttonImg}
-              source={require('../images/Mail-Icon.png')}
+              source={require('../images/email-icon.png')}
             />
           </Button>
       }
@@ -72,13 +73,12 @@ export default class PetShow extends Component {
           <View style={styles.likeDislikeButtons}>
             {phoneButton}
             {emailButton}
-                  <View style={styles.backButton}>
-           <Button
-             style={{borderWidth: 1, borderColor: 'blue'}}
-             onPress={this._handleBack.bind(self)}>
-             Back
-           </Button>
-                  </View>
+            <Button onPress={self.goHome.bind(self)}>
+              <Image
+                source={require('../images/homeicon.png')}
+                style={styles.buttonImg}
+              />
+            </Button>
           </View>
             <ScrollView
               style={styles.details}
