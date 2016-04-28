@@ -17,9 +17,8 @@ var {
   TouchableNativeFeedback,
 } = React;
 
-var SHELTER_INFO = process.env.NODE_ENV == "development" ? 'http://localhost:3000/shelters.json' : 'https://nextbestfriend.herokuapp.com/shelters.json';
-
-var ZIP_CODE = process.env.NODE_ENV == "development" ? 'http://localhost:3000/shelters/zip_code.json' : 'https://nextbestfriend.herokuapp.com/shelters/zip_code.json';
+var SHELTER_INFO = 'https://nextbestfriend.herokuapp.com/shelters.json';
+var ZIP_CODE = 'https://nextbestfriend.herokuapp.com/shelters/zip_code.json';
 
 export default class ShelterMap extends Component {
    constructor(props) {
