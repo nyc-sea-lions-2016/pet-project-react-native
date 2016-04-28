@@ -13,7 +13,7 @@ var {
   TouchableHighlight,
   SegmentedControlIOS,
 } = React;
-
+// need to pass facebook id as route for current user
 var USER_INFO = 'http://localhost:3000/users/1/edit.json';
 var USER_UPDATE = 'http://localhost:3000/users/1.json'
 var ANIMALS =  ['cat', 'dog', 'reptile', 'smallfurry', 'none']
@@ -78,16 +78,18 @@ export default class UsersEdit extends Component {
        return this.renderLoadingView();
      }
      var self = this;
+     var user = this.state.userInfo;
+     console.log(user);
      return (
        <View style={styles.container}>
-          <View style={styles.topContainer}>
-            <Image
-              source={require('./images/Cat-Avatar.png')}
-              style={styles.thumbnail}
-            />
-            <Text style={styles.username}>{self.state.userInfo.name}</Text>
-          </View>
-          <View style={styles.bottomContainer}>
+         <View style={styles.topContainer}>
+           <Image
+             style={styles.thumbnail}
+             source={{uri: user.profile_pic}}
+             />
+           <Text style={styles.username}>{user.name}</Text>
+         </View>
+         <View style={styles.bottomContainer}>
             <Text style={styles.settingsDetails}>Zip Code</Text>
             <TextInput
               style={styles.inputBox}
