@@ -14,9 +14,8 @@ var {
   SegmentedControlIOS,
 } = React;
 
-var USER_INFO = process.env.NODE_ENV == "development" ? 'http://localhost:3000/users/1/edit.json' : 'https://nextbestfriend.herokuapp.com/users/1/edit.json';
-
-var USER_UPDATE = process.env.NODE_ENV == "development" ? 'http://localhost:3000/users/1.json' : 'https://nextbestfriend.herokuapp.com/users/1.json';
+var USER_INFO = 'https://nextbestfriend.herokuapp.com/users/1/edit.json';
+var USER_UPDATE = 'https://nextbestfriend.herokuapp.com/users/1.json';
 
 // need to pass facebook id as route for current user
 

@@ -17,7 +17,7 @@ var {
 } = React;
 
 var FB_PHOTO_WIDTH = 200;
-var CREATE_USER = process.env.NODE_ENV == "development" ? 'http://localhost:3000/users' : 'https://nextbestfriend.herokuapp.com/users';
+var CREATE_USER = 'https://nextbestfriend.herokuapp.com/users';
 var FBLoginManager = require('NativeModules').FBLoginManager;
 
 export default class Login extends Component {
