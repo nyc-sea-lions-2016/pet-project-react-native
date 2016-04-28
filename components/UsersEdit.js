@@ -13,9 +13,12 @@ var {
   TouchableHighlight,
   SegmentedControlIOS,
 } = React;
+
+var USER_INFO = 'http://10.0.2.117:3000/users/1/edit.json';
+var USER_UPDATE = 'http://10.0.2.117:3000/users/1.json'
+
 // need to pass facebook id as route for current user
-var USER_INFO = 'http://localhost:3000/users/1/edit.json';
-var USER_UPDATE = 'http://localhost:3000/users/1.json'
+
 var ANIMALS =  ['cat', 'dog', 'reptile', 'smallfurry', 'none']
 
 export default class UsersEdit extends Component {
@@ -32,6 +35,7 @@ export default class UsersEdit extends Component {
       this.fetchData();
   }
   fetchData() {
+    var url = USER_INFO +  + '/edit.json'
     fetch(USER_INFO)
       .then((response) => response.json())
       .then((responseData) => {
