@@ -83,28 +83,37 @@ export default class Homepage extends Component {
       .then((response) => this.fetchData())
   }
   fetchData(){
-    fetch(REQUEST_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log('fetch 25', JSON.stringify(responseData))
-        this.setState({
-          currentPet: responseData[0],
-          loaded: true,
-          detailsClicked: false,
-          pets: responseData
-        });
-      })
-      .done();
+    this.setState({
+      currentPet: PET_DATA[0],
+      loaded: true,
+      detailsClicked: false,
+      pets: PET_DATA
+    })
+    // fetch(REQUEST_URL)
+    //   .then((response) => response.json())
+    //   .then((responseData) => {
+    //     console.log('fetch 25', JSON.stringify(responseData))
+    //     this.setState({
+    //       currentPet: responseData[0],
+    //       loaded: true,
+    //       detailsClicked: false,
+    //       pets: responseData
+    //     });
+    //   })
+    //   .done();
   }
   fetchOne(){
-    fetch(REQUEST_ONE_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.setState({
-          pets: this.state.pets.concat(responseData)
-        });
-      })
-      .done();
+    this.setState({
+      pets: this.state.pets.concat(PET_DATA[0])
+    });
+    // fetch(REQUEST_ONE_URL)
+    //   .then((response) => response.json())
+    //   .then((responseData) => {
+        // this.setState({
+        //   pets: this.state.pets.concat(responseData)
+        // });
+      // })
+      // .done();
   }
   refreshPage(petPreference){
     this.setState({
