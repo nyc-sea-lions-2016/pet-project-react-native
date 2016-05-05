@@ -9,5 +9,6 @@ Next Best Friend is a React Native app with a Ruby on Rails backend API. The app
 ## TECHNOLOGIES
 Ruby on Rails, React Native, PostgreSQL, PetFinder API, Google Maps API, RSPEC
 
-[Link to Rails Back End Github](https://github.com/nyc-sea-lions-2016/pet-project-rails)
-[Link to Blog Post about building the app](http://alyssaransbury.herokuapp.com/projects/nextbestfriend)
+- [Link to Rails Back End Github](https://github.com/nyc-sea-lions-2016/pet-project-rails)
+
+- [Link to Blog Post about building the app](http://alyssaransbury.herokuapp.com/projects/nextbestfriend)
