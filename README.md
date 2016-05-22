@@ -17,13 +17,23 @@ Over 7.5 million dogs and cats enter shelters nationwide every year. Of these, a
 
 ##Features
 
-###
+### See adoptable pets nearby
+Next Best Friend makes calls to the Pet Finder API to receive information about animals in shelters near the user's preferred location. Users can up to 5 images of the animal, the name, gender, rough age, breed, size, location, and a description. The user can also see if the animal has been spayed or neutered, and whether the animal has received its shots.
 
-## Special Features
+### Swipe left or right on adoptable pets
+Users can swipe right to add an animal to their "Favorites" list, or left to see the another animal. A left swipe does not prevent a user from seeing that animal again in the future. This swipe card functionality was built to be similar to Tinder so that users could see one large image of an animal at a time. Each "card" has a large image, the name of the animal, and the breed / type.
 
-### OmniAuth
+### Filter by pet type and location
+Users can set their preferred zip code and animal type on the User Preferences page. Users can choose to view only cats, dogs, reptiles, or small/furry animals.
 
+### Contact shelters directly
+From the animal details page, users can click to contact the person who currently has the animal they are interested in. Clicking the email icon will open the iPhone's native mail app with a pre-written email message inquiring about the animal. Clicking the phone icon will prompt the user to make a call to the phone number on record for the animal. If an email address or phone number is not available, these icons will not be visible to the user.
 
+### Map of nearby shelters
+If users are more interested in going directly to a shelter, Next Best Friend provides a map view of animal shelters near the user's current location.
+
+### Facebook OmniAuth
+Users initially login to the app via their Facebook account. The app grabs their profile image and name, which are displayed on the User Preferences page.
 
 ## Work in Progress / To Do
 
